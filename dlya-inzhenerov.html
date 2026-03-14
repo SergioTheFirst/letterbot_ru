@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>LetterBot для инженеров — архитектура, observability, doctor, graceful degradation</title>
+<meta name="description" content="Технический разбор LetterBot: self-hosted runtime, детерминированное ядро, SQLite, event model, SLA наблюдаемость, graceful degradation, doctor и one-folder Windows release."/>
+<meta name="theme-color" content="#07090f"/>
+<link rel="canonical" href="https://letterbot.ru/dlya-inzhenerov.html"/>
+<meta property="og:title" content="LetterBot для инженеров — архитектура, observability, doctor, graceful degradation"/>
+<meta property="og:description" content="Технический разбор LetterBot: self-hosted runtime, детерминированное ядро, SQLite, event model, SLA наблюдаемость, graceful degradation, doctor и one-folder Windows release."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://letterbot.ru/dlya-inzhenerov.html"/>
+<meta property="og:image" content="https://letterbot.ru/assets/og.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="alternate" hreflang="en" href="https://sergiothefirst.github.io/letterbot/"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="manifest" href="site.webmanifest"/>
+<link rel="stylesheet" href="assets/styles.css"/>
+<script src="assets/config.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#content">Перейти к содержимому</a>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">
+      <div class="brand-icon">✉</div>
+      <span>LetterBot<span class="brand-tag">приватный оператор почты</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Главная</a>
+      <a href="vozmozhnosti.html">Возможности</a>
+      <a href="bezopasnost.html">Безопасность</a>
+      <a href="kak-rabotaet.html">Как работает</a>
+      <a href="komu-podhodit.html">Кому подходит</a>
+      <a href="dlya-inzhenerov.html" aria-current="page">Для инженеров</a>
+      <a href="faq.html">FAQ</a>
+      <a href="podderzhka.html">Поддержать</a>
+    </div>
+    <div class="nav-end">
+      <a class="btn btn-outline btn-sm" href="#" data-lb-github>GitHub</a>
+      <a class="btn btn-amber btn-sm" href="#" data-lb-releases>⬇ Скачать</a>
+    </div>
+    <button class="mob-btn" id="mob-toggle" aria-expanded="false" aria-label="Меню">☰</button>
+  </div>
+  <div class="mob-nav" id="mob-nav">
+    <a href="index.html">Главная</a>
+    <a href="vozmozhnosti.html">Возможности</a>
+    <a href="dlya-inzhenerov.html" aria-current="page">Для инженеров</a>
+    <a href="faq.html">FAQ</a>
+    <a href="podderzhka.html">Поддержать</a>
+  </div>
+</nav>
+
+<main id="content">
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eng-hero-badge">⚙ TECHNICAL DEEP DIVE · v<span data-lb-ver></span></div>
+    <p class="eyebrow">// для инженеров и технических заказчиков</p>
+    <h1>LetterBot — это не скрипт на коленке</h1>
+    <p>Внутри — локальная система с чёткими контурами запуска, проверки, диагностики и релиза. Ниже — честный технический разбор без маркетинга.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">
+      <a class="btn btn-amber" href="#" data-lb-github>Открыть исходный код</a>
+      <a class="btn btn-teal" href="#architecture">Архитектура</a>
+      <a class="btn btn-ghost" href="#degradation">Graceful degradation</a>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<section class="section-sm">
+  <div class="wrap">
+    <div class="metrics-bar">
+      <div class="metric-box">
+        <span class="mv">SQLite</span>
+        <div class="ml">локальное хранилище</div>
+      </div>
+      <div class="metric-box">
+        <span class="mv">0</span>
+        <div class="ml">серверов LetterBot</div>
+      </div>
+      <div class="metric-box">
+        <span class="mv">AGPL</span>
+        <div class="ml">открытый исходный код</div>
+      </div>
+      <div class="metric-box">
+        <span class="mv">2-file</span>
+        <div class="ml">конфигурация (ini)</div>
+      </div>
+      <div class="metric-box">
+        <span class="mv">/doctor</span>
+        <div class="ml">встроенная диагностика</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHORT ANSWER -->
+<section class="section" style="padding-top:0" id="architecture">
+  <div class="wrap">
+    <p class="section-eyebrow">// архитектурный обзор</p>
+    <h2>Что внутри: слои системы</h2>
+    <div class="hbox" style="margin-bottom:28px">
+      <strong>Короткий ответ:</strong> LetterBot — event-driven локальный runtime с детерминированным ядром приоритизации, опциональным LLM-усилением, SQLite как единственным хранилищем состояния и Telegram как основным UX-контуром.
+    </div>
+
+    <div class="arch-grid">
+      <div class="arch-card">
+        <h4>SELF-HOSTED RUNTIME</h4>
+        <p>Весь код запускается на машине пользователя. Нет backend-серверов LetterBot. Нет регистрации. Нет аккаунтов. Запуск через <code>letterbot.bat</code> или Python-окружение.</p>
+      </div>
+      <div class="arch-card">
+        <h4>DETERMINISTIC CORE</h4>
+        <p>Ядро приоритизации работает без внешних AI: анализ типа письма, суммы, дедлайна, вложения, частотных аномалий отправителя. Priority v2 — скоринговый движок с reason codes.</p>
+      </div>
+      <div class="arch-card">
+        <h4>OPTIONAL LLM LAYER</h4>
+        <p>GigaChat (Sber) и Cloudflare Workers AI — опциональные усилители. Если недоступны — система не падает, а переходит в <code>DEGRADED_NO_LLM</code>. OpenAI не поддерживается.</p>
+      </div>
+      <div class="arch-card">
+        <h4>SQLITE AS STATE</h4>
+        <p>Единственное хранилище — <code>data/mailbot.sqlite</code> на диске пользователя. Схема проверяется на старте. Backup — просто скопировать файл.</p>
+      </div>
+      <div class="arch-card">
+        <h4>EVENT MODEL</h4>
+        <p>Система мыслится как event-driven runtime. События: <code>priority_v2_computed</code>, <code>notification_sla_degraded</code>, <code>relationship_health_updated</code>, <code>trust_score_updated</code>. Events — долгосрочная память.</p>
+      </div>
+      <div class="arch-card">
+        <h4>TELEGRAM-FIRST UX</h4>
+        <p>Telegram — не просто канал уведомлений. Постоянный <code>telegram_inbound_polled</code>/<code>processed</code> — двусторонняя операционная поверхность. Приоритеты, снуз, команды.</p>
+      </div>
+      <div class="arch-card">
+        <h4>READ-ONLY COCKPIT</h4>
+        <p>Локальный web UI на <code>127.0.0.1:8787</code>. Маршруты: <code>/</code>, <code>/api/dashboard</code>, <code>/archive</code>, <code>/health</code>, <code>/events</code>, <code>/doctor</code>, <code>/commitments</code>. Не подключается к интернету.</p>
+      </div>
+      <div class="arch-card">
+        <h4>DOCTOR / VALIDATE-CONFIG</h4>
+        <p>Отдельная поверхность диагностики — <code>/doctor</code> в web и в CLI. Автобутстрап конфигов: если <code>config.ini</code> или <code>accounts.ini</code> отсутствуют, система подсказывает команду.</p>
+      </div>
+      <div class="arch-card">
+        <h4>ONE-FOLDER WINDOWS RELEASE</h4>
+        <p>ZIP-архив на GitHub Releases. Распаковать → заполнить <code>accounts.ini</code> и <code>settings.ini</code> → запустить <code>letterbot.bat</code>. Python не нужен — dist включает runtime.</p>
+      </div>
+      <div class="arch-card">
+        <h4>RELEASE VERIFICATION</h4>
+        <p>Встроенная верификация релиза на старте. Определяет версию, проверяет целостность. Логирует результат явно — нет тихих ошибок.</p>
+      </div>
+      <div class="arch-card">
+        <h4>2-FILE CONFIG MODE</h4>
+        <p>Конфигурация разделена: <code>settings.ini</code> — общие параметры, <code>accounts.ini</code> — секреты и аккаунты. Зрелее, чем monolithic config-файл.</p>
+      </div>
+      <div class="arch-card">
+        <h4>IMAP HEALTHCHECK</h4>
+        <p><code>mail_account_healthcheck</code> по каждому ящику на старте и в процессе. При сбоях — <code>backoff_minutes</code>, <code>cooldown_reason</code>, <code>imap_account_skipped_backoff</code>. Не долбит сервер бесконечно.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STARTUP SEQUENCE LOG -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <p class="section-eyebrow">// живой старт</p>
+    <h2>Как выглядит запуск в реальном логе</h2>
+    <p style="color:var(--muted);margin-bottom:24px;font-size:14px">Фрагмент реального лога запуска. Видно: проверка конфига, healthcheck по обоим ящикам, инициализация Telegram, политика первого запуска.</p>
+    <div class="log-mock">
+<span class="ts">[2026-03-13 08:01:02]</span> <span class="ok">INFO</span>  <span class="ev">letterbot_startup</span> version=28.0.0<br>
+<span class="ts">[2026-03-13 08:01:02]</span> <span class="ok">INFO</span>  <span class="ev">config_mode</span> Using new 2-file config mode (settings.ini + accounts.ini)<br>
+<span class="ts">[2026-03-13 08:01:03]</span> <span class="ok">INFO</span>  <span class="ev">db_schema_check</span> emails schema OK · priority_reason persistence OK<br>
+<span class="ts">[2026-03-13 08:01:03]</span> <span class="ok">INFO</span>  <span class="ev">telegram_startup_validation</span> passed<br>
+<span class="ts">[2026-03-13 08:01:04]</span> <span class="ok">INFO</span>  <span class="ev">mail_account_healthcheck</span> account=work@company.ru status=OK latency=142ms<br>
+<span class="ts">[2026-03-13 08:01:04]</span> <span class="ok">INFO</span>  <span class="ev">mail_account_healthcheck</span> account=personal@yandex.ru status=OK latency=98ms<br>
+<span class="ts">[2026-03-13 08:01:05]</span> <span class="warn">WARN</span>  <span class="ev">ingest_policy</span> allow_prestart_emails=false bootstrap_window_hours=24 bootstrap_max=50<br>
+<span class="ts">[2026-03-13 08:01:05]</span> <span class="ok">INFO</span>  <span class="ev">llm_provider</span> mode=heuristic (no LLM configured)<br>
+<span class="ts">[2026-03-13 08:01:05]</span> <span class="ok">INFO</span>  <span class="ev">auto_priority_gate</span> allow_auto_priority=false gates_failed=[corrections_count&lt;50, shadow_accuracy&lt;0.82]<br>
+<span class="ts">[2026-03-13 08:01:06]</span> <span class="ok">INFO</span>  <span class="ev">web_cockpit</span> started http://127.0.0.1:8787 routes=[/,/archive,/health,/events,/doctor,/commitments]<br>
+<span class="ts">[2026-03-13 08:01:06]</span> <span class="ok">INFO</span>  <span class="ev">system_ready</span> polling_interval=60s accounts=2 telegram=active<br>
+<span class="ts">[2026-03-13 08:02:06]</span> <span class="ok">INFO</span>  <span class="ev">imap_poll</span> account=work@company.ru new=3 duplicates=0<br>
+<span class="ts">[2026-03-13 08:02:07]</span> <span class="ok">INFO</span>  <span class="ev">email_body_segmentation</span> quoted_removed=true signature_removed=true<br>
+<span class="ts">[2026-03-13 08:02:07]</span> <span class="ok">INFO</span>  <span class="ev">attachment_extract</span> type=xlsx chars=1405<br>
+<span class="ts">[2026-03-13 08:02:08]</span> <span class="ok">INFO</span>  <span class="ev">priority_v2_computed</span> score=0.91 priority=URGENT reasons=[PRIO_AMOUNT_BASE,PRIO_DEADLINE_1D,PRIO_ATTACHMENT_XLSX]<br>
+<span class="ts">[2026-03-13 08:02:08]</span> <span class="ok">INFO</span>  <span class="ev">telegram_notification_sent</span> chat_id=*** msg_id=4821 priority=URGENT<br>
+    </div>
+  </div>
+</section>
+
+<!-- PRIORITY ENGINE -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <p class="section-eyebrow">// движок приоритизации</p>
+    <h2>Priority v2: скоринг, а не магия</h2>
+    <p class="section-lead">Приоритет — не «AI решил». Это детерминированный скоринг с объяснимыми причинами и shadow-движком качества.</p>
+
+    <div class="two-col" style="gap:28px">
+      <div>
+        <h3 style="margin-bottom:14px;color:var(--teal);font-family:var(--font-m);font-size:13px">КАК РАБОТАЕТ PRIORITY V2</h3>
+        <div class="fcard" style="margin-bottom:12px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <span style="font-size:13px;font-weight:600">Тип письма</span>
+            <span class="pri-chip amber">INVOICE +0.4</span>
+          </div>
+          <p>INVOICE, CONTRACT, SECURITY_ALERT, PRICE_LIST, NEWSLETTER, NOTIFICATION — классификация типа определяет базовый вес</p>
+        </div>
+        <div class="fcard" style="margin-bottom:12px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <span style="font-size:13px;font-weight:600">Дедлайн</span>
+            <span class="pri-chip red">PRIO_DEADLINE_1D +0.35</span>
+          </div>
+          <p>Детектируются ключевые слова дедлайна. «До завтра», «к среде», «срок оплаты» — конкретные паттерны с весами</p>
+        </div>
+        <div class="fcard" style="margin-bottom:12px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <span style="font-size:13px;font-weight:600">Сумма</span>
+            <span class="pri-chip amber">PRIO_AMOUNT_BASE +0.2</span>
+          </div>
+          <p>Суммы извлекаются из тела письма и вложений (PDF, XLSX). Пороги настраиваются в конфиге.</p>
+        </div>
+        <div class="fcard">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <span style="font-size:13px;font-weight:600">Частота</span>
+            <span class="pri-chip red">PRIO_FREQ_SPIKE_3X +0.25</span>
+          </div>
+          <p>Всплеск активности от отправителя (3× выше нормы) — аномальный сигнал, повышает приоритет</p>
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-bottom:14px;color:var(--teal);font-family:var(--font-m);font-size:13px">QUALITY GATES И SHADOW ENGINE</h3>
+        <div class="tbox">
+          <strong>Shadow Priority Engine</strong> — параллельный движок качества. Система считает <code>shadow_accuracy</code>, <code>preview_accept_rate</code>, <code>commitment_fulfillment_rate</code>. Ручные коррекции пользователя становятся обучающим сигналом.
+        </div>
+        <div class="hbox" style="margin-top:12px">
+          <strong>Quality Gates защищают от плохих решений.</strong> <code>allow_auto_priority=false</code> до тех пор, пока <code>shadow_accuracy &lt; 0.82</code> и <code>corrections_count &lt; 50</code>. Система не включает автодействия, пока не уверена в качестве.
+        </div>
+        <div style="margin-top:20px">
+          <h4 style="font-size:13px;color:var(--muted);margin-bottom:10px">Контролируемые метрики качества</h4>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px 12px;background:var(--ink3);border-radius:8px">
+              <span style="font-family:var(--font-m);color:var(--teal)">corrections_total</span>
+              <span style="color:var(--muted)">ручные исправления приоритета</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px 12px;background:var(--ink3);border-radius:8px">
+              <span style="font-family:var(--font-m);color:var(--teal)">shadow_accuracy</span>
+              <span style="color:var(--muted)">точность теневого движка</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px 12px;background:var(--ink3);border-radius:8px">
+              <span style="font-family:var(--font-m);color:var(--teal)">preview_accept_rate</span>
+              <span style="color:var(--muted)">принятие предложенных действий</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;padding:8px 12px;background:var(--ink3);border-radius:8px">
+              <span style="font-family:var(--font-m);color:var(--teal)">commitment_fulfillment_rate</span>
+              <span style="color:var(--muted)">исполнение обязательств</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GRACEFUL DEGRADATION -->
+<section class="section" style="padding-top:0" id="degradation">
+  <div class="wrap">
+    <p class="section-eyebrow">// надёжность</p>
+    <h2>Graceful degradation: честнее, чем зелёный экран</h2>
+    <p class="section-lead">Большинство AI-ботов при потере LLM либо молчат, либо продолжают притворяться. LetterBot честно переходит в деградированный режим и остаётся полезным.</p>
+
+    <div class="two-col">
+      <div>
+        <div class="gbox" style="margin-bottom:16px">
+          <strong>В DEGRADED_NO_LLM режиме:</strong>
+          <ul style="margin-top:8px;padding-left:16px;list-style:disc;font-size:14px;color:var(--muted);line-height:2">
+            <li><code>llm_provider: "heuristic"</code> — детерминированное ядро</li>
+            <li>IMAP polling продолжается</li>
+            <li>Telegram inbound активен</li>
+            <li><code>action_line</code> сохраняется</li>
+            <li>Пользователь получает уведомление о деградации</li>
+            <li>При восстановлении LLM — автоматический выход из режима</li>
+          </ul>
+        </div>
+        <div class="hbox">
+          <strong>Явно отключается в деградации:</strong> LLM-preview, auto-priority, дайджесты с AI-нарративом, anomaly detection. Всё — с явным указанием причины в логе.
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-bottom:12px;font-family:var(--font-m);font-size:12px;color:var(--teal)">LOG: ПЕРЕХОД В DEGRADED MODE</h3>
+        <div class="log-mock" style="font-size:11.5px">
+<span class="ts">[08:15:44]</span> <span class="err">ERROR</span> <span class="ev">llm_provider_check</span> provider=gigachat status=timeout<br>
+<span class="ts">[08:15:44]</span> <span class="warn">WARN</span>  <span class="ev">system_mode_change</span> NORMAL → DEGRADED_NO_LLM<br>
+<span class="ts">[08:15:44]</span> <span class="info">INFO</span>  <span class="ev">degraded_capabilities</span><br>
+ &nbsp;&nbsp;&nbsp;disabled: [llm_preview, auto_priority,<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ai_digest, anomaly_detection]<br>
+ &nbsp;&nbsp;&nbsp;active:   [imap_poll, telegram_inbound,<br>
+ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;heuristic_priority, action_line]<br>
+<span class="ts">[08:15:44]</span> <span class="ok">INFO</span>  <span class="ev">telegram_notification</span> ⚠ Система перешла в режим деградации (LLM недоступен). Базовые уведомления продолжают работу.<br>
+<span class="ts">[08:22:31]</span> <span class="ok">INFO</span>  <span class="ev">llm_provider_recovery</span> provider=gigachat status=OK<br>
+<span class="ts">[08:22:31]</span> <span class="ok">INFO</span>  <span class="ev">system_mode_change</span> DEGRADED_NO_LLM → NORMAL<br>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBSERVABILITY -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <p class="section-eyebrow">// наблюдаемость</p>
+    <h2>Observability до уровня SLA доставки</h2>
+    <p class="section-lead">Для пользовательского email-AI наблюдаемость на уровне SLA — редкость. LetterBot мониторит не только письма, но и состояние каналов доставки.</p>
+
+    <div class="arch-grid">
+      <div class="arch-card">
+        <h4>SLA ДОСТАВКИ</h4>
+        <p><code>notification_sla_degraded</code> с причинами: <code>delivery_rate_below_slo</code>, <code>latency_p90_exceeds_slo</code>, <code>error_spike</code>. Доставка сама является объектом мониторинга.</p>
+      </div>
+      <div class="arch-card">
+        <h4>RELATIONSHIP HEALTH</h4>
+        <p><code>relationship_health_computed</code>, <code>trust_score_updated</code>, <code>relationship_anomaly_none</code>. Долгосрочная модель взаимодействий с контрагентами. Silent-partner risk — когда контакт перестал отвечать.</p>
+      </div>
+      <div class="arch-card">
+        <h4>EVENTS BACKFILL</h4>
+        <p><code>events_backfill_started</code> — система восстанавливает пропущенные события. Event stream — долгосрочная наблюдаемая память, а не просто лог.</p>
+      </div>
+      <div class="arch-card">
+        <h4>WEEKLY DIGEST ANALYTICS</h4>
+        <p>Еженедельный дайджест: общее количество писем, счета (с суммами), договоры, просроченные обязательства, silent-partner risks. Дедупликация по <code>chat_id</code> между аккаунтами.</p>
+      </div>
+      <div class="arch-card">
+        <h4>IMAP BACKOFF METRICS</h4>
+        <p>При IMAP-сбоях: <code>next_retry_at</code>, <code>backoff_minutes</code>, <code>cooldown_reason</code>. Не бесконечное долбление — управляемый backoff.</p>
+      </div>
+      <div class="arch-card">
+        <h4>DOCTOR ENDPOINT</h4>
+        <p><code>http://127.0.0.1:8787/doctor</code> — forensic поверхность. Состояние всех систем, конфигурация, health ящиков, качество решений — в одном месте.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIG EXAMPLE -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <p class="section-eyebrow">// конфигурация</p>
+    <h2>2-file конфигурация: settings.ini + accounts.ini</h2>
+    <p style="color:var(--muted);margin-bottom:24px;font-size:14px">Вся конфигурация — в INI-файлах. Никакого YAML, JSON или облачных настроек. Понятно, редактируется в любом текстовом редакторе.</p>
+
+    <div class="two-col">
+      <div>
+        <div style="font-family:var(--font-m);font-size:11px;color:var(--muted2);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">settings.ini — общие параметры</div>
+        <div class="code-block">
+<span class="comment"># Общие настройки LetterBot</span><br>
+[general]<br>
+<span class="key">polling_interval_sec</span> = <span class="val">60</span><br>
+<span class="key">bootstrap_window_hours</span> = <span class="val">24</span><br>
+<span class="key">bootstrap_max_messages</span> = <span class="val">50</span><br>
+<span class="key">allow_prestart_emails</span> = <span class="val">false</span><br>
+<br>
+[priority]<br>
+<span class="key">allow_auto_priority</span> = <span class="val">false</span><br>
+<span class="key">min_shadow_accuracy</span> = <span class="val">0.82</span><br>
+<br>
+[llm]<br>
+<span class="comment"># Опционально. OpenAI не поддерживается.</span><br>
+<span class="key">llm_provider</span> = <span class="val">none</span><br>
+<span class="comment"># Варианты: gigachat, cloudflare_workers_ai</span><br>
+<br>
+[digest]<br>
+<span class="key">daily_time</span> = <span class="val">09:00</span><br>
+<span class="key">weekly_day</span> = <span class="val">monday</span><br>
+        </div>
+      </div>
+      <div>
+        <div style="font-family:var(--font-m);font-size:11px;color:var(--muted2);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px">accounts.ini — аккаунты и секреты</div>
+        <div class="code-block">
+<span class="comment"># Аккаунты и секреты</span><br>
+[telegram]<br>
+<span class="key">bot_token</span> = <span class="val">YOUR_BOT_TOKEN</span><br>
+<br>
+[account.work]<br>
+<span class="key">imap_host</span> = <span class="val">imap.yandex.ru</span><br>
+<span class="key">imap_port</span> = <span class="val">993</span><br>
+<span class="key">username</span> = <span class="val">work@company.ru</span><br>
+<span class="key">password</span> = <span class="val">APP_PASSWORD</span><br>
+<span class="key">telegram_chat_id</span> = <span class="val">-100123456789</span><br>
+<br>
+[account.personal]<br>
+<span class="key">imap_host</span> = <span class="val">imap.mail.ru</span><br>
+<span class="key">imap_port</span> = <span class="val">993</span><br>
+<span class="key">username</span> = <span class="val">me@mail.ru</span><br>
+<span class="key">password</span> = <span class="val">APP_PASSWORD</span><br>
+<span class="key">telegram_chat_id</span> = <span class="val">123456789</span><br>
+        </div>
+      </div>
+    </div>
+
+    <div class="tbox" style="margin-top:20px">
+      <strong>Если конфиг отсутствует</strong> — система не падает молча. Автобутстрап выводит список нужных файлов и Windows-команду для их создания из шаблона. Порог первого запуска минимален.
+    </div>
+  </div>
+</section>
+
+<!-- WHY MARKET CARES -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <p class="section-eyebrow">// для заказчиков</p>
+    <h2>Почему это важно рынку</h2>
+    <div class="hbox" style="margin-bottom:28px;font-size:15px">
+      <strong>Заказчики у фрилансеров покупают не AI-лозунги, а надёжность запуска и понятную эксплуатацию.</strong> Им нужно: продукт стартовал, не молчит, честно показывает ошибки и не требует лишней инфраструктуры.
+    </div>
+
+    <div class="three-col">
+      <div class="fcard">
+        <div class="fcard-icon teal">✅</div>
+        <h3>Предсказуемый запуск</h3>
+        <p>IMAP healthcheck, Telegram validation, schema check — всё до первого письма. Нет тихих отказов.</p>
+      </div>
+      <div class="fcard">
+        <div class="fcard-icon amber">📋</div>
+        <h3>Понятная эксплуатация</h3>
+        <p>Два ini-файла. <code>letterbot.bat</code>. Локальный /doctor. Никаких docker-compose, никаких облачных консолей.</p>
+      </div>
+      <div class="fcard">
+        <div class="fcard-icon green">🔍</div>
+        <h3>Инженерная честность</h3>
+        <p>Деградация явная. Причины приоритетов видны. Shadow accuracy считается. Не притворяется умнее, чем есть.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="section-sm">
+  <div class="wrap centered">
+    <h2 style="margin-bottom:12px">Открыт для code review</h2>
+    <p style="color:var(--muted);margin-bottom:24px;max-width:540px;margin-left:auto;margin-right:auto">Весь исходный код на GitHub под AGPL-3.0. Читайте, форкайте, аудитируйте. Issues и PR приветствуются.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-amber" href="#" data-lb-github>Открыть на GitHub</a>
+      <a class="btn btn-teal" href="#" data-lb-releases>Скачать релиз</a>
+      <a class="btn btn-ghost" href="faq.html">FAQ для инженеров</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Технические страницы</h4>
+        <a href="dlya-inzhenerov.html" aria-current="page">Для инженеров</a>
+        <a href="vozmozhnosti.html">Возможности</a>
+        <a href="bezopasnost.html">Безопасность</a>
+        <a href="kak-rabotaet.html">Как работает</a>
+        <a href="sravnenie.html">Сравнение</a>
+      </div>
+      <div class="footer-col">
+        <h4>Ресурсы</h4>
+        <a href="faq.html">FAQ (40+ вопросов)</a>
+        <a href="ustanovka-windows.html">Установка на Windows</a>
+        <a href="#" data-lb-github>GitHub</a>
+        <a href="#" data-lb-releases>Скачать</a>
+        <a href="#" data-lb-telegram>Telegram-канал</a>
+      </div>
+      <div class="footer-col">
+        <h4>Контакт</h4>
+        <a href="mailto:master@letterbot.ru">master@letterbot.ru</a>
+        <a href="#" data-lb-telegram>Telegram-канал</a>
+        <a href="#" data-lb-en>English version →</a>
+        <div style="margin-top:12px;font-size:12px;color:var(--muted2)">
+          Версия <span data-lb-ver></span> · <span data-lb-updated></span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> LetterBot · Приватный оператор почты: локально, бесплатно, без подписки</span>
+      <div style="display:flex;gap:16px">
+        <a href="bezopasnost.html">Приватность</a>
+        <a href="#" data-lb-en>English</a>
+        <a href="#" data-lb-github>GitHub</a>
+        <a href="mailto:master@letterbot.ru">master@letterbot.ru</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/main.js" defer></script>
+</body>
+</html>

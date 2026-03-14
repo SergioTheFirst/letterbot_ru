@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>LetterBot — приватный оператор почты: локально, бесплатно, без подписки</title>
+<meta name="description" content="LetterBot читает ваши IMAP-ящики, расставляет приоритеты и отправляет одно понятное уведомление в Telegram. Всё локально, бесплатно, без OpenAI, без подписки навсегда."/>
+<meta name="theme-color" content="#07090f"/>
+<link rel="canonical" href="https://letterbot.ru/"/>
+<meta property="og:title" content="LetterBot — приватный оператор почты: локально, бесплатно, без подписки"/>
+<meta property="og:description" content="LetterBot читает ваши IMAP-ящики, расставляет приоритеты и отправляет одно понятное уведомление в Telegram. Всё локально, без OpenAI и без подписки."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://letterbot.ru/"/>
+<meta property="og:image" content="https://letterbot.ru/assets/og.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="alternate" hreflang="en" href="https://sergiothefirst.github.io/letterbot/"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="manifest" href="site.webmanifest"/>
+<link rel="stylesheet" href="assets/styles.css"/>
+<script src="assets/config.js"></script>
+<script type="application/ld+json">{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","name":"LetterBot","url":"https://letterbot.ru/","logo":"https://letterbot.ru/assets/logo.svg","sameAs":["https://github.com/SergioTheFirst/letterbot"]},
+    {"@type":"SoftwareApplication","name":"LetterBot","applicationCategory":"BusinessApplication","operatingSystem":"Windows 10, Windows 11","url":"https://letterbot.ru/","downloadUrl":"https://github.com/SergioTheFirst/letterbot/releases/latest","softwareVersion":"28.0.0","dateModified":"2026-03-13","offers":{"@type":"Offer","price":"0","priceCurrency":"RUB"},"description":"LetterBot — приватный оператор почты. Локально, бесплатно, без подписки. Читает IMAP, расставляет приоритеты, отправляет Telegram-уведомления. Данные не покидают ваш компьютер."}
+  ]
+}</script>
+</head>
+<body>
+<a class="skip-link" href="#content">Перейти к содержимому</a>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">
+      <div class="brand-icon">✉</div>
+      <span>LetterBot<span class="brand-tag">приватный оператор почты</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" aria-current="page">Главная</a>
+      <a href="vozmozhnosti.html">Возможности</a>
+      <a href="bezopasnost.html">Безопасность</a>
+      <a href="kak-rabotaet.html">Как работает</a>
+      <a href="komu-podhodit.html">Кому подходит</a>
+      <a href="dlya-inzhenerov.html">Для инженеров</a>
+      <a href="faq.html">FAQ</a>
+      <a href="podderzhka.html">Поддержать</a>
+    </div>
+    <div class="nav-end">
+      <a class="btn btn-outline btn-sm" href="#" data-lb-github>GitHub</a>
+      <a class="btn btn-amber btn-sm" href="#" data-lb-releases>⬇ Скачать</a>
+    </div>
+    <button class="mob-btn" id="mob-toggle" aria-expanded="false" aria-label="Меню">☰</button>
+  </div>
+  <div class="mob-nav" id="mob-nav">
+    <a href="index.html" aria-current="page">Главная</a>
+    <a href="vozmozhnosti.html">Возможности</a>
+    <a href="bezopasnost.html">Безопасность</a>
+    <a href="kak-rabotaet.html">Как работает</a>
+    <a href="komu-podhodit.html">Кому подходит</a>
+    <a href="dlya-inzhenerov.html">Для инженеров</a>
+    <a href="faq.html">FAQ</a>
+    <a href="podderzhka.html">Поддержать</a>
+    <a class="btn btn-amber" href="#" data-lb-releases style="margin-top:8px">⬇ Скачать бесплатно</a>
+  </div>
+</nav>
+
+<main id="content">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">// self-hosted · telegram-first · без подписки</p>
+        <h1>Приватный оператор почты: локально, бесплатно, без подписки.</h1>
+        <div class="slogan">C приоритетами, контролем и работой даже на слабом ПК.</div>
+        <p class="hero-lead">LetterBot читает ваши IMAP-ящики, определяет что важно и почему, присылает одно короткое уведомление в Telegram. Всё работает на вашей машине. Данные не покидают компьютер. OpenAI не нужен. Подписок нет.</p>
+        <div class="badge-row">
+          <span class="badge green">✓ Полностью локальный</span>
+          <span class="badge amber">✓ Без OpenAI</span>
+          <span class="badge teal">✓ Telegram-first</span>
+          <span class="badge">✓ Без подписки навсегда</span>
+          <span class="badge">✓ AGPL open source</span>
+          <span class="badge">✓ Работает на старом ПК</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-amber" href="#" data-lb-releases>⬇ Скачать бесплатно</a>
+          <a class="btn btn-teal" href="dlya-inzhenerov.html">Для инженеров</a>
+          <a class="btn btn-ghost" href="faq.html">FAQ</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-val">v<span data-lb-ver></span></span>
+            <div class="stat-label">актуальная версия</div>
+          </div>
+          <div class="stat">
+            <span class="stat-val">0 ₽</span>
+            <div class="stat-label">стоимость навсегда</div>
+          </div>
+          <div class="stat">
+            <span class="stat-val">0</span>
+            <div class="stat-label">серверов Letterbot</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Telegram mock -->
+      <div>
+        <div class="tg-card">
+          <div class="tg-header">
+            <div class="tg-avatar">✉</div>
+            <div>
+              <div class="tg-name">LetterBot</div>
+              <div class="tg-sub">● online · локальный оператор</div>
+            </div>
+          </div>
+          <div class="tg-body">
+            <div class="tg-msg">
+              <div class="pri">🔴 СРОЧНО · INVOICE</div>
+              <div class="subject">Счёт №847 на оплату — ООО «Поставщик»</div>
+              <p style="font-size:13px;color:var(--muted);margin-top:6px">Счёт на 187 400 ₽, срок оплаты — завтра. Приложен PDF.</p>
+              <div class="action">→ Проверить сумму и реквизиты, оплатить сегодня</div>
+              <div class="meta">finance@company.ru · PRIO_AMOUNT_BASE · PRIO_DEADLINE_1D</div>
+            </div>
+            <div class="tg-btns">
+              <button class="tg-btn hi">🔴 Срочно</button>
+              <button class="tg-btn med">🟡 Важно</button>
+              <button class="tg-btn lo">🔵 Низкий</button>
+              <button class="tg-btn">⏱ 2 часа</button>
+              <button class="tg-btn">📅 Завтра</button>
+            </div>
+            <div style="margin-top:14px;padding:10px 14px;background:var(--ink4);border-radius:10px;font-size:13px;color:var(--muted);font-family:var(--font-m)">
+              <span style="color:var(--teal)">priority_v2_computed</span> score=0.91 → <span style="color:var(--amber)">URGENT</span><br>
+              <span style="color:var(--muted2)">reasons: PRIO_AMOUNT_BASE, PRIO_DEADLINE_1D, PRIO_ATTACHMENT_PDF</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY LETTERBOT -->
+<section class="section" style="padding-top:60px">
+  <div class="wrap">
+    <p class="section-eyebrow">// против рынка</p>
+    <h2>Почему LetterBot — это отдельная категория</h2>
+    <p class="section-lead">Superhuman, Shortwave, Front — это облачные сервисы с красивым UI. LetterBot — это локальный операторский контур, который видит вашу почту, объясняет решения и работает даже без интернета до почтового сервера.</p>
+
+    <div class="feature-grid">
+      <div class="fcard">
+        <div class="fcard-icon amber">🔒</div>
+        <h3>Данные не покидают машину</h3>
+        <p>По умолчанию — никаких облаков Letterbot. SQLite на вашем диске, обработка в памяти, IMAP read-only. Телеметрии нет.</p>
+        <span class="fcard-tag">LOCAL_FIRST</span>
+      </div>
+      <div class="fcard">
+        <div class="fcard-icon teal">💬</div>
+        <h3>Telegram — рабочий интерфейс</h3>
+        <p>Не просто уведомления. Двусторонний канал: меняете приоритет — система учится. Снуз с памятью контекста. Дайджесты.</p>
+        <span class="fcard-tag">TELEGRAM_FIRST_UX</span>
+      </div>
+      <div class="fcard">
+        <div class="fcard-icon green">🧠</div>
+        <h3>Объяснимые приоритеты</h3>
+        <p>Каждое решение — со списком причин: <code>PRIO_INVOICE</code>, <code>PRIO_DEADLINE_1D</code>, <code>PRIO_FREQ_SPIKE_3X</code>. Не чёрный ящик.</p>
+        <span class="fcard-tag">EXPLAINABLE_AI</span>
+      </div>
+      <div class="fcard">
+        <div class="fcard-icon amber">⚡</div>
+        <h3>Без OpenAI и без платных API</h3>
+        <p>Работает полностью детерминированно. GigaChat или Cloudflare Workers AI — только опциональное усиление, не основа.</p>
+        <span class="fcard-tag">NO_OPENAI</span>
+      </div>
+      <div class="fcard">
+        <div class="fcard-icon blue">📬</div>
+        <h3>Несколько ящиков — без хаоса</h3>
+        <p>Несколько IMAP-аккаунтов с маршрутизацией в разные Telegram-чаты. Дедупликация дайджестов между аккаунтами.</p>
+        <span class="fcard-tag">MULTI_INBOX</span>
+      </div>
+      <div class="fcard">
+        <div class="fcard-icon red">🛡</div>
+        <h3>Честная деградация</h3>
+        <p>Нет LLM? Система переходит в <code>DEGRADED_NO_LLM</code> и продолжает работу на детерминированном ядре. Не молчит, не врёт.</p>
+        <span class="fcard-tag">GRACEFUL_DEGRADATION</span>
+      </div>
+      <div class="fcard">
+        <div class="fcard-icon purple">📊</div>
+        <h3>Локальный web cockpit</h3>
+        <p>Read-only панель на <code>localhost:8787</code>: дашборд, архив писем, трейс решений, SLA доставки, здоровье каналов.</p>
+        <span class="fcard-tag">OBSERVABILITY</span>
+      </div>
+      <div class="fcard">
+        <div class="fcard-icon teal">🩺</div>
+        <h3>Doctor и self-диагностика</h3>
+        <p><code>/doctor</code>, <code>validate-config</code>, IMAP healthcheck на старте. Система знает о своём состоянии и честно сообщает.</p>
+        <span class="fcard-tag">SELF_DIAGNOSTIC</span>
+      </div>
+      <div class="fcard">
+        <div class="fcard-icon green">🖥</div>
+        <h3>Старый ПК — не проблема</h3>
+        <p>Протестировано на Intel Celeron N4020, 3 ГБ RAM. One-folder release: распаковать, заполнить .ini, запустить .bat.</p>
+        <span class="fcard-tag">LOW_RESOURCE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS BRIEF -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <p class="section-eyebrow">// контур работы</p>
+    <h2>Как это работает — за 30 секунд</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>IMAP healthcheck и ingestion</h4>
+          <p>LetterBot подключается к каждому ящику, проверяет состояние канала и забирает новые письма. Дедупликация по UID предотвращает повторную обработку.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Сегментация и извлечение</h4>
+          <p>Тело письма очищается от цитат, подписей и disclaimer. Извлекаются суммы, сроки, тип письма (INVOICE, CONTRACT, SECURITY_ALERT…). Из PDF и Excel — текст вложений.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Priority v2: скоринг с объяснениями</h4>
+          <p>Движок приоритизации выдаёт score, уровень (URGENT/IMPORTANT/LOW) и список причин. Опциональный LLM — дополнительный сигнал, не замена детерминированному ядру.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Telegram-уведомление с кнопками</h4>
+          <p>Одно письмо — одно сообщение. Приоритет, тип, отправитель, саммари, действие, вложение. Кнопки приоритета и снуза. Нажатие на кнопку — сигнал обратной связи.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>Дайджесты и наблюдаемость</h4>
+          <p>Ежедневный и еженедельный дайджест. SLA доставки. Контур «отношений» с отправителями. Всё — в локальном web cockpit и Telegram.</p>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:28px">
+      <a class="btn btn-amber" href="kak-rabotaet.html">Подробнее →</a>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <p class="section-eyebrow">// сравнение</p>
+    <h2>LetterBot против облачных сервисов</h2>
+    <p class="section-lead">Superhuman и Shortwave сильны в авторазметке, split inbox и AI-черновиках. LetterBot — в другом: локальность, объяснимость, Telegram-UX и нулевая стоимость.</p>
+    <div class="table-wrap">
+      <table class="cmp-table">
+        <thead>
+          <tr>
+            <th>Параметр</th>
+            <th class="lb-col">LetterBot</th>
+            <th>Superhuman</th>
+            <th>Shortwave</th>
+            <th>Gmail AI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Стоимость</td><td class="lb-col cmp-yes">Бесплатно навсегда</td><td class="cmp-no">~$30/мес</td><td class="cmp-no">~$9/мес</td><td class="cmp-part">Условно бесплатно</td></tr>
+          <tr><td>Данные на вашей машине</td><td class="lb-col cmp-yes">✓ Полностью</td><td class="cmp-no">✗ Облако</td><td class="cmp-no">✗ Облако</td><td class="cmp-no">✗ Google</td></tr>
+          <tr><td>OpenAI не нужен</td><td class="lb-col cmp-yes">✓ Да</td><td class="cmp-no">✗ Требует</td><td class="cmp-no">✗ Требует</td><td class="cmp-no">✗ Google AI</td></tr>
+          <tr><td>Telegram-first UX</td><td class="lb-col cmp-yes">✓ Нативный</td><td class="cmp-no">✗ Нет</td><td class="cmp-no">✗ Нет</td><td class="cmp-no">✗ Нет</td></tr>
+          <tr><td>Объяснимые приоритеты</td><td class="lb-col cmp-yes">✓ Reason codes</td><td class="cmp-no">✗ Чёрный ящик</td><td class="cmp-no">✗ Чёрный ящик</td><td class="cmp-no">✗ Нет</td></tr>
+          <tr><td>Несколько IMAP-ящиков</td><td class="lb-col cmp-yes">✓ Неограничено</td><td class="cmp-part">Платно</td><td class="cmp-part">Платно</td><td class="cmp-part">Ограничено</td></tr>
+          <tr><td>Локальный web cockpit</td><td class="lb-col cmp-yes">✓ localhost:8787</td><td class="cmp-no">✗ Только облако</td><td class="cmp-no">✗ Только облако</td><td class="cmp-no">✗ Нет</td></tr>
+          <tr><td>Graceful degradation</td><td class="lb-col cmp-yes">✓ DEGRADED_NO_LLM</td><td class="cmp-no">Неизвестно</td><td class="cmp-no">Неизвестно</td><td class="cmp-no">Нет</td></tr>
+          <tr><td>Open source</td><td class="lb-col cmp-yes">✓ AGPL-3.0</td><td class="cmp-no">✗ Закрытый</td><td class="cmp-no">✗ Закрытый</td><td class="cmp-no">✗ Закрытый</td></tr>
+          <tr><td>Работает на старом ПК</td><td class="lb-col cmp-yes">✓ Celeron N4020</td><td class="cmp-no">✗ Только SaaS</td><td class="cmp-no">✗ Только SaaS</td><td class="cmp-no">✗ Только SaaS</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="margin-top:16px">
+      <a class="btn btn-ghost btn-sm" href="sravnenie.html">Полное сравнение →</a>
+    </div>
+  </div>
+</section>
+
+<!-- DONATE -->
+<section class="section-sm">
+  <div class="wrap">
+    <div class="donate-box">
+      <div class="donate-qr">
+        <img src="assets/boosty_qr.svg" alt="QR-код для поддержки LetterBot через Boosty"/>
+      </div>
+      <div class="donate-text">
+        <h3>Поддержать проект</h3>
+        <p>LetterBot полностью бесплатен и не будет платным. Если он экономит вам время — поддержите разработку добровольно через Boosty. Это помогает выходить новым версиям.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn btn-amber" href="#" data-lb-boosty target="_blank" rel="noopener">Поддержать на Boosty</a>
+          <a class="btn btn-ghost" href="podderzhka.html">Подробнее</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ QUICK -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <p class="section-eyebrow">// быстрые ответы</p>
+    <h2>Частые вопросы</h2>
+    <div class="faq-list" style="max-width:740px">
+      <div class="faq-item" data-faq data-sec="main">
+        <div class="faq-q"><span class="faq-q-text" data-orig="Нужна ли подписка?">Нужна ли подписка?</span><span class="faq-ic">+</span></div>
+        <div class="faq-body">Нет. LetterBot бесплатен навсегда. AGPL-3.0 open source. Без freemium, без скрытых платежей. Поддержка — добровольная через Boosty.</div>
+      </div>
+      <div class="faq-item" data-faq data-sec="main">
+        <div class="faq-q"><span class="faq-q-text" data-orig="Нужен ли OpenAI или ChatGPT?">Нужен ли OpenAI или ChatGPT?</span><span class="faq-ic">+</span></div>
+        <div class="faq-body">Нет. OpenAI не поддерживается и не нужен. По умолчанию LetterBot работает в детерминированном режиме без внешних AI. GigaChat и Cloudflare Workers AI — опциональные усилители, их подключение не обязательно.</div>
+      </div>
+      <div class="faq-item" data-faq data-sec="main">
+        <div class="faq-q"><span class="faq-q-text" data-orig="Письма уходят куда-то?">Письма уходят куда-то?</span><span class="faq-ic">+</span></div>
+        <div class="faq-body">По умолчанию — нет. Обработка локальная. SQLite на вашем компьютере. Никаких серверов LetterBot не существует. Единственные внешние соединения — ваш IMAP-сервер и Telegram Bot API.</div>
+      </div>
+      <div class="faq-item" data-faq data-sec="main">
+        <div class="faq-q"><span class="faq-q-text" data-orig="Можно подключить несколько ящиков?">Можно подключить несколько ящиков?</span><span class="faq-ic">+</span></div>
+        <div class="faq-body">Да. Неограниченное количество IMAP-аккаунтов. Каждый маршрутизируется в отдельный Telegram-чат. Дайджесты не дублируются между аккаунтами.</div>
+      </div>
+      <div class="faq-item" data-faq data-sec="main">
+        <div class="faq-q"><span class="faq-q-text" data-orig="Как выставляется приоритет?">Как выставляется приоритет?</span><span class="faq-ic">+</span></div>
+        <div class="faq-body">Детерминированный движок Priority v2: анализирует тип письма (INVOICE, CONTRACT…), сумму, срок, тип вложения, историю отправителя, частотные аномалии. Каждое решение содержит список причин — например <code>PRIO_DEADLINE_1D</code> или <code>PRIO_FREQ_SPIKE_3X</code>.</div>
+      </div>
+    </div>
+    <div style="margin-top:20px">
+      <a class="btn btn-outline btn-sm" href="faq.html">Все вопросы (40+) →</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Страницы</h4>
+        <a href="vozmozhnosti.html">Возможности</a>
+        <a href="bezopasnost.html">Безопасность</a>
+        <a href="kak-rabotaet.html">Как работает</a>
+        <a href="komu-podhodit.html">Кому подходит</a>
+        <a href="dlya-inzhenerov.html">Для инженеров</a>
+        <a href="sravnenie.html">Сравнение</a>
+      </div>
+      <div class="footer-col">
+        <h4>Ресурсы</h4>
+        <a href="faq.html">FAQ (40+ вопросов)</a>
+        <a href="ustanovka-windows.html">Установка на Windows</a>
+        <a href="bezopasnost.html">Приватность и данные</a>
+        <a href="podderzhka.html">Поддержать проект</a>
+        <a href="#" data-lb-github>GitHub</a>
+        <a href="#" data-lb-releases>Скачать</a>
+      </div>
+      <div class="footer-col">
+        <h4>Контакт</h4>
+        <a href="mailto:master@letterbot.ru">master@letterbot.ru</a>
+        <a href="#" data-lb-telegram>Telegram-канал</a>
+        <a href="#" data-lb-en>English version →</a>
+        <div style="margin-top:12px;font-size:12px;color:var(--muted2)">
+          Версия <span data-lb-ver></span> · <span data-lb-updated></span><br>
+          AGPL-3.0 · Бесплатно навсегда
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> LetterBot · Приватный оператор почты: локально, бесплатно, без подписки</span>
+      <div style="display:flex;gap:16px">
+        <a href="bezopasnost.html">Приватность</a>
+        <a href="#" data-lb-en>English</a>
+        <a href="#" data-lb-github>GitHub</a>
+        <a href="mailto:master@letterbot.ru">master@letterbot.ru</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/main.js" defer></script>
+</body>
+</html>

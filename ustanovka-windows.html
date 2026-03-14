@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Установка LetterBot на Windows — пошаговая инструкция</title>
+<meta name="description" content="Как установить LetterBot на Windows 10/11: скачать, распаковать, заполнить accounts.ini, запустить letterbot.bat. Python не нужен. 10–15 минут."/>
+<meta name="theme-color" content="#07090f"/>
+<link rel="canonical" href="https://letterbot.ru/ustanovka-windows.html"/>
+<meta property="og:title" content="Установка LetterBot на Windows — пошаговая инструкция"/>
+<meta property="og:description" content="Как установить LetterBot на Windows 10/11: скачать, распаковать, заполнить accounts.ini, запустить letterbot.bat. Python не нужен. 10–15 минут."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://letterbot.ru/ustanovka-windows.html"/>
+<meta property="og:image" content="https://letterbot.ru/assets/og.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<link rel="alternate" hreflang="en" href="https://sergiothefirst.github.io/letterbot/"/>
+<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
+<link rel="manifest" href="site.webmanifest"/>
+<link rel="stylesheet" href="assets/styles.css"/>
+<script src="assets/config.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#content">Перейти к содержимому</a>
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html"><div class="brand-icon">✉</div><span>LetterBot<span class="brand-tag">приватный оператор почты</span></span></a>
+    <div class="nav-links">
+      <a href="index.html">Главная</a><a href="vozmozhnosti.html">Возможности</a>
+      <a href="bezopasnost.html">Безопасность</a><a href="kak-rabotaet.html">Как работает</a>
+      <a href="komu-podhodit.html">Кому подходит</a><a href="dlya-inzhenerov.html">Для инженеров</a>
+      <a href="faq.html">FAQ</a><a href="podderzhka.html">Поддержать</a>
+    </div>
+    <div class="nav-end">
+      <a class="btn btn-outline btn-sm" href="#" data-lb-github>GitHub</a>
+      <a class="btn btn-amber btn-sm" href="#" data-lb-releases>⬇ Скачать</a>
+    </div>
+    <button class="mob-btn" id="mob-toggle" aria-expanded="false">☰</button>
+  </div>
+  <div class="mob-nav" id="mob-nav">
+    <a href="index.html">Главная</a><a href="faq.html">FAQ</a>
+    <a href="dlya-inzhenerov.html">Для инженеров</a><a href="podderzhka.html">Поддержать</a>
+  </div>
+</nav>
+<main id="content">
+
+<section class="page-hero"><div class="wrap">
+  <p class="eyebrow">// Windows 10 / Windows 11 · Python не нужен</p>
+  <h1>Установка на Windows</h1>
+  <p>Четыре шага. Python не нужен — дистрибутив включает runtime. Около 10–15 минут от скачивания до первого уведомления.</p>
+</div></section>
+<section class="section" style="padding-top:32px"><div class="wrap" style="max-width:800px">
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body">
+      <h4>Скачать архив с GitHub Releases</h4>
+      <p>Откройте <a href="#" data-lb-releases>GitHub Releases</a>, скачайте последний ZIP-файл LetterBot. Убедитесь, что скачиваете актуальную версию (v<span data-lb-ver></span>).</p>
+    </div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body">
+      <h4>Распаковать в удобное место</h4>
+      <p>Распакуйте архив, например, в <code>C:\LetterBot</code>. Путь не должен содержать кириллицу или пробелы.</p>
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body">
+      <h4>Создать Telegram-бота</h4>
+      <p>Напишите <code>@BotFather</code> в Telegram, команда <code>/newbot</code>. Скопируйте токен. Напишите боту любое сообщение и получите ваш chat_id через <code>https://api.telegram.org/bot[TOKEN]/getUpdates</code></p>
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body">
+      <h4>Заполнить accounts.ini</h4>
+      <p>Откройте <code>accounts.ini</code> в текстовом редакторе. Заполните IMAP-данные (хост, порт, логин, пароль приложения) и токен Telegram-бота. Для Gmail нужен «пароль приложения», а не основной пароль.</p>
+    </div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-body">
+      <h4>Запустить letterbot.bat</h4>
+      <p>Дважды щёлкните <code>letterbot.bat</code>. Система выполнит healthcheck по всем ящикам и запустит Telegram-polling. Первое уведомление появится при следующем новом письме.</p>
+    </div></div>
+  </div>
+
+  <div class="tbox" style="margin-top:28px">
+    <strong>Если что-то пошло не так:</strong> откройте <code>http://127.0.0.1:8787/doctor</code> — там будет точный список проблем. Или запустите <code>letterbot.bat --validate</code> для проверки конфига.
+  </div>
+
+  <h2 style="margin-top:40px;margin-bottom:16px">IMAP-настройки популярных провайдеров</h2>
+  <div class="table-wrap">
+    <table class="cmp-table">
+      <thead><tr><th>Провайдер</th><th>IMAP-хост</th><th>Порт</th><th>Примечание</th></tr></thead>
+      <tbody>
+        <tr><td>Яндекс.Почта</td><td><code>imap.yandex.ru</code></td><td>993</td><td>Включить IMAP в настройках</td></tr>
+        <tr><td>Mail.ru</td><td><code>imap.mail.ru</code></td><td>993</td><td>Включить IMAP в настройках</td></tr>
+        <tr><td>Gmail</td><td><code>imap.gmail.com</code></td><td>993</td><td>Нужен «Пароль приложения»</td></tr>
+        <tr><td>Outlook / Office 365</td><td><code>outlook.office365.com</code></td><td>993</td><td>OAuth или пароль приложения</td></tr>
+        <tr><td>Любой IMAP-сервер</td><td>Спросите у хостинга</td><td>993/143</td><td>SSL рекомендуется</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
+    <a class="btn btn-amber" href="#" data-lb-releases>⬇ Скачать LetterBot</a>
+    <a class="btn btn-ghost" href="faq.html">FAQ по установке</a>
+  </div>
+</div></section>
+</main>
+<footer class="footer"><div class="wrap">
+  <div class="footer-grid">
+    <div class="footer-col"><h4>Страницы</h4>
+      <a href="vozmozhnosti.html">Возможности</a><a href="bezopasnost.html">Безопасность</a>
+      <a href="kak-rabotaet.html">Как работает</a><a href="dlya-inzhenerov.html">Для инженеров</a>
+      <a href="sravnenie.html">Сравнение</a></div>
+    <div class="footer-col"><h4>Ресурсы</h4>
+      <a href="faq.html">FAQ (40+ вопросов)</a><a href="ustanovka-windows.html">Установка</a>
+      <a href="podderzhka.html">Поддержать</a><a href="#" data-lb-github>GitHub</a></div>
+    <div class="footer-col"><h4>Контакт</h4>
+      <a href="mailto:master@letterbot.ru">master@letterbot.ru</a>
+      <a href="#" data-lb-telegram>Telegram-канал</a>
+      <a href="#" data-lb-en>English version →</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="year"></span> LetterBot · Приватный оператор почты: локально, бесплатно, без подписки</span>
+    <div style="display:flex;gap:16px">
+      <a href="bezopasnost.html">Приватность</a>
+      <a href="#" data-lb-en>English</a>
+      <a href="#" data-lb-github>GitHub</a>
+      <a href="mailto:master@letterbot.ru">master@letterbot.ru</a>
+    </div>
+  </div>
+</div></footer>
+<script src="assets/main.js" defer></script>
+</body></html>
