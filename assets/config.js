@@ -14,6 +14,6 @@ window.LB = {
   telegram:    'https://t.me/+1xHH6NwJONVlZTA6',
   email:       'master@letterbot.ru',
   siteRu:      'https://letterbot.ru/',
-  siteEn:      'https://sergiothefirst.github.io/letterbot/',
+  siteEn:      'https://sergiothefirst.github.io/letterbot_site/',
   changelog:   'https://github.com/SergioTheFirst/letterbot/releases',
 };
