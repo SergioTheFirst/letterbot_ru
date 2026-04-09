@@ -11,6 +11,7 @@ window.LB = {
   issues:      'https://github.com/SergioTheFirst/letterbot/issues',
   boosty:      'https://boosty.to/personalbot/donate?qr=true',
   boostyQr:    'https://github.com/SergioTheFirst/letterbot/tree/main/mailbot_v26/boostydon.svg',
+  cloudtips:   'https://pay.cloudtips.ru/p/00d77c6a',
   telegram:    'https://t.me/+1xHH6NwJONVlZTA6',
   email:       'master@letterbot.ru',
   siteRu:      'https://letterbot.ru/',
