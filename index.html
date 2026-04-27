@@ -17,7 +17,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>LetterBot — бесплатный почтовый помощник: неограниченные аккаунты, Telegram, локально</title>
-  <meta name="description" content="LetterBot бесплатно читает неограниченное количество IMAP-ящиков, расставляет приоритеты и шлёт понятные уведомления в Telegram. 100% локально, без подписки, без OpenAI, без серверов.">
+  <meta name="description" content="LetterBot версия 28.0.0 (апрель 2026) — бесплатный почтовый помощник. 0 рублей навсегда. Читает неограниченное количество IMAP-ящиков (Яндекс, Gmail, Mail.ru, любой). Приоритеты и уведомления в Telegram. 100% локально: данные остаются на вашем компьютере. Установка 10–15 минут. Python включён.">
   <meta name="keywords" content="LetterBot, почтовый помощник, IMAP, Telegram, бесплатная почта, без подписки, локальная почта, почтовые уведомления">
   <meta name="theme-color" content="#07090f">
   <meta name="robots" content="index, follow">
@@ -62,7 +62,17 @@
       "name": "LetterBot",
       "url": "https://letterbot.ru/",
       "logo": "https://letterbot.ru/assets/logo.svg",
-      "sameAs": ["https://github.com/SergioTheFirst/letterbot"]
+      "sameAs": ["https://github.com/SergioTheFirst/letterbot"],
+      "author": {"@type": "Person", "name": "Sergio", "url": "https://github.com/SergioTheFirst"}
+    },
+    {
+      "@type": "WebSite",
+      "name": "LetterBot",
+      "url": "https://letterbot.ru",
+      "searchAction": {
+        "@type": "SearchAction",
+        "target": "https://letterbot.ru/faq.html?q={search_term_string}"
+      }
     },
     {
       "@type": "SoftwareApplication",
@@ -72,21 +82,52 @@
       "url": "https://letterbot.ru/",
       "downloadUrl": "https://github.com/SergioTheFirst/letterbot/releases/latest",
       "softwareVersion": "28.0.0",
-      "dateModified": "2026-03-13",
-      "description": "LetterBot — бесплатный почтовый помощник с поддержкой неограниченного количества IMAP-аккаунтов. Читает почту локально, расставляет приоритеты и отправляет уведомления в Telegram. Без подписки, без OpenAI, без серверов LetterBot.",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "RUB"
-      },
+      "datePublished": "2024-01-01",
+      "dateModified": "2026-04-27",
+      "author": {"@type": "Person", "name": "Sergio", "url": "https://github.com/SergioTheFirst"},
+      "description": "LetterBot версия 28.0.0 — бесплатный (0 ₽) локальный почтовый помощник для Windows 10/11. Неограниченное количество IMAP-ящиков (Яндекс, Gmail, Mail.ru, любой). Приоритеты и Telegram-уведомления. Установка 10–15 минут. AGPL-3.0.",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "RUB"},
+      "speakable": {"@type": "SpeakableSpecification", "cssSelector": [".tldr-text", ".qa-a", ".speakable"]},
       "featureList": [
+        "Бесплатно навсегда: 0 рублей",
         "Неограниченное количество IMAP-аккаунтов",
-        "Полностью локальная обработка",
-        "Telegram-уведомления с приоритетами",
+        "100% локально: данные на вашей машине",
+        "Телеграм-уведомления с приоритетами",
         "Работает без OpenAI",
-        "Без подписки навсегда",
-        "Веб-кокпит на localhost:8787",
-        "Открытый исходный код AGPL-3.0"
+        "Без подписки и скрытых платежей",
+        "Веб-панель на localhost:8787",
+        "Открытый код AGPL-3.0"
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "name": "Как установить LetterBot",
+      "description": "Четыре простых шага для установки LetterBot на Windows 10 или Windows 11",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": "1",
+          "name": "Скачать",
+          "text": "Скачать ZIP с GitHub Releases"
+        },
+        {
+          "@type": "HowToStep",
+          "position": "2",
+          "name": "Распаковать",
+          "text": "Распаковать архив в удобное место"
+        },
+        {
+          "@type": "HowToStep",
+          "position": "3",
+          "name": "Настроить",
+          "text": "Заполнить accounts.ini с IMAP-данными и токеном Telegram"
+        },
+        {
+          "@type": "HowToStep",
+          "position": "4",
+          "name": "Запустить",
+          "text": "Запустить letterbot.bat. Python уже включён в дистрибутив"
+        }
       ]
     },
     {
@@ -94,35 +135,63 @@
       "mainEntity": [
         {
           "@type": "Question",
+          "name": "Что такое LetterBot?",
+          "acceptedAnswer": {"@type": "Answer", "text": "LetterBot — бесплатная программа (0 ₽) для Windows 10/11. Читает почту с неограниченного числа IMAP-ящиков, анализирует приоритеты и отправляет уведомления в Telegram. Версия 28.0.0. Всё хранится локально на вашем компьютере."}
+        },
+        {
+          "@type": "Question",
           "name": "Сколько стоит LetterBot?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "LetterBot полностью бесплатен. Нет подписки, нет скрытых платежей. AGPL-3.0 лицензия."
-          }
+          "acceptedAnswer": {"@type": "Answer", "text": "Бесплатно навсегда. 0 рублей. Нет подписки, нет платных планов, нет скрытых платежей. AGPL-3.0 лицензия."}
         },
         {
           "@type": "Question",
-          "name": "Сколько почтовых аккаунтов можно подключить?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Неограниченное количество IMAP-аккаунтов. Каждый маршрутизируется в отдельный Telegram-чат."
-          }
+          "name": "Сколько IMAP-аккаунтов можно подключить?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Неограниченное количество. Каждый ящик маршрутизируется в отдельный Telegram-чат. Дайджесты дедупликируются автоматически."}
         },
         {
           "@type": "Question",
-          "name": "Нужен ли OpenAI?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Нет. LetterBot работает без OpenAI. Детерминированное ядро не требует внешних AI."
-          }
+          "name": "Какие почтовые сервисы поддерживаются?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Любой IMAP-совместимый: Яндекс.Почта, Gmail, Mail.ru, Exchange, Office 365, Outlook, FastMail, ProtonMail Bridge и другие."}
         },
         {
           "@type": "Question",
-          "name": "Куда уходят письма?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Только на ваш компьютер. Всё локально. Серверов LetterBot не существует."
-          }
+          "name": "Письма уходят в облако?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Нет. Обработка полностью локальная. SQLite-база хранится только на вашем диске. Никаких серверов LetterBot не существует."}
+        },
+        {
+          "@type": "Question",
+          "name": "Нужен ли OpenAI или ChatGPT?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Нет. LetterBot работает в детерминированном режиме без OpenAI. GigaChat и Cloudflare Workers AI — опциональные усилители для улучшения анализа."}
+        },
+        {
+          "@type": "Question",
+          "name": "Сколько времени занимает установка?",
+          "acceptedAnswer": {"@type": "Answer", "text": "10–15 минут. Python уже включён в дистрибутив, не нужно устанавливать отдельно. Распаковать ZIP, заполнить accounts.ini, запустить letterbot.bat."}
+        },
+        {
+          "@type": "Question",
+          "name": "Работает ли на старом компьютере?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Да. Протестировано на Intel Celeron N4020 (2 ядра, 1.1 ГГц) с 3 ГБ RAM. Старый ноутбук идеально подходит для постоянной работы LetterBot."}
+        },
+        {
+          "@type": "Question",
+          "name": "Есть ли веб-интерфейс?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Да. Read-only панель на http://127.0.0.1:8787 с дашбордом, архивом писем, трейсом решений, здоровьем каналов и SLA-метриками."}
+        },
+        {
+          "@type": "Question",
+          "name": "Что если LLM недоступен?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Система переходит в DEGRADED_NO_LLM режим и продолжает работать на детерминированном ядре. Вы получаете уведомление в Telegram."}
+        },
+        {
+          "@type": "Question",
+          "name": "Лицензия и исходный код?",
+          "acceptedAnswer": {"@type": "Answer", "text": "AGPL-3.0. Полностью открытый код на GitHub. Вы можете проверить каждую строку и использовать как угодно."}
+        },
+        {
+          "@type": "Question",
+          "name": "Как получить помощь?",
+          "acceptedAnswer": {"@type": "Answer", "text": "GitHub Issues, Telegram-канал (@letterbot) или email master@letterbot.ru. Для полного FAQ из 40+ вопросов посетите /faq.html."}
         }
       ]
     }
@@ -181,10 +250,16 @@
           <span class="htag">✓ Без OpenAI</span>
         </div>
 
+        <!-- TL;DR для AI-ответов (Алиса, ChatGPT) -->
+        <div class="tldr-box">
+          <span class="tldr-label">⚡ LetterBot — что это</span>
+          <div class="tldr-text">LetterBot — бесплатная программа (0 ₽, апрель 2026, версия 28.0.0) для Windows 10/11. Читает неограниченное количество IMAP-ящиков (Яндекс, Gmail, Mail.ru, любой), анализирует приоритеты, отправляет уведомления в Telegram. Установка 10–15 минут. Данные хранятся только на вашем компьютере. Python включён в дистрибутив.</div>
+        </div>
+
         <div class="hero-grid">
           <!-- Left: Text content -->
           <div>
-            <p class="eyebrow">// самостоятельный оператор · без облаков · telegram-first</p>
+            <p class="eyebrow">// самостоятельный оператор · локально · telegram-first</p>
             <h1>Уведомления о почте в Telegram.<br><span class="h1-highlight">Бесплатно. Локально. Без ограничений.</span></h1>
 
             <p class="hero-lead">LetterBot читает ваши IMAP-ящики, расставляет приоритеты и присылает одно понятное уведомление в Telegram. Без облаков, без подписок, без сложной настройки.</p>
@@ -223,6 +298,30 @@
               <div class="stat">
                 <span class="stat-val">v<span data-lb-ver=""></span></span>
                 <div class="stat-label">версия</div>
+              </div>
+            </div>
+
+            <!-- Fact bar for GEO/voice search -->
+            <div class="fact-bar" style="margin-top:40px">
+              <div class="fact-item">
+                <div class="fact-num">10–15</div>
+                <div class="fact-desc">минут на установку</div>
+                <div class="fact-note">Python включён</div>
+              </div>
+              <div class="fact-item">
+                <div class="fact-num">4+</div>
+                <div class="fact-desc">IMAP-провайдера поддерживается</div>
+                <div class="fact-note">Яндекс, Gmail, Mail.ru, любой</div>
+              </div>
+              <div class="fact-item">
+                <div class="fact-num">3 ГБ</div>
+                <div class="fact-desc">минимум памяти</div>
+                <div class="fact-note">На Celeron N4020 работает</div>
+              </div>
+              <div class="fact-item">
+                <div class="fact-num">0</div>
+                <div class="fact-desc">облачных сервисов</div>
+                <div class="fact-note">Всё локально на диске</div>
               </div>
             </div>
           </div>
@@ -272,20 +371,20 @@
         <div class="feature-grid">
           <div class="fcard">
             <div class="fcard-icon amber">🔒</div>
-            <h3>Данные не покидают машину</h3>
-            <p>По умолчанию — никаких облаков. SQLite на диске, обработка в памяти, IMAP read-only. Телеметрии нет.</p>
+            <h3>Данные остаются на вашей машине</h3>
+            <p>100% локально: SQLite на вашем диске, обработка в памяти, IMAP read-only. Никаких облаков. Никакой телеметрии.</p>
             <span class="fcard-tag">LOCAL_FIRST</span>
           </div>
           <div class="fcard">
             <div class="fcard-icon teal">💬</div>
-            <h3>Telegram — рабочий интерфейс</h3>
-            <p>Не просто уведомления. Двусторонний канал: меняете приоритет — система учится. Снуз с памятью контекста.</p>
+            <h3>Telegram — полноценный рабочий интерфейс</h3>
+            <p>Двусторонний канал с полной памятью: меняете приоритет в Telegram — система учится. Снуз восстанавливает контекст письма полностью.</p>
             <span class="fcard-tag">TELEGRAM_FIRST_UX</span>
           </div>
           <div class="fcard">
             <div class="fcard-icon green">🧠</div>
-            <h3>Объяснимые приоритеты</h3>
-            <p>Каждое решение — со списком причин: <code>PRIO_INVOICE</code>, <code>PRIO_DEADLINE_1D</code>. Не чёрный ящик.</p>
+            <h3>Полная прозрачность приоритетов</h3>
+            <p>Каждое решение с полным списком причин: <code>PRIO_INVOICE</code>, <code>PRIO_DEADLINE_1D</code>, <code>PRIO_ATTACHMENT_PDF</code>. Полностью объяснимое ядро.</p>
             <span class="fcard-tag">EXPLAINABLE_AI</span>
           </div>
           <div class="fcard">
@@ -302,8 +401,8 @@
           </div>
           <div class="fcard">
             <div class="fcard-icon red">🛡</div>
-            <h3>Честная деградация</h3>
-            <p>Нет LLM? Система переходит в <code>DEGRADED_NO_LLM</code> и продолжает работу. Не молчит.</p>
+            <h3>Честная деградация с сигналами</h3>
+            <p>При недоступности LLM система переходит в <code>DEGRADED_NO_LLM</code> и продолжает отправлять уведомления. Вы сразу узнаёте о статусе.</p>
             <span class="fcard-tag">GRACEFUL_DEGRADATION</span>
           </div>
           <div class="fcard">
@@ -394,6 +493,49 @@
         </div>
         <div style="margin-top:28px">
           <a class="btn btn-amber" href="kak-rabotaet.html">Подробнее →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- VOICE-OPTIMIZED Q&A FOR ALISA/CHATGPT -->
+    <section class="section" style="padding-top:0">
+      <div class="wrap">
+        <p class="section-eyebrow">// голосовые ответы · для Алисы</p>
+        <h2>Быстрые ответы на популярные вопросы</h2>
+        <p class="section-lead">Отвечаем прямо в первом предложении. Дополнительные детали — во втором. Для голосового поиска Яндекс Алиса и ChatGPT.</p>
+        <div class="qa-grid">
+          <div class="qa-card">
+            <div class="qa-q">Что такое LetterBot?</div>
+            <div class="qa-a speakable">LetterBot — бесплатная программа для Windows, которая читает почту с неограниченного числа IMAP-ящиков и отправляет умные уведомления в Telegram. Версия 28.0.0, апрель 2026.</div>
+          </div>
+          <div class="qa-card">
+            <div class="qa-q">Сколько стоит?</div>
+            <div class="qa-a speakable">Бесплатно навсегда. 0 рублей. Нет подписки, нет платных планов, нет скрытых платежей. AGPL-3.0 лицензия.</div>
+          </div>
+          <div class="qa-card">
+            <div class="qa-q">Сколько ящиков можно подключить?</div>
+            <div class="qa-a speakable">Неограниченное количество IMAP-аккаунтов. Каждый маршрутизируется в отдельный Telegram-чат. Дайджесты дедупликируются автоматически.</div>
+          </div>
+          <div class="qa-card">
+            <div class="qa-q">Какие почтовые сервисы поддерживает?</div>
+            <div class="qa-a speakable">Любой IMAP-совместимый: Яндекс.Почта, Gmail, Mail.ru, Exchange, Office 365, Outlook, FastMail, ProtonMail Bridge и другие.</div>
+          </div>
+          <div class="qa-card">
+            <div class="qa-q">Письма уходят куда-то?</div>
+            <div class="qa-a speakable">Нет, обработка полностью локальная. SQLite-база хранится только на вашем диске. Никаких серверов LetterBot не существует. Никаких облаков.</div>
+          </div>
+          <div class="qa-card">
+            <div class="qa-q">Нужен ли OpenAI?</div>
+            <div class="qa-a speakable">Нет. LetterBot работает в детерминированном режиме без OpenAI. GigaChat и Cloudflare Workers AI — опциональные усилители.</div>
+          </div>
+          <div class="qa-card">
+            <div class="qa-q">Сколько времени установка?</div>
+            <div class="qa-a speakable">10–15 минут. Python уже включён в дистрибутив. Распаковать ZIP, заполнить accounts.ini, запустить letterbot.bat.</div>
+          </div>
+          <div class="qa-card">
+            <div class="qa-q">Работает на старом ПК?</div>
+            <div class="qa-a speakable">Да. Протестировано на Intel Celeron N4020 с 3 ГБ RAM. Старый ноутбук идеален для постоянной работы LetterBot.</div>
+          </div>
         </div>
       </div>
     </section>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>FAQ LetterBot — 40+ вопросов о локальности, безопасности, Telegram, установке, приоритетах</title>
-<meta name="description" content="Полный FAQ LetterBot: нужна ли подписка, уходят ли письма в облако, как работают приоритеты, можно ли подключить несколько ящиков, как установить на Windows. Каждый ответ — с первого предложения."/>
+<meta name="description" content="Полный FAQ LetterBot версия 28.0.0: нужна ли подписка (бесплатно), уходят ли письма (нет, локально), установка (10–15 минут), сколько ящиков (неограниченно), OpenAI (не нужен). 40+ вопросов, дата обновления 27 апреля 2026."/>
 <meta name="theme-color" content="#07090f"/>
 <link rel="canonical" href="https://letterbot.ru/faq.html"/>
 <meta property="og:title" content="FAQ LetterBot — 40+ вопросов о локальности, безопасности, Telegram, установке"/>
@@ -18,17 +18,19 @@
 <link rel="manifest" href="site.webmanifest"/>
 <link rel="stylesheet" href="assets/styles.css"/>
 <script src="assets/config.js"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"Что такое LetterBot?","acceptedAnswer":{"@type":"Answer","text":"LetterBot — это бесплатный локальный оператор почты для Windows. Подключается к IMAP-ящикам, определяет важные письма, отправляет короткие уведомления в Telegram. Всё работает на вашем компьютере."}},
-{"@type":"Question","name":"Нужна ли подписка?","acceptedAnswer":{"@type":"Answer","text":"Нет. LetterBot бесплатен навсегда. AGPL-3.0 open source. Без freemium, без платных планов. Поддержка — добровольная через Boosty."}},
-{"@type":"Question","name":"Письма уходят в облако?","acceptedAnswer":{"@type":"Answer","text":"По умолчанию — нет. Вся обработка локальная. SQLite на вашем диске. Никаких серверов LetterBot не существует."}},
-{"@type":"Question","name":"Нужен ли OpenAI или ChatGPT?","acceptedAnswer":{"@type":"Answer","text":"Нет. OpenAI не поддерживается. По умолчанию LetterBot работает в детерминированном режиме без внешних AI. GigaChat и Cloudflare Workers AI — опциональные усилители."}},
-{"@type":"Question","name":"Можно подключить несколько ящиков?","acceptedAnswer":{"@type":"Answer","text":"Да. Неограниченное количество IMAP-аккаунтов с маршрутизацией в разные Telegram-чаты. Дайджесты не дублируются между аккаунтами."}},
-{"@type":"Question","name":"Как работают приоритеты?","acceptedAnswer":{"@type":"Answer","text":"Детерминированный движок Priority v2 анализирует тип письма, сумму, дедлайн, вложение, историю отправителя. Каждое решение содержит список причин — например PRIO_DEADLINE_1D или PRIO_FREQ_SPIKE_3X. Не чёрный ящик."}},
-{"@type":"Question","name":"Что происходит при недоступности LLM?","acceptedAnswer":{"@type":"Answer","text":"LetterBot переходит в DEGRADED_NO_LLM режим и продолжает работу на детерминированном ядре. Вы получаете уведомление. При восстановлении LLM — автоматический выход из режима."}},
-{"@type":"Question","name":"Есть ли web интерфейс?","acceptedAnswer":{"@type":"Answer","text":"Да. Локальный read-only cockpit на http://127.0.0.1:8787 с дашбордом, архивом писем, трейсом решений, health и SLA метриками. Не подключается к интернету."}},
-{"@type":"Question","name":"Как установить LetterBot?","acceptedAnswer":{"@type":"Answer","text":"Скачать ZIP с GitHub Releases. Распаковать. Заполнить accounts.ini (IMAP-данные и токен Telegram-бота). Запустить letterbot.bat. Около 10–15 минут."}},
-{"@type":"Question","name":"Подходит ли для старого компьютера?","acceptedAnswer":{"@type":"Answer","text":"Да. Протестировано на Intel Celeron N4020, 3 ГБ RAM. Старый ноутбук или запасной ПК — отличный вариант для постоянной работы LetterBot."}}
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","dateModified":"2026-04-27","mainEntity":[
+{"@type":"Question","name":"Что такое LetterBot?","acceptedAnswer":{"@type":"Answer","text":"LetterBot версия 28.0.0 — бесплатный (0 ₽) локальный оператор почты для Windows. Подключается к IMAP-ящикам, анализирует приоритеты, отправляет уведомления в Telegram. Всё работает на вашем компьютере, данные не покидают диск."}},
+{"@type":"Question","name":"Сколько стоит LetterBot?","acceptedAnswer":{"@type":"Answer","text":"Бесплатно навсегда. 0 рублей. Нет подписки, нет платных планов, нет скрытых платежей. AGPL-3.0 open source."}},
+{"@type":"Question","name":"Письма уходят в облако?","acceptedAnswer":{"@type":"Answer","text":"Нет. Вся обработка локальная. SQLite база хранится только на вашем диске. Никаких серверов LetterBot не существует. Никаких облаков."}},
+{"@type":"Question","name":"Нужен ли OpenAI или ChatGPT?","acceptedAnswer":{"@type":"Answer","text":"Нет. LetterBot работает в детерминированном режиме без OpenAI. GigaChat и Cloudflare Workers AI — опциональные усилители для анализа."}},
+{"@type":"Question","name":"Сколько IMAP-аккаунтов можно подключить?","acceptedAnswer":{"@type":"Answer","text":"Неограниченное количество. Каждый маршрутизируется в отдельный Telegram-чат. Дайджесты дедупликируются автоматически."}},
+{"@type":"Question","name":"Какие почтовые сервисы поддерживаются?","acceptedAnswer":{"@type":"Answer","text":"Любой IMAP-совместимый: Яндекс.Почта, Gmail, Mail.ru, Exchange, Office 365, Outlook, FastMail, ProtonMail Bridge и другие."}},
+{"@type":"Question","name":"Как работают приоритеты?","acceptedAnswer":{"@type":"Answer","text":"Детерминированный движок Priority v2 анализирует тип письма, сумму, дедлайн, вложение, историю отправителя. Каждое решение содержит полный список причин (PRIO_DEADLINE_1D, PRIO_INVOICE и т.д.). Полностью прозрачное ядро."}},
+{"@type":"Question","name":"Что происходит при недоступности LLM?","acceptedAnswer":{"@type":"Answer","text":"Система переходит в DEGRADED_NO_LLM режим и продолжает работу на детерминированном ядре. Вы получаете уведомление в Telegram. При восстановлении — автоматический выход из режима."}},
+{"@type":"Question","name":"Есть ли web-интерфейс?","acceptedAnswer":{"@type":"Answer","text":"Да. Локальный read-only cockpit на http://127.0.0.1:8787 с дашбордом, архивом писем, трейсом решений, метриками health и SLA. Не подключается к интернету."}},
+{"@type":"Question","name":"Как установить LetterBot?","acceptedAnswer":{"@type":"Answer","text":"Четыре шага: 1) Скачать ZIP с GitHub Releases, 2) Распаковать, 3) Заполнить accounts.ini (IMAP-данные и Telegram-токен), 4) Запустить letterbot.bat. Время: 10–15 минут. Python уже включён."}},
+{"@type":"Question","name":"Подходит ли для старого компьютера?","acceptedAnswer":{"@type":"Answer","text":"Да. Протестировано на Intel Celeron N4020 (2 ядра, 1.1 ГГц) с 3 ГБ RAM. Старый ноутбук или запасной ПК идеален для постоянной работы LetterBot."}},
+{"@type":"Question","name":"Как получить помощь?","acceptedAnswer":{"@type":"Answer","text":"GitHub Issues, Telegram-канал (@letterbot_ru), email master@letterbot.ru, или читайте полный FAQ на этой странице (40+ вопросов с поиском)."}}
 ]}</script>
 </head>
 <body>

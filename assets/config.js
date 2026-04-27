@@ -5,7 +5,7 @@
    ====================================================== */
 window.LB = {
   version:     '28.0.0',
-  updated:     'апрель 2026',
+  updated:     '27 апреля 2026',
   github:      'https://github.com/SergioTheFirst/letterbot',
   releases:    'https://github.com/SergioTheFirst/letterbot/releases/latest',
   issues:      'https://github.com/SergioTheFirst/letterbot/issues',
