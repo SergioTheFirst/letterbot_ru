@@ -1,117 +1,118 @@
-/* LetterBot RU — main.js v3 */
+/* LetterBot RU — main.js v4 · «Тёплый операторский пульт» */
 (function () {
   'use strict';
 
-  /* ── year ── */
-  const yr = document.getElementById('year');
-  if (yr) yr.textContent = new Date().getFullYear();
+  var lb = window.LB || {};
 
-  /* ── fill LB links ── */
-  const lb = window.LB || {};
-  document.querySelectorAll('[data-lb-github]').forEach(el => { el.href = lb.github || '#'; });
-  document.querySelectorAll('[data-lb-releases]').forEach(el => { el.href = lb.releases || '#'; });
-  document.querySelectorAll('[data-lb-telegram]').forEach(el => { el.href = lb.telegram || '#'; });
-  document.querySelectorAll('[data-lb-boosty]').forEach(el => { el.href = lb.boosty || '#'; });
-  document.querySelectorAll('[data-lb-email]').forEach(el => {
+  /* ── год ── */
+  var yr = document.getElementById('year');
+  if (yr) yr.textContent = String(new Date().getFullYear());
+
+  /* ── подстановка ссылок из config.js ── */
+  var links = {
+    github: lb.github,
+    releases: lb.releases,
+    issues: lb.issues,
+    telegram: lb.telegram,
+    boosty: lb.boosty,
+    cloudtips: lb.cloudtips,
+    changelog: lb.changelog,
+    en: lb.siteEn
+  };
+  Object.keys(links).forEach(function (key) {
+    if (!links[key]) return;
+    var attr = key === 'en' ? 'data-lb-en' : 'data-lb-' + key;
+    document.querySelectorAll('[' + attr + ']').forEach(function (el) {
+      el.href = links[key];
+      el.target = '_blank';
+      el.rel = 'noopener';
+    });
+  });
+  document.querySelectorAll('[data-lb-email]').forEach(function (el) {
     el.href = 'mailto:' + (lb.email || '');
     el.textContent = lb.email || '';
   });
-  document.querySelectorAll('[data-lb-ver]').forEach(el => { el.textContent = lb.version || ''; });
-  document.querySelectorAll('[data-lb-updated]').forEach(el => { el.textContent = lb.updated || ''; });
-  document.querySelectorAll('[data-lb-en]').forEach(el => { el.href = lb.siteEn || '#'; });
+  document.querySelectorAll('[data-lb-ver]').forEach(function (el) {
+    el.textContent = 'v' + (lb.version || '');
+  });
+  document.querySelectorAll('[data-lb-updated]').forEach(function (el) {
+    el.textContent = lb.updated || '';
+  });
 
-  /* ── mobile nav ── */
-  const mobBtn = document.getElementById('mob-toggle');
-  const mobNav = document.getElementById('mob-nav');
-  if (mobBtn && mobNav) {
-    mobBtn.addEventListener('click', () => {
-      const open = mobNav.classList.toggle('open');
-      mobBtn.setAttribute('aria-expanded', String(open));
+  /* ── мобильное меню ── */
+  var burger = document.getElementById('nav-burger');
+  var nav = document.getElementById('site-nav');
+  if (burger && nav) {
+    function setNav(open) {
+      document.body.classList.toggle('nav-open', open);
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    }
+    burger.addEventListener('click', function () {
+      setNav(document.body.classList.contains('nav-open') === false);
+    });
+    nav.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setNav(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setNav(false);
     });
   }
 
-  /* ── faq accordion ── */
-  document.querySelectorAll('.faq-item').forEach(item => {
-    const q = item.querySelector('.faq-q');
-    if (!q) return;
-    q.addEventListener('click', () => {
-      const wasOpen = item.classList.contains('open');
-      // close all in same group
-      item.closest('.faq-list, .faq-group, main')
-        .querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-      if (!wasOpen) item.classList.add('open');
-    });
-  });
-  // open first item on faq page
-  const firstFaq = document.querySelector('.faq-item');
-  if (firstFaq && document.querySelector('#faq-search')) firstFaq.classList.add('open');
+  /* ── hero: конвейер (одноразовая анимация при загрузке) ── */
+  var pipeline = document.getElementById('pipeline');
+  if (pipeline && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    pipeline.classList.add('anim');
+  }
 
-  /* ── faq search ── */
-  const searchInput = document.getElementById('faq-search');
+  /* ── FAQ: поиск (страница faq.html) ── */
+  var searchInput = document.getElementById('faq-search');
   if (searchInput) {
-    const items = document.querySelectorAll('.faq-item[data-faq]');
-    const sectionLabels = document.querySelectorAll('.faq-section-label[data-section]');
-    const empty = document.getElementById('faq-empty');
+    var items = document.querySelectorAll('.faq-item');
+    var sectionLabels = document.querySelectorAll('.faq-section-label');
+    var empty = document.getElementById('faq-empty');
 
+    function escapeReg(s) {
+      return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
     function highlight(text, term) {
       if (!term) return text;
-      const re = new RegExp('(' + term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+      var re = new RegExp('(' + escapeReg(term) + ')', 'gi');
       return text.replace(re, '<mark class="faq-match">$1</mark>');
     }
-
     function doSearch(val) {
-      const q = val.trim().toLowerCase();
-      let visible = 0;
-      items.forEach(item => {
-        const qText = item.querySelector('.faq-q') ? item.querySelector('.faq-q').textContent.toLowerCase() : '';
-        const bText = item.querySelector('.faq-body') ? item.querySelector('.faq-body').textContent.toLowerCase() : '';
-        const match = !q || qText.includes(q) || bText.includes(q);
+      var q = val.trim().toLowerCase();
+      var visible = 0;
+      items.forEach(function (item) {
+        var qEl = item.querySelector('.faq-q-text');
+        var bEl = item.querySelector('.faq-body-text');
+        var qText = qEl ? qEl.textContent.toLowerCase() : '';
+        var bText = bEl ? bEl.textContent.toLowerCase() : '';
+        var match = !q || qText.indexOf(q) !== -1 || bText.indexOf(q) !== -1;
         item.toggleAttribute('data-hidden', !match);
-        if (match) {
-          visible++;
-          // highlight
-          const ql = item.querySelector('.faq-q-text');
-          const bl = item.querySelector('.faq-body-text');
-          if (ql) ql.innerHTML = highlight(ql.dataset.orig || ql.textContent, q);
-          if (bl) bl.innerHTML = highlight(bl.dataset.orig || bl.textContent, q);
-          if (q) item.classList.add('open');
-        }
+        if (!match) return;
+        visible++;
+        if (qEl && qEl.dataset.orig) qEl.innerHTML = highlight(qEl.dataset.orig, q);
+        if (bEl && bEl.dataset.orig) bEl.innerHTML = highlight(bEl.dataset.orig, q);
+        if (q && item.tagName === 'DETAILS') item.open = true;
       });
-      // hide empty section labels
-      if (sectionLabels.length) {
-        sectionLabels.forEach(lbl => {
-          const sec = lbl.dataset.section;
-          const anyVisible = [...items].some(i =>
-            i.dataset.sec === sec && !i.hasAttribute('data-hidden')
-          );
-          lbl.style.display = anyVisible ? '' : 'none';
+      sectionLabels.forEach(function (lbl) {
+        var sec = lbl.dataset.section;
+        var anyVisible = Array.prototype.some.call(items, function (i) {
+          return i.dataset.sec === sec && !i.hasAttribute('data-hidden');
         });
-      }
+        lbl.style.display = anyVisible ? '' : 'none';
+      });
       if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
     }
-
-    searchInput.addEventListener('input', e => doSearch(e.target.value));
-    searchInput.addEventListener('search', e => doSearch(e.target.value));
+    searchInput.addEventListener('input', function (e) { doSearch(e.target.value); });
+    searchInput.addEventListener('search', function (e) { doSearch(e.target.value); });
   }
 
-  /* ── smooth in on scroll (IntersectionObserver) ── */
-  if ('IntersectionObserver' in window) {
-    const fadeEls = document.querySelectorAll('.fcard, .arch-card, .metric-box, .faq-item');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.style.opacity = '1';
-          e.target.style.transform = 'translateY(0)';
-          obs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.08 });
-    fadeEls.forEach(el => {
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(16px)';
-      el.style.transition = 'opacity .4s ease, transform .4s ease';
-      obs.observe(el);
-    });
+  /* ── параметр ?q= для поиска на странице FAQ ── */
+  var m = /[?&]q=([^&]+)/.exec(location.search);
+  if (m && searchInput) {
+    searchInput.value = decodeURIComponent(m[1].replace(/\+/g, ' '));
+    doSearch(searchInput.value);
   }
-
 })();

@@ -1,355 +1,328 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>FAQ LetterBot — 40+ вопросов о локальности, безопасности, Telegram, установке, приоритетах</title>
-<meta name="description" content="Полный FAQ LetterBot: нужна ли подписка, уходят ли письма в облако, как работают приоритеты, можно ли подключить несколько ящиков, как установить на Windows. Каждый ответ — с первого предложения."/>
-<meta name="theme-color" content="#07090f"/>
-<link rel="canonical" href="https://letterbot.ru/faq.html"/>
-<meta property="og:title" content="FAQ LetterBot — 40+ вопросов о локальности, безопасности, Telegram, установке"/>
-<meta property="og:description" content="Полный FAQ LetterBot: нужна ли подписка, уходят ли письма в облако, как работают приоритеты, можно ли подключить несколько ящиков."/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="https://letterbot.ru/faq.html"/>
-<meta property="og:image" content="https://letterbot.ru/assets/og.png"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<link rel="alternate" hreflang="en" href="https://sergiothefirst.github.io/letterbot/faq.html"/>
-<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
-<link rel="manifest" href="site.webmanifest"/>
-<link rel="stylesheet" href="assets/styles.css"/>
-<script src="assets/config.js"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"Что такое LetterBot?","acceptedAnswer":{"@type":"Answer","text":"LetterBot — это бесплатный локальный оператор почты для Windows. Подключается к IMAP-ящикам, определяет важные письма, отправляет короткие уведомления в Telegram. Всё работает на вашем компьютере."}},
-{"@type":"Question","name":"Нужна ли подписка?","acceptedAnswer":{"@type":"Answer","text":"Нет. LetterBot бесплатен навсегда. AGPL-3.0 open source. Без freemium, без платных планов. Поддержка — добровольная через Boosty."}},
-{"@type":"Question","name":"Письма уходят в облако?","acceptedAnswer":{"@type":"Answer","text":"По умолчанию — нет. Вся обработка локальная. SQLite на вашем диске. Никаких серверов LetterBot не существует."}},
-{"@type":"Question","name":"Нужен ли OpenAI или ChatGPT?","acceptedAnswer":{"@type":"Answer","text":"Нет. OpenAI не поддерживается. По умолчанию LetterBot работает в детерминированном режиме без внешних AI. GigaChat и Cloudflare Workers AI — опциональные усилители."}},
-{"@type":"Question","name":"Можно подключить несколько ящиков?","acceptedAnswer":{"@type":"Answer","text":"Да. Неограниченное количество IMAP-аккаунтов с маршрутизацией в разные Telegram-чаты. Дайджесты не дублируются между аккаунтами."}},
-{"@type":"Question","name":"Как работают приоритеты?","acceptedAnswer":{"@type":"Answer","text":"Детерминированный движок Priority v2 анализирует тип письма, сумму, дедлайн, вложение, историю отправителя. Каждое решение содержит список причин — например PRIO_DEADLINE_1D или PRIO_FREQ_SPIKE_3X. Не чёрный ящик."}},
-{"@type":"Question","name":"Что происходит при недоступности LLM?","acceptedAnswer":{"@type":"Answer","text":"LetterBot переходит в DEGRADED_NO_LLM режим и продолжает работу на детерминированном ядре. Вы получаете уведомление. При восстановлении LLM — автоматический выход из режима."}},
-{"@type":"Question","name":"Есть ли web интерфейс?","acceptedAnswer":{"@type":"Answer","text":"Да. Локальный read-only cockpit на http://127.0.0.1:8787 с дашбордом, архивом писем, трейсом решений, health и SLA метриками. Не подключается к интернету."}},
-{"@type":"Question","name":"Как установить LetterBot?","acceptedAnswer":{"@type":"Answer","text":"Скачать ZIP с GitHub Releases. Распаковать. Заполнить accounts.ini (IMAP-данные и токен Telegram-бота). Запустить letterbot.bat. Около 10–15 минут."}},
-{"@type":"Question","name":"Подходит ли для старого компьютера?","acceptedAnswer":{"@type":"Answer","text":"Да. Протестировано на Intel Celeron N4020, 3 ГБ RAM. Старый ноутбук или запасной ПК — отличный вариант для постоянной работы LetterBot."}}
-]}</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>FAQ LetterBot — 37 вопросов о локальности, безопасности, Telegram, установке, приоритетах</title>
+  <meta name="description" content="Полный FAQ LetterBot версия 28.0.0: нужна ли подписка (бесплатно), уходят ли письма (нет, локально), установка (10–15 минут), сколько ящиков (неограниченно), OpenAI (не нужен). 37 вопросов, дата обновления 27 апреля 2026.">
+  <meta name="theme-color" content="#F6F3EC">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="LetterBot">
+  <link rel="canonical" href="https://letterbot.ru/faq.html">
+
+  <meta property="og:title" content="FAQ LetterBot — 37 вопросов о локальности, безопасности, Telegram, установке">
+  <meta property="og:description" content="Полный FAQ LetterBot: нужна ли подписка, уходят ли письма в облако, как работают приоритеты, можно ли подключить несколько ящиков.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://letterbot.ru/faq.html">
+  <meta property="og:image" content="https://letterbot.ru/assets/og.png">
+  <meta property="og:locale" content="ru_RU">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FAQ LetterBot">
+  <meta name="twitter:description" content="37 вопросов о локальности, безопасности, установке и приоритетах.">
+  <meta name="twitter:image" content="https://letterbot.ru/assets/og.png">
+
+  <link rel="alternate" hreflang="en" href="https://sergiothefirst.github.io/letterbot/faq.html">
+  <link rel="alternate" hreflang="ru" href="https://letterbot.ru/faq.html">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/config.js"></script>
+
+  <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "dateModified": "2026-04-27",
+  "mainEntity": [
+    {"@type": "Question", "name": "Что такое LetterBot?", "acceptedAnswer": {"@type": "Answer", "text": "LetterBot версия 28.0.0 — бесплатный (0 ₽) локальный оператор почты для Windows. Подключается к вашим IMAP-ящикам, анализирует входящие письма, определяет приоритет и предложенное действие, отправляет короткое уведомление в Telegram. Всё работает на вашем компьютере — без серверов LetterBot."}},
+    {"@type": "Question", "name": "Сколько стоит LetterBot?", "acceptedAnswer": {"@type": "Answer", "text": "Бесплатно навсегда. 0 рублей. AGPL-3.0 open source. Без freemium, без платных планов, без триала. Разработка поддерживается добровольными донатами."}},
+    {"@type": "Question", "name": "Письма уходят в облако?", "acceptedAnswer": {"@type": "Answer", "text": "По умолчанию — нет. LetterBot читает письма через IMAP с вашего почтового сервера, обрабатывает их локально и хранит метаданные в SQLite на вашем диске. Никаких серверов LetterBot не существует."}},
+    {"@type": "Question", "name": "Нужен ли OpenAI или ChatGPT?", "acceptedAnswer": {"@type": "Answer", "text": "Нет. OpenAI не поддерживается. По умолчанию LetterBot работает в детерминированном режиме без внешних AI. Опциональные провайдеры — GigaChat (Сбер) и Cloudflare Workers AI."}},
+    {"@type": "Question", "name": "Сколько IMAP-аккаунтов можно подключить?", "acceptedAnswer": {"@type": "Answer", "text": "Неограниченное количество. Каждый маршрутизируется в отдельный Telegram-чат. Дайджесты не дублируются между аккаунтами."}},
+    {"@type": "Question", "name": "Какие почтовые сервисы поддерживаются?", "acceptedAnswer": {"@type": "Answer", "text": "Любой IMAP-совместимый ящик: Яндекс.Почта (imap.yandex.ru), Mail.ru (imap.mail.ru), Gmail (imap.gmail.com с паролем приложения), корпоративный Exchange/Office 365, Outlook, FastMail, ProtonMail Bridge."}},
+    {"@type": "Question", "name": "Как работают приоритеты?", "acceptedAnswer": {"@type": "Answer", "text": "Детерминированный движок Priority v2: анализирует историю отправителя, тип письма (INVOICE, CONTRACT, SECURITY_ALERT…), ключевые слова дедлайна, тип вложения и частотные аномалии. Результат: Срочно / Важно / Низкий. Каждое решение содержит код причины — например PRIO_INVOICE или PRIO_DEADLINE_1D."}},
+    {"@type": "Question", "name": "Что происходит при недоступности LLM?", "acceptedAnswer": {"@type": "Answer", "text": "Система переходит в DEGRADED_NO_LLM режим и продолжает отправлять базовые уведомления на основе детерминированного анализа. Вы получаете Telegram-уведомление о деградации. При восстановлении LLM режим возобновляется автоматически."}},
+    {"@type": "Question", "name": "Есть ли web-интерфейс?", "acceptedAnswer": {"@type": "Answer", "text": "Да. Read-only observability cockpit на http://127.0.0.1:8787: дашборд, архив писем, трейс решений, состояние системы, SLA-метрики доставки, аналитика отправителей. Не подключается к интернету."}},
+    {"@type": "Question", "name": "Как установить LetterBot?", "acceptedAnswer": {"@type": "Answer", "text": "Четыре шага: 1) Скачать ZIP с GitHub Releases, 2) Распаковать, 3) Заполнить accounts.ini (IMAP-данные и Telegram-токен), 4) Запустить letterbot.bat. Время: 10–15 минут. Python уже включён."}},
+    {"@type": "Question", "name": "Подходит ли для старого компьютера?", "acceptedAnswer": {"@type": "Answer", "text": "Да — это один из лучших сценариев. Протестировано на Intel Celeron N4020 (2 ядра, 1.1 ГГц) с 3 ГБ RAM. Старый ноутбук — отличный выделенный локальный почтовый ассистент."}},
+    {"@type": "Question", "name": "Как получить помощь?", "acceptedAnswer": {"@type": "Answer", "text": "GitHub Issues, Telegram-канал (@letterbot_ru) или email mss777@mail.ru."}}
+  ]
+}</script>
 </head>
 <body>
-<a class="skip-link" href="#content">Перейти к содержимому</a>
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
 
-<nav class="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="index.html">
-      <div class="brand-icon">✉</div>
-      <span>LetterBot<span class="brand-tag">приватный оператор почты</span></span>
-    </a>
-    <div class="nav-links">
-      <a href="index.html">Главная</a>
-      <a href="vozmozhnosti.html">Возможности</a>
-      <a href="bezopasnost.html">Безопасность</a>
-      <a href="kak-rabotaet.html">Как работает</a>
-      <a href="komu-podhodit.html">Кому подходит</a>
-      <a href="dlya-inzhenerov.html">Для инженеров</a>
-      <a href="faq.html" aria-current="page">FAQ</a>
-      <a href="podderzhka.html">Поддержать</a>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html" aria-label="LetterBot — на главную">
+        <span class="logo-mark" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 8.2 21 3l-5.2 18-3.9-7.3L3 8.2Z" fill="currentColor"/></svg>
+        </span>
+        <span class="logo-name">LetterBot</span>
+        <span class="logo-ver mono" data-lb-ver>v28.0.0</span>
+      </a>
+
+      <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="vozmozhnosti.html">Возможности</a></li>
+          <li><a href="kak-rabotaet.html">Как работает</a></li>
+          <li><a href="bezopasnost.html">Безопасность</a></li>
+          <li><a href="faq.html" aria-current="page">FAQ</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a class="btn btn-secondary btn-sm" href="#" data-lb-en title="English version">EN</a>
+          <a class="btn btn-primary btn-sm" href="#" data-lb-releases>Скачать бесплатно</a>
+        </div>
+      </nav>
+
+      <button class="nav-burger" id="nav-burger" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <div class="nav-end">
-      <a class="btn btn-outline btn-sm" href="#" data-lb-github>GitHub</a>
-      <a class="btn btn-amber btn-sm" href="#" data-lb-releases>⬇ Скачать</a>
-    </div>
-    <button class="mob-btn" id="mob-toggle" aria-expanded="false" aria-label="Меню">☰</button>
-  </div>
-  <div class="mob-nav" id="mob-nav">
-    <a href="index.html">Главная</a>
-    <a href="faq.html" aria-current="page">FAQ</a>
-    <a href="dlya-inzhenerov.html">Для инженеров</a>
-    <a href="podderzhka.html">Поддержать</a>
-  </div>
-</nav>
+  </header>
 
-<main id="content">
-<section class="page-hero">
-  <div class="wrap">
-    <p class="eyebrow">// прямые ответы · 40+ вопросов · без воды</p>
-    <h1>Часто задаваемые вопросы</h1>
-    <p>Каждый ответ начинается с прямого ответа — в первом предложении. Доказательство — сразу после. Не нашли свой вопрос? Напишите на <a href="mailto:master@letterbot.ru">master@letterbot.ru</a></p>
-  </div>
-</section>
-
-<section class="section" style="padding-top:32px">
-  <div class="wrap">
-
-    <!-- SEARCH -->
-    <div class="faq-search-wrap">
-      <input id="faq-search" type="search" placeholder="Поиск: подписка, OpenAI, несколько ящиков, приоритет, Telegram…" autocomplete="off" aria-label="Поиск по FAQ"/>
-      <a class="btn btn-amber btn-sm" href="#" data-lb-releases>⬇ Скачать</a>
-    </div>
-    <div id="faq-empty">Ничего не найдено. Попробуйте другой запрос или напишите на <a href="mailto:master@letterbot.ru">master@letterbot.ru</a></div>
-
-    <div class="faq-list">
-
-      <!-- SECTION: О ПРОДУКТЕ -->
-      <div class="faq-section-label" data-section="about">О продукте</div>
-
-      <div class="faq-item" data-faq data-sec="about">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Что такое LetterBot?">Что такое LetterBot?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">LetterBot — это бесплатный локальный оператор почты для Windows. Подключается к вашим IMAP-ящикам, анализирует входящие письма, определяет приоритет и предложенное действие, отправляет короткое уведомление в Telegram. Всё работает на вашем компьютере — без серверов LetterBot.</div>
+  <main id="main">
+    <section class="hero">
+      <div class="container narrow">
+        <p class="eyebrow">[INFO] // прямые ответы · 37 вопросов · без воды</p>
+        <h1>Часто задаваемые вопросы</h1>
+        <p class="lead mt-16">Каждый ответ начинается с&nbsp;прямого ответа — в&nbsp;первом предложении. Доказательство — сразу после. Не&nbsp;нашли свой вопрос? Напишите на&nbsp;<a href="#" data-lb-email>mss777@mail.ru</a></p>
       </div>
+    </section>
 
-      <div class="faq-item" data-faq data-sec="about">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Это ещё один почтовый клиент?">Это ещё один почтовый клиент?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Нет. LetterBot не заменяет ваш почтовый клиент. Он добавляет поверх него слой умного triage: отбирает только то, что требует действия, и сигнализирует в Telegram. Ваш inbox остаётся как есть — LetterBot работает в IMAP read-only режиме.</div>
-      </div>
+    <section class="section -tight">
+      <div class="container narrow">
+        <div class="faq-search-row">
+          <input id="faq-search" class="faq-search-input" type="search" aria-label="Поиск по вопросам" placeholder="Поиск: подписка, OpenAI, несколько ящиков, приоритет, Telegram…">
+          <a class="btn btn-secondary btn-sm" href="#" data-lb-releases>Скачать</a>
+        </div>
+        <p id="faq-empty" class="faq-empty" role="status" aria-live="polite" hidden>Ничего не&nbsp;найдено. Попробуйте другой запрос или напишите на&nbsp;<a href="#" data-lb-email>mss777@mail.ru</a></p>
 
-      <div class="faq-item" data-faq data-sec="about">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Чем LetterBot отличается от Superhuman и Gmail AI?">Чем LetterBot отличается от Superhuman и Gmail AI?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Superhuman и Gmail AI — облачные сервисы: ваша почта обрабатывается на их серверах. LetterBot обрабатывает всё локально. Кроме того: LetterBot бесплатен, open source, использует Telegram как рабочий интерфейс и не требует OpenAI. Такого сочетания нигде больше нет при нулевой стоимости.</div>
-      </div>
+        <h2 class="faq-section-label" data-section="about" >О продукте</h2>
+        <details class="acc faq-item" data-faq data-sec="about">
+          <summary><span class="faq-q-text" data-orig="Что такое LetterBot?">Что такое LetterBot?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="LetterBot — это бесплатный локальный оператор почты для Windows. Подключается к вашим IMAP-ящикам, анализирует входящие письма, определяет приоритет и предложенное действие, отправляет короткое уведомление в Telegram. Всё работает на вашем компьютере — без серверов LetterBot.">LetterBot — это бесплатный локальный оператор почты для Windows. Подключается к&nbsp;вашим IMAP-ящикам, анализирует входящие письма, определяет приоритет и&nbsp;предложенное действие, отправляет короткое уведомление в&nbsp;Telegram. Всё работает на&nbsp;вашем компьютере — без серверов LetterBot.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="about">
+          <summary><span class="faq-q-text" data-orig="Это ещё один почтовый клиент?">Это ещё один почтовый клиент?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Нет. LetterBot не заменяет ваш почтовый клиент. Он добавляет поверх него слой умного triage: отбирает только то, что требует действия, и сигнализирует в Telegram. Ваш inbox остаётся как есть — LetterBot работает в IMAP read-only режиме.">Нет. LetterBot не&nbsp;заменяет ваш почтовый клиент. Он&nbsp;добавляет поверх него слой умного triage: отбирает только то, что требует действия, и&nbsp;сигнализирует в&nbsp;Telegram. Ваш inbox остаётся как есть — LetterBot работает в&nbsp;IMAP read-only режиме.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="about">
+          <summary><span class="faq-q-text" data-orig="Чем LetterBot отличается от Superhuman и Gmail AI?">Чем LetterBot отличается от&nbsp;Superhuman и&nbsp;Gmail AI?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Superhuman и Gmail AI — облачные сервисы: ваша почта обрабатывается на их серверах. LetterBot обрабатывает всё локально. Кроме того: LetterBot бесплатен, open source, использует Telegram как рабочий интерфейс и не требует OpenAI. Такого сочетания нигде больше нет при нулевой стоимости.">Superhuman и&nbsp;Gmail AI — облачные сервисы: ваша почта обрабатывается на&nbsp;их&nbsp;серверах. LetterBot обрабатывает всё локально. Кроме того: LetterBot бесплатен, open source, использует Telegram как рабочий интерфейс и&nbsp;не&nbsp;требует OpenAI. Такого сочетания нигде больше нет при нулевой стоимости.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="about">
+          <summary><span class="faq-q-text" data-orig="LetterBot — это продакшн-готовый продукт?">LetterBot — это продакшн-готовый продукт?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Да, для личного и малого бизнеса. Внутри — health checks, retry/backoff, SLA-метрики, graceful degradation, event model и observability cockpit. Не подходит для enterprise (SAML/SSO, compliance-сертификации, централизованного управления).">Да, для личного и&nbsp;малого бизнеса. Внутри — health checks, retry/backoff, SLA-метрики, graceful degradation, event model и&nbsp;observability cockpit. Не&nbsp;подходит для enterprise (SAML/SSO, compliance-сертификации, централизованного управления).</p></div>
+        </details>
 
-      <div class="faq-item" data-faq data-sec="about">
-        <div class="faq-q"><span class="faq-q-text" data-orig="LetterBot — это продакшн-готовый продукт?">LetterBot — это продакшн-готовый продукт?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Да, для личного и малого бизнеса. Внутри — health checks, retry/backoff, SLA-метрики, graceful degradation, event model и observability cockpit. Не подходит для enterprise (SAML/SSO, compliance-сертификации, централизованного управления).</div>
-      </div>
+        <h2 class="faq-section-label" data-section="privacy" >Приватность и&nbsp;данные</h2>
+        <details class="acc faq-item" data-faq data-sec="privacy">
+          <summary><span class="faq-q-text" data-orig="Письма уходят в облако?">Письма уходят в&nbsp;облако?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="По умолчанию — нет. LetterBot читает письма через IMAP с вашего почтового сервера, обрабатывает их локально и хранит метаданные в SQLite на вашем диске. Никаких серверов LetterBot не существует — некуда передавать данные.">По&nbsp;умолчанию — нет. LetterBot читает письма через IMAP с&nbsp;вашего почтового сервера, обрабатывает их&nbsp;локально и&nbsp;хранит метаданные в&nbsp;SQLite на&nbsp;вашем диске. Никаких серверов LetterBot не&nbsp;существует — некуда передавать данные.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="privacy">
+          <summary><span class="faq-q-text" data-orig="Нужен ли OpenAI или ChatGPT?">Нужен ли OpenAI или ChatGPT?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Нет. OpenAI не поддерживается. По умолчанию LetterBot работает в детерминированном режиме без внешних AI. Опциональные провайдеры — GigaChat (Сбер) и Cloudflare Workers AI. Их подключение необязательно и не меняет базовую полезность.">Нет. OpenAI не&nbsp;поддерживается. По&nbsp;умолчанию LetterBot работает в&nbsp;детерминированном режиме без внешних AI. Опциональные провайдеры — GigaChat (Сбер) и&nbsp;Cloudflare Workers AI. Их&nbsp;подключение необязательно и&nbsp;не&nbsp;меняет базовую полезность.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="privacy">
+          <summary><span class="faq-q-text" data-orig="Если я включу LLM — что именно отправляется?">Если я&nbsp;включу LLM — что именно отправляется?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Только текст тела письма (минимальный контекст для классификации). Содержимое вложений, полный raw email, адресная книга и история — не передаются. Вы сами контролируете, какой провайдер обрабатывает этот запрос по своей политике приватности.">Только текст тела письма (минимальный контекст для классификации). Содержимое вложений, полный raw email, адресная книга и&nbsp;история — не&nbsp;передаются. Вы&nbsp;сами контролируете, какой провайдер обрабатывает этот запрос по&nbsp;своей политике приватности.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="privacy">
+          <summary><span class="faq-q-text" data-orig="Что хранится в локальной SQLite?">Что хранится в&nbsp;локальной SQLite?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Метаданные: отправитель, тема, дата, тип письма, приоритет, источник приоритета, извлечённые сущности, состояние снуза, аналитика. Полные тела писем и содержимое вложений обрабатываются в памяти и не сохраняются.">Метаданные: отправитель, тема, дата, тип письма, приоритет, источник приоритета, извлечённые сущности, состояние снуза, аналитика. Полные тела писем и&nbsp;содержимое вложений обрабатываются в&nbsp;памяти и&nbsp;не&nbsp;сохраняются.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="privacy">
+          <summary><span class="faq-q-text" data-orig="Есть ли телеметрия?">Есть ли телеметрия?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Нет. Нулевая телеметрия. Единственные внешние соединения: ваш IMAP-сервер, Telegram Bot API и выбранный LLM-провайдер (если настроен). Проверить можно в исходном коде на GitHub.">Нет. Нулевая телеметрия. Единственные внешние соединения: ваш IMAP-сервер, Telegram Bot API и&nbsp;выбранный LLM-провайдер (если настроен). Проверить можно в&nbsp;исходном коде на&nbsp;GitHub.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="privacy">
+          <summary><span class="faq-q-text" data-orig="Как удалить все данные LetterBot?">Как удалить все данные LetterBot?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Удалите файл data/mailbot.sqlite или весь каталог проекта. Никаких облачных бэкапов, никаких запросов на удаление аккаунта — всё на вашей машине.">Удалите файл data/mailbot.sqlite или весь каталог проекта. Никаких облачных бэкапов, никаких запросов на&nbsp;удаление аккаунта — всё на&nbsp;вашей машине.</p></div>
+        </details>
 
-      <!-- SECTION: ПРИВАТНОСТЬ И ДАННЫЕ -->
-      <div class="faq-section-label" data-section="privacy">Приватность и данные</div>
+        <h2 class="faq-section-label" data-section="tech" >Технические вопросы</h2>
+        <details class="acc faq-item" data-faq data-sec="tech">
+          <summary><span class="faq-q-text" data-orig="Какие почтовые провайдеры поддерживаются?">Какие почтовые провайдеры поддерживаются?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Любой IMAP-совместимый ящик: Яндекс.Почта (imap.yandex.ru), Mail.ru (imap.mail.ru), Gmail (imap.gmail.com с паролем приложения), корпоративный Exchange/Office 365, Outlook, FastMail, ProtonMail Bridge и любой другой IMAP-сервер.">Любой IMAP-совместимый ящик: Яндекс.Почта (imap.yandex.ru), Mail.ru (imap.mail.ru), Gmail (imap.gmail.com с&nbsp;паролем приложения), корпоративный Exchange/Office&nbsp;365, Outlook, FastMail, ProtonMail Bridge и&nbsp;любой другой IMAP-сервер.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="tech">
+          <summary><span class="faq-q-text" data-orig="Можно подключить несколько ящиков?">Можно подключить несколько ящиков?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Да. Неограниченное количество IMAP-аккаунтов. Каждый маршрутизируется в отдельный Telegram-чат — рабочая почта в один чат, личная в другой, серверные алерты в отдельный канал. Дайджесты не дублируются между аккаунтами.">Да. Неограниченное количество IMAP-аккаунтов. Каждый маршрутизируется в&nbsp;отдельный Telegram-чат — рабочая почта в&nbsp;один чат, личная в&nbsp;другой, серверные алерты в&nbsp;отдельный канал. Дайджесты не&nbsp;дублируются между аккаунтами.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="tech">
+          <summary><span class="faq-q-text" data-orig="LetterBot модифицирует или удаляет письма?">LetterBot модифицирует или удаляет письма?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Нет. LetterBot подключается в IMAP read-only режиме. Он никогда не удаляет, не перемещает, не помечает и не изменяет ни одного письма. Ваш inbox остаётся в точности как был.">Нет. LetterBot подключается в&nbsp;IMAP read-only режиме. Он&nbsp;никогда не&nbsp;удаляет, не&nbsp;перемещает, не&nbsp;помечает и&nbsp;не&nbsp;изменяет ни&nbsp;одного письма. Ваш inbox остаётся в&nbsp;точности как был.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="tech">
+          <summary><span class="faq-q-text" data-orig="Подходит ли для старого компьютера?">Подходит ли для старого компьютера?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Да — это один из лучших сценариев. Протестировано на Intel Celeron N4020 (2 ядра, 1.1 ГГц) с 3 ГБ RAM. Старый ноутбук или запасной десктоп — отличный выделенный локальный почтовый ассистент.">Да — это один из&nbsp;лучших сценариев. Протестировано на&nbsp;Intel Celeron N4020 (2&nbsp;ядра, 1.1&nbsp;ГГц) с&nbsp;3&nbsp;ГБ RAM. Старый ноутбук или запасной десктоп — отличный выделенный локальный почтовый ассистент.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="tech">
+          <summary><span class="faq-q-text" data-orig="Есть ли локальный web-интерфейс?">Есть ли локальный web-интерфейс?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Да. Read-only observability cockpit на http://127.0.0.1:8787. Доступные маршруты: дашборд, архив писем, трейс AI-решений с кодами причин, состояние системы, SLA-метрики доставки (p90 latency, delivery rate, error rate), аналитика отправителей. Не подключается к интернету.">Да. Read-only observability cockpit на&nbsp;http://127.0.0.1:8787. Доступные маршруты: дашборд, архив писем, трейс AI-решений с&nbsp;кодами причин, состояние системы, SLA-метрики доставки (p90 latency, delivery rate, error rate), аналитика отправителей. Не&nbsp;подключается к&nbsp;интернету.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="tech">
+          <summary><span class="faq-q-text" data-orig="LetterBot читает PDF и Excel?">LetterBot читает PDF и&nbsp;Excel?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Да. Извлекает текст из PDF и Excel (.xlsx) без Microsoft Office. Содержимое вложений участвует в расчёте приоритета — счёт в PDF может автоматически получить Срочный приоритет.">Да. Извлекает текст из&nbsp;PDF и&nbsp;Excel (.xlsx) без Microsoft Office. Содержимое вложений участвует в&nbsp;расчёте приоритета — счёт в&nbsp;PDF может автоматически получить Срочный приоритет.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="tech">
+          <summary><span class="faq-q-text" data-orig="Что происходит при отключении интернета?">Что происходит при отключении интернета?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="LetterBot не может синхронизировать IMAP и доставлять Telegram-уведомления без интернета. Но он не падает — автоматически повторяет попытку при следующем опросе. Все локальные данные сохраняются.">LetterBot не&nbsp;может синхронизировать IMAP и&nbsp;доставлять Telegram-уведомления без интернета. Но&nbsp;он&nbsp;не&nbsp;падает — автоматически повторяет попытку при следующем опросе. Все локальные данные сохраняются.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="tech">
+          <summary><span class="faq-q-text" data-orig="Что происходит при недоступности LLM?">Что происходит при недоступности LLM?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="LetterBot автоматически переходит в DEGRADED_NO_LLM режим и продолжает отправлять базовые уведомления на основе детерминированного анализа. Вы получаете Telegram-уведомление о деградации. При восстановлении LLM — нормальный режим возобновляется автоматически.">LetterBot автоматически переходит в&nbsp;DEGRADED_NO_LLM режим и&nbsp;продолжает отправлять базовые уведомления на&nbsp;основе детерминированного анализа. Вы&nbsp;получаете Telegram-уведомление о&nbsp;деградации. При восстановлении LLM — нормальный режим возобновляется автоматически.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="tech">
+          <summary><span class="faq-q-text" data-orig="Работает ли на Raspberry Pi или Linux?">Работает ли на&nbsp;Raspberry Pi или Linux?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Официально — только Windows 10/11. Технически возможно на Linux/Pi при наличии Python 3.10+. Пользователи сообщают об успехе на Pi 4 с 4 ГБ RAM. Поддержки нет — но можно открыть issue на GitHub.">Официально — только Windows 10/11. Технически возможно на&nbsp;Linux/Pi при наличии Python 3.10+. Пользователи сообщают об&nbsp;успехе на&nbsp;Pi&nbsp;4 с&nbsp;4&nbsp;ГБ RAM. Поддержки нет — но&nbsp;можно открыть issue на&nbsp;GitHub.</p></div>
+        </details>
 
-      <div class="faq-item" data-faq data-sec="privacy">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Письма уходят в облако?">Письма уходят в облако?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">По умолчанию — нет. LetterBot читает письма через IMAP с вашего почтового сервера, обрабатывает их локально и хранит метаданные в SQLite на вашем диске. Никаких серверов LetterBot не существует — некуда передавать данные.</div>
-      </div>
+        <h2 class="faq-section-label" data-section="features" >Функциональность</h2>
+        <details class="acc faq-item" data-faq data-sec="features">
+          <summary><span class="faq-q-text" data-orig="Как работает приоритизация?">Как работает приоритизация?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Детерминированный движок Priority v2: анализирует историю отправителя, тип письма (INVOICE, CONTRACT, SECURITY_ALERT…), ключевые слова дедлайна, тип вложения и частотные аномалии. Результат: Срочно / Важно / Низкий. Каждое решение содержит код причины — например PRIO_INVOICE или PRIO_DEADLINE_1D. Не чёрный ящик.">Детерминированный движок Priority v2: анализирует историю отправителя, тип письма (INVOICE, CONTRACT, SECURITY_ALERT…), ключевые слова дедлайна, тип вложения и&nbsp;частотные аномалии. Результат: Срочно / Важно / Низкий. Каждое решение содержит код причины — например PRIO_INVOICE или PRIO_DEADLINE_1D. Не&nbsp;чёрный ящик.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="features">
+          <summary><span class="faq-q-text" data-orig="LetterBot учится на моих исправлениях?">LetterBot учится на&nbsp;моих исправлениях?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Да. Когда вы нажимаете кнопку приоритета в Telegram, переопределяя решение системы, это записывается как сигнал коррекции. Со временем система адаптируется — какие отправители для вас срочные, каких вы регулярно понижаете. Контролируемый feedback loop, не магическое самообучение.">Да. Когда вы&nbsp;нажимаете кнопку приоритета в&nbsp;Telegram, переопределяя решение системы, это записывается как сигнал коррекции. Со&nbsp;временем система адаптируется — какие отправители для вас срочные, каких вы&nbsp;регулярно понижаете. Контролируемый feedback loop, не&nbsp;магическое самообучение.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="features">
+          <summary><span class="faq-q-text" data-orig="Как работает снуз с памятью?">Как работает снуз с&nbsp;памятью?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Нажмите кнопку снуза (2 часа, завтра, следующая неделя) в Telegram. В назначенное время LetterBot вернёт письмо с полным контекстом: оригинальный отправитель, тема, тип письма, предложенное действие, время получения. Это не просто напоминание — контекст решения восстанавливается полностью.">Нажмите кнопку снуза (2&nbsp;часа, завтра, следующая неделя) в&nbsp;Telegram. В&nbsp;назначенное время LetterBot вернёт письмо с&nbsp;полным контекстом: оригинальный отправитель, тема, тип письма, предложенное действие, время получения. Это не&nbsp;просто напоминание — контекст решения восстанавливается полностью.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="features">
+          <summary><span class="faq-q-text" data-orig="Какие типы писем распознаёт LetterBot?">Какие типы писем распознаёт LetterBot?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="INVOICE (счёт), CONTRACT (договор), SECURITY_ALERT (уведомление безопасности), PRICE_LIST (прайс), NEWSLETTER, NOTIFICATION и другие. Классификация определяет базовый уровень приоритета и предложенное действие в Telegram-уведомлении.">INVOICE (счёт), CONTRACT (договор), SECURITY_ALERT (уведомление безопасности), PRICE_LIST (прайс), NEWSLETTER, NOTIFICATION и&nbsp;другие. Классификация определяет базовый уровень приоритета и&nbsp;предложенное действие в&nbsp;Telegram-уведомлении.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="features">
+          <summary><span class="faq-q-text" data-orig="Что такое отслеживание обязательств?">Что такое отслеживание обязательств?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="LetterBot обнаруживает фразы-обязательства в письмах: «пришлю к пятнице», «подтвердите до понедельника», «позвоню завтра». Они отслеживаются и выводятся в еженедельном дайджесте — кто что обещал, включая ваши исходящие обязательства.">LetterBot обнаруживает фразы-обязательства в&nbsp;письмах: «пришлю к&nbsp;пятнице», «подтвердите до&nbsp;понедельника», «позвоню завтра». Они&nbsp;отслеживаются и&nbsp;выводятся в&nbsp;еженедельном дайджесте — кто что обещал, включая ваши исходящие обязательства.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="features">
+          <summary><span class="faq-q-text" data-orig="Как выглядит Telegram-уведомление?">Как выглядит Telegram-уведомление?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Одно письмо — одно сообщение. Структура: эмодзи приоритета + тип письма · отправитель · тема · 2–3 строки саммари · предложенное действие · заметка о вложении (если есть) · кнопки приоритета · кнопки снуза. Нажатие кнопки приоритета обновляет хранимый приоритет и тренирует модель.">Одно письмо — одно сообщение. Структура: приоритет + тип письма · отправитель · тема · 2–3&nbsp;строки саммари · предложенное действие · заметка о&nbsp;вложении (если есть) · кнопки приоритета · кнопки снуза. Нажатие кнопки приоритета обновляет хранимый приоритет и&nbsp;тренирует модель.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="features">
+          <summary><span class="faq-q-text" data-orig="Что такое еженедельный дайджест?">Что такое еженедельный дайджест?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Сводка каждый понедельник: всего обработанных писем, обнаруженные счета (с суммами), договоры на проверку, просроченные обязательства, silent-partner risks (контакты, переставшие отвечать) и ожидающие ответа письма. Дедупликация по chat_id — если у вас несколько ящиков в одном чате, дайджест приходит один раз.">Сводка каждый понедельник: всего обработанных писем, обнаруженные счета (с&nbsp;суммами), договоры на&nbsp;проверку, просроченные обязательства, silent-partner risks (контакты, переставшие отвечать) и&nbsp;ожидающие ответа письма. Дедупликация по&nbsp;chat_id — если у&nbsp;вас несколько ящиков в&nbsp;одном чате, дайджест приходит один раз.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="features">
+          <summary><span class="faq-q-text" data-orig="Что такое ежедневный дайджест?">Что такое ежедневный дайджест?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Ежедневная сводка в настроенное время: ключевые события за день, письма, требующие внимания, и статус обязательств. Дедупликация между аккаунтами — один чат получает один дайджест, даже если к нему привязано несколько ящиков.">Ежедневная сводка в&nbsp;настроенное время: ключевые события за&nbsp;день, письма, требующие внимания, и&nbsp;статус обязательств. Дедупликация между аккаунтами — один чат получает один дайджест, даже если к&nbsp;нему привязано несколько ящиков.</p></div>
+        </details>
 
-      <div class="faq-item" data-faq data-sec="privacy">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Нужен ли OpenAI или ChatGPT?">Нужен ли OpenAI или ChatGPT?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Нет. OpenAI не поддерживается. По умолчанию LetterBot работает в детерминированном режиме без внешних AI. Опциональные провайдеры — GigaChat (Сбер) и Cloudflare Workers AI. Их подключение необязательно и не меняет базовую полезность.</div>
-      </div>
+        <h2 class="faq-section-label" data-section="install" >Установка и&nbsp;настройка</h2>
+        <details class="acc faq-item" data-faq data-sec="install">
+          <summary><span class="faq-q-text" data-orig="Как установить LetterBot?">Как установить LetterBot?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="4 шага: 1. Скачать ZIP с GitHub Releases 2. Распаковать в удобное место 3. Заполнить accounts.ini — IMAP-данные и токен Telegram-бота 4. Запустить letterbot.bat — Python не нужен — dist включает runtime. Около 10–15 минут.">4&nbsp;шага: 1. Скачать ZIP с&nbsp;GitHub Releases 2. Распаковать в&nbsp;удобное место 3. Заполнить accounts.ini — IMAP-данные и&nbsp;токен Telegram-бота 4. Запустить letterbot.bat — Python не&nbsp;нужен — dist включает runtime. Около 10–15&nbsp;минут.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="install">
+          <summary><span class="faq-q-text" data-orig="Нужно ли устанавливать Python?">Нужно ли устанавливать Python?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Нет. One-folder Windows release включает Python runtime в дистрибутиве. Просто распакуйте и запустите letterbot.bat.">Нет. One-folder Windows release включает Python runtime в&nbsp;дистрибутиве. Просто распакуйте и&nbsp;запустите letterbot.bat.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="install">
+          <summary><span class="faq-q-text" data-orig="Как создать Telegram-бота?">Как создать Telegram-бота?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Напишите @BotFather в Telegram, команда /newbot, следуйте инструкциям. Скопируйте токен в accounts.ini. Затем напишите вашему боту любое сообщение и получите chat_id через https://api.telegram.org/bot[TOKEN]/getUpdates.">Напишите @BotFather в&nbsp;Telegram, команда /newbot, следуйте инструкциям. Скопируйте токен в&nbsp;accounts.ini. Затем напишите вашему боту любое сообщение и&nbsp;получите chat_id через https://api.telegram.org/bot[TOKEN]/getUpdates.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="install">
+          <summary><span class="faq-q-text" data-orig="Что такое 2-file config mode?">Что такое 2-file config mode?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Вся конфигурация разделена на два INI-файла: settings.ini — общие параметры системы (интервал опроса, настройки дайджеста, параметры приоритизации), accounts.ini — секреты и аккаунты (IMAP-данные, токены). Проще разделять общие настройки и секреты.">Вся конфигурация разделена на&nbsp;два INI-файла: settings.ini — общие параметры системы (интервал опроса, настройки дайджеста, параметры приоритизации), accounts.ini — секреты и&nbsp;аккаунты (IMAP-данные, токены). Проще разделять общие настройки и&nbsp;секреты.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="install">
+          <summary><span class="faq-q-text" data-orig="Что делать если конфиг не найден?">Что делать, если конфиг не&nbsp;найден?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Система не падает молча. Автобутстрап определяет, каких файлов не хватает, и выводит список с точными командами для создания из шаблона. Порог первого запуска — минимальный.">Система не&nbsp;падает молча. Автобутстрап определяет, каких файлов не&nbsp;хватает, и&nbsp;выводит список с&nbsp;точными командами для создания из&nbsp;шаблона. Порог первого запуска — минимальный.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="install">
+          <summary><span class="faq-q-text" data-orig="Как диагностировать проблемы?">Как диагностировать проблемы?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Три уровня диагностики: лог запуска с явными статусами, doctor в CLI и /doctor в локальном web cockpit (127.0.0.1:8787/doctor). Показывает состояние всех систем, конфигурацию, здоровье ящиков и качество решений.">Три уровня диагностики: лог запуска с&nbsp;явными статусами, doctor в&nbsp;CLI и&nbsp;/doctor в&nbsp;локальном web cockpit (127.0.0.1:8787/doctor). Показывает состояние всех систем, конфигурацию, здоровье ящиков и&nbsp;качество решений.</p></div>
+        </details>
 
-      <div class="faq-item" data-faq data-sec="privacy">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Если я включу LLM — что именно отправляется?">Если я включу LLM — что именно отправляется?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Только текст тела письма (минимальный контекст для классификации). Содержимое вложений, полный raw email, адресная книга и история — не передаются. Вы сами контролируете, какой провайдер обрабатывает этот запрос по своей политике приватности.</div>
-      </div>
+        <h2 class="faq-section-label" data-section="pricing" >Стоимость и&nbsp;лицензия</h2>
+        <details class="acc faq-item" data-faq data-sec="pricing">
+          <summary><span class="faq-q-text" data-orig="Нужна ли подписка?">Нужна ли подписка?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Нет. LetterBot бесплатен навсегда. AGPL-3.0 open source. Без freemium, без платных планов, без триала. Разработка поддерживается добровольными донатами через Boosty — без коммерческих целей.">Нет. LetterBot бесплатен навсегда. AGPL-3.0 open source. Без freemium, без платных планов, без триала. Разработка поддерживается добровольными донатами через Boosty — без коммерческих целей.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="pricing">
+          <summary><span class="faq-q-text" data-orig="LetterBot когда-нибудь станет платным?">LetterBot когда-нибудь станет платным?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Нет. LetterBot задуман как постоянно бесплатное open source ПО. Разработка финансируется добровольными донатами. AGPL-3.0 лицензия гарантирует, что исходный код всегда будет открытым.">Нет. LetterBot задуман как постоянно бесплатное open source ПО. Разработка финансируется добровольными донатами. AGPL-3.0 лицензия гарантирует, что исходный код всегда будет открытым.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="pricing">
+          <summary><span class="faq-q-text" data-orig="Что такое AGPL-3.0?">Что такое AGPL-3.0?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="GNU Affero General Public License версии 3. Вы можете читать, модифицировать и распространять код. Условие: модифицированные версии, оказывающие услуги по сети, обязаны публиковать исходный код. Подробности — на сайте GNU.">GNU Affero General Public License версии 3. Вы&nbsp;можете читать, модифицировать и&nbsp;распространять код. Условие: модифицированные версии, оказывающие услуги по&nbsp;сети, обязаны публиковать исходный код. Подробности — на&nbsp;<a href="https://www.gnu.org/licenses/agpl-3.0.ru.html" target="_blank" rel="noopener">сайте GNU</a>.</p></div>
+        </details>
+        <details class="acc faq-item" data-faq data-sec="pricing">
+          <summary><span class="faq-q-text" data-orig="Как поддержать проект?">Как поддержать проект?</span></summary>
+          <div class="acc-body"><p class="faq-body-text" data-orig="Добровольный донат через Boosty. Или звезда на GitHub. Или сообщение об ошибке в Issues. Или рекомендация коллегам. Всё это помогает проекту развиваться.">Добровольный донат через <a href="#" data-lb-boosty>Boosty</a>. Или звезда на&nbsp;GitHub. Или сообщение об&nbsp;ошибке в&nbsp;Issues. Или рекомендация коллегам. Всё это помогает проекту развиваться.</p></div>
+        </details>
 
-      <div class="faq-item" data-faq data-sec="privacy">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Что хранится в локальной SQLite?">Что хранится в локальной SQLite?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Метаданные: отправитель, тема, дата, тип письма, приоритет, источник приоритета, извлечённые сущности, состояние снуза, аналитика. Полные тела писем и содержимое вложений обрабатываются в памяти и не сохраняются.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="privacy">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Есть ли телеметрия?">Есть ли телеметрия?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Нет. Нулевая телеметрия. Единственные внешние соединения: ваш IMAP-сервер, Telegram Bot API и выбранный LLM-провайдер (если настроен). Проверить можно в исходном коде на GitHub.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="privacy">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Как удалить все данные LetterBot?">Как удалить все данные LetterBot?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Удалите файл <code>data/mailbot.sqlite</code> или весь каталог проекта. Никаких облачных бэкапов, никаких запросов на удаление аккаунта — всё на вашей машине.</div>
-      </div>
-
-      <!-- SECTION: ТЕХНИЧЕСКИЕ ВОПРОСЫ -->
-      <div class="faq-section-label" data-section="tech">Технические вопросы</div>
-
-      <div class="faq-item" data-faq data-sec="tech">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Какие почтовые провайдеры поддерживаются?">Какие почтовые провайдеры поддерживаются?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Любой IMAP-совместимый ящик: Яндекс.Почта (<code>imap.yandex.ru</code>), Mail.ru (<code>imap.mail.ru</code>), Gmail (<code>imap.gmail.com</code> с паролем приложения), корпоративный Exchange/Office 365, Outlook, FastMail, ProtonMail Bridge и любой другой IMAP-сервер.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="tech">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Можно подключить несколько ящиков?">Можно подключить несколько ящиков?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Да. Неограниченное количество IMAP-аккаунтов. Каждый маршрутизируется в отдельный Telegram-чат — рабочая почта в один чат, личная в другой, серверные алерты в отдельный канал. Дайджесты не дублируются между аккаунтами.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="tech">
-        <div class="faq-q"><span class="faq-q-text" data-orig="LetterBot модифицирует или удаляет письма?">LetterBot модифицирует или удаляет письма?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Нет. LetterBot подключается в IMAP read-only режиме. Он никогда не удаляет, не перемещает, не помечает и не изменяет ни одного письма. Ваш inbox остаётся в точности как был.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="tech">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Подходит ли для старого компьютера?">Подходит ли для старого компьютера?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Да — это один из лучших сценариев. Протестировано на Intel Celeron N4020 (2 ядра, 1.1 ГГц) с 3 ГБ RAM. Старый ноутбук или запасной десктоп — отличный выделенный локальный почтовый ассистент.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="tech">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Есть ли локальный web-интерфейс?">Есть ли локальный web-интерфейс?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Да. Read-only observability cockpit на <code>http://127.0.0.1:8787</code>. Доступные маршруты: дашборд, архив писем, трейс AI-решений с кодами причин, состояние системы, SLA-метрики доставки (p90 latency, delivery rate, error rate), аналитика отправителей. Не подключается к интернету.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="tech">
-        <div class="faq-q"><span class="faq-q-text" data-orig="LetterBot читает PDF и Excel?">LetterBot читает PDF и Excel?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Да. Извлекает текст из PDF и Excel (.xlsx) без Microsoft Office. Содержимое вложений участвует в расчёте приоритета — счёт в PDF может автоматически получить 🔴 Срочный приоритет.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="tech">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Что происходит при отключении интернета?">Что происходит при отключении интернета?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">LetterBot не может синхронизировать IMAP и доставлять Telegram-уведомления без интернета. Но он не падает — автоматически повторяет попытку при следующем опросе. Все локальные данные сохраняются.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="tech">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Что происходит при недоступности LLM?">Что происходит при недоступности LLM?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">LetterBot автоматически переходит в <code>DEGRADED_NO_LLM</code> режим и продолжает отправлять базовые уведомления на основе детерминированного анализа. Вы получаете Telegram-уведомление о деградации. При восстановлении LLM — нормальный режим возобновляется автоматически.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="tech">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Работает ли на Raspberry Pi или Linux?">Работает ли на Raspberry Pi или Linux?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Официально — только Windows 10/11. Технически возможно на Linux/Pi при наличии Python 3.10+. Пользователи сообщают об успехе на Pi 4 с 4 ГБ RAM. Поддержки нет — но можно открыть issue на GitHub.</div>
-      </div>
-
-      <!-- SECTION: ФУНКЦИОНАЛЬНОСТЬ -->
-      <div class="faq-section-label" data-section="features">Функциональность</div>
-
-      <div class="faq-item" data-faq data-sec="features">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Как работает приоритизация?">Как работает приоритизация?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Детерминированный движок Priority v2: анализирует историю отправителя, тип письма (INVOICE, CONTRACT, SECURITY_ALERT…), ключевые слова дедлайна, тип вложения и частотные аномалии. Результат: 🔴 Срочно / 🟡 Важно / 🔵 Низкий. Каждое решение содержит код причины — например <code>PRIO_INVOICE</code> или <code>PRIO_DEADLINE_1D</code>. Не чёрный ящик.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="features">
-        <div class="faq-q"><span class="faq-q-text" data-orig="LetterBot учится на моих исправлениях?">LetterBot учится на моих исправлениях?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Да. Когда вы нажимаете кнопку приоритета в Telegram, переопределяя решение системы, это записывается как сигнал коррекции. Со временем система адаптируется — какие отправители для вас срочные, каких вы регулярно понижаете. Контролируемый feedback loop, не магическое самообучение.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="features">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Как работает снуз с памятью?">Как работает снуз с памятью?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Нажмите кнопку снуза (2 часа, завтра, следующая неделя) в Telegram. В назначенное время LetterBot вернёт письмо с полным контекстом: оригинальный отправитель, тема, тип письма, предложенное действие, время получения. Это не просто напоминание — контекст решения восстанавливается полностью.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="features">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Какие типы писем распознаёт LetterBot?">Какие типы писем распознаёт LetterBot?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">INVOICE (счёт), CONTRACT (договор), SECURITY_ALERT (уведомление безопасности), PRICE_LIST (прайс), NEWSLETTER, NOTIFICATION и другие. Классификация определяет базовый уровень приоритета и предложенное действие в Telegram-уведомлении.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="features">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Что такое отслеживание обязательств?">Что такое отслеживание обязательств?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">LetterBot обнаруживает фразы-обязательства в письмах: «пришлю к пятнице», «подтвердите до понедельника», «позвоню завтра». Они отслеживаются и выводятся в еженедельном дайджесте — кто что обещал, включая ваши исходящие обязательства.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="features">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Как выглядит Telegram-уведомление?">Как выглядит Telegram-уведомление?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Одно письмо — одно сообщение. Структура: эмодзи приоритета + тип письма · отправитель · тема · 2–3 строки саммари · предложенное действие · заметка о вложении (если есть) · кнопки приоритета · кнопки снуза. Нажатие кнопки приоритета обновляет хранимый приоритет и тренирует модель.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="features">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Что такое еженедельный дайджест?">Что такое еженедельный дайджест?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Сводка каждый понедельник: всего обработанных писем, обнаруженные счета (с суммами), договоры на проверку, просроченные обязательства, silent-partner risks (контакты, переставшие отвечать) и ожидающие ответа письма. Дедупликация по <code>chat_id</code> — если у вас несколько ящиков в одном чате, дайджест приходит один раз.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="features">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Что такое ежедневный дайджест?">Что такое ежедневный дайджест?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Ежедневная сводка в настроенное время: ключевые события за день, письма, требующие внимания, и статус обязательств. Дедупликация между аккаунтами — один чат получает один дайджест, даже если к нему привязано несколько ящиков.</div>
-      </div>
-
-      <!-- SECTION: УСТАНОВКА -->
-      <div class="faq-section-label" data-section="install">Установка и настройка</div>
-
-      <div class="faq-item" data-faq data-sec="install">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Как установить LetterBot?">Как установить LetterBot?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">
-          <strong>4 шага:</strong><br>
-          1. Скачать ZIP с <a href="#" data-lb-releases>GitHub Releases</a><br>
-          2. Распаковать в удобное место<br>
-          3. Заполнить <code>accounts.ini</code> — IMAP-данные и токен Telegram-бота<br>
-          4. Запустить <code>letterbot.bat</code><br>
-          Python не нужен — dist включает runtime. Около 10–15 минут.
+        <div class="cta-band mt-56">
+          <h2 style="font-size:24px">Не нашли ответ?</h2>
+          <p class="lead" style="margin-bottom:var(--s-24)">Напишите на&nbsp;<a href="#" data-lb-email class="accent-light">mss777@mail.ru</a> или в&nbsp;<a href="#" data-lb-telegram class="accent-light">Telegram-канал</a></p>
+          <div class="cta-actions">
+            <a class="btn btn-inverse" href="#" data-lb-releases>Скачать LetterBot бесплатно</a>
+          </div>
         </div>
       </div>
+    </section>
+  </main>
 
-      <div class="faq-item" data-faq data-sec="install">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Нужно ли устанавливать Python?">Нужно ли устанавливать Python?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Нет. One-folder Windows release включает Python runtime в дистрибутиве. Просто распакуйте и запустите <code>letterbot.bat</code>.</div>
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>LetterBot</h4>
+          <p class="footer-desc">Бесплатный локальный почтовый помощник для Windows. Читает IMAP-ящики, расставляет приоритеты, присылает уведомления в&nbsp;Telegram. 0&nbsp;₽ навсегда.</p>
+        </div>
+        <div>
+          <h4>Продукт</h4>
+          <ul>
+            <li><a href="vozmozhnosti.html">Возможности</a></li>
+            <li><a href="kak-rabotaet.html">Как работает</a></li>
+            <li><a href="bezopasnost.html">Безопасность</a></li>
+            <li><a href="komu-podhodit.html">Кому подходит</a></li>
+            <li><a href="sravnenie.html">Сравнение</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Инженерам</h4>
+          <ul>
+            <li><a href="dlya-inzhenerov.html">Архитектура</a></li>
+            <li><a href="ustanovka-windows.html">Установка на&nbsp;Windows</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="#" data-lb-github>Исходный код</a></li>
+            <li><a href="#" data-lb-releases>Релизы</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Поддержка</h4>
+          <ul>
+            <li><a href="#" data-lb-telegram>Telegram-канал</a></li>
+            <li><a href="#" data-lb-issues>GitHub Issues</a></li>
+            <li><a href="#" data-lb-boosty>Boosty</a></li>
+            <li><a href="#" data-lb-cloudtips>CloudTips</a></li>
+            <li><a href="#" data-lb-email>mss777@mail.ru</a></li>
+            <li><a href="#" data-lb-en>English version</a></li>
+          </ul>
+        </div>
       </div>
-
-      <div class="faq-item" data-faq data-sec="install">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Как создать Telegram-бота?">Как создать Telegram-бота?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Напишите <code>@BotFather</code> в Telegram, команда <code>/newbot</code>, следуйте инструкциям. Скопируйте токен в <code>accounts.ini</code>. Затем напишите вашему боту любое сообщение и получите chat_id через <code>https://api.telegram.org/bot[TOKEN]/getUpdates</code>.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="install">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Что такое 2-file config mode?">Что такое 2-file config mode?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Вся конфигурация разделена на два INI-файла: <code>settings.ini</code> — общие параметры системы (интервал опроса, настройки дайджеста, параметры приоритизации), <code>accounts.ini</code> — секреты и аккаунты (IMAP-данные, токены). Проще разделять общие настройки и секреты.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="install">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Что делать если конфиг не найден?">Что делать если конфиг не найден?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Система не падает молча. Автобутстрап определяет, каких файлов не хватает, и выводит список с точными командами для создания из шаблона. Порог первого запуска — минимальный.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="install">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Как диагностировать проблемы?">Как диагностировать проблемы?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Три уровня диагностики: лог запуска с явными статусами, <code>doctor</code> в CLI и <code>/doctor</code> в локальном web cockpit (<code>127.0.0.1:8787/doctor</code>). Показывает состояние всех систем, конфигурацию, здоровье ящиков и качество решений.</div>
-      </div>
-
-      <!-- SECTION: СТОИМОСТЬ И ЛИЦЕНЗИЯ -->
-      <div class="faq-section-label" data-section="pricing">Стоимость и лицензия</div>
-
-      <div class="faq-item" data-faq data-sec="pricing">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Нужна ли подписка?">Нужна ли подписка?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Нет. LetterBot бесплатен навсегда. AGPL-3.0 open source. Без freemium, без платных планов, без триала. Разработка поддерживается добровольными донатами через Boosty — без коммерческих целей.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="pricing">
-        <div class="faq-q"><span class="faq-q-text" data-orig="LetterBot когда-нибудь станет платным?">LetterBot когда-нибудь станет платным?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Нет. LetterBot задуман как постоянно бесплатное open source ПО. Разработка финансируется добровольными донатами. AGPL-3.0 лицензия гарантирует, что исходный код всегда будет открытым.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="pricing">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Что такое AGPL-3.0?">Что такое AGPL-3.0?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">GNU Affero General Public License версии 3. Вы можете читать, модифицировать и распространять код. Условие: модифицированные версии, оказывающие услуги по сети, обязаны публиковать исходный код. Подробности — <a href="https://www.gnu.org/licenses/agpl-3.0.ru.html" target="_blank" rel="noopener">на сайте GNU</a>.</div>
-      </div>
-
-      <div class="faq-item" data-faq data-sec="pricing">
-        <div class="faq-q"><span class="faq-q-text" data-orig="Как поддержать проект?">Как поддержать проект?</span><span class="faq-ic">+</span></div>
-        <div class="faq-body">Добровольный донат через <a href="#" data-lb-boosty>Boosty</a>. Или звезда на GitHub. Или сообщение об ошибке в Issues. Или рекомендация коллегам. Всё это помогает проекту развиваться.</div>
-      </div>
-
-    </div><!-- /faq-list -->
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="section-sm" style="padding-top:0">
-  <div class="wrap" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
-    <div>
-      <h3 style="font-family:var(--font-h);font-size:16px;margin-bottom:6px">Не нашли ответ?</h3>
-      <p style="color:var(--muted);font-size:14px">Напишите на <a href="mailto:master@letterbot.ru">master@letterbot.ru</a> или в <a href="#" data-lb-telegram>Telegram-канал</a></p>
-    </div>
-    <a class="btn btn-amber" href="#" data-lb-releases style="margin-left:auto">⬇ Скачать LetterBot бесплатно</a>
-  </div>
-</section>
-
-</main>
-
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h4>Страницы</h4>
-        <a href="vozmozhnosti.html">Возможности</a>
-        <a href="bezopasnost.html">Безопасность</a>
-        <a href="kak-rabotaet.html">Как работает</a>
-        <a href="dlya-inzhenerov.html">Для инженеров</a>
-        <a href="sravnenie.html">Сравнение</a>
-      </div>
-      <div class="footer-col">
-        <h4>Ресурсы</h4>
-        <a href="faq.html" aria-current="page">FAQ (40+ вопросов)</a>
-        <a href="ustanovka-windows.html">Установка на Windows</a>
-        <a href="podderzhka.html">Поддержать</a>
-        <a href="#" data-lb-github>GitHub</a>
-        <a href="#" data-lb-releases>Скачать</a>
-      </div>
-      <div class="footer-col">
-        <h4>Контакт</h4>
-        <a href="mailto:master@letterbot.ru">master@letterbot.ru</a>
-        <a href="#" data-lb-telegram>Telegram-канал</a>
-        <a href="#" data-lb-en>English version →</a>
+      <div class="footer-status">
+        <span class="st">system online</span>
+        <span>v<span data-lb-ver>28.0.0</span></span>
+        <span>обновлено <span data-lb-updated>27 апреля 2026</span></span>
+        <span>AGPL-3.0</span>
+        <span class="right">© <span id="year">2026</span> LetterBot</span>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> LetterBot · Приватный оператор почты: локально, бесплатно, без подписки</span>
-      <div style="display:flex;gap:16px">
-        <a href="bezopasnost.html">Приватность</a>
-        <a href="#" data-lb-en>English</a>
-        <a href="#" data-lb-github>GitHub</a>
-        <a href="mailto:master@letterbot.ru">master@letterbot.ru</a>
-      </div>
-    </div>
-  </div>
-</footer>
+  </footer>
 
-<script src="assets/main.js" defer></script>
+  <script src="assets/main.js" defer></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "34885cf1632e48f6a57eb28987edbba8"}'></script>
 </body>
 </html>

@@ -3,8 +3,8 @@
   "short_name": "LetterBot",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#08111f",
-  "theme_color": "#08111f",
+  "background_color": "#F6F3EC",
+  "theme_color": "#F6F3EC",
   "icons": [
     {
       "src": "favicon.svg",

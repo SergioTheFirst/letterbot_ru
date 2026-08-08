@@ -1,90 +1,167 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Безопасность и приватность LetterBot — данные не покидают ваш компьютер</title>
-<meta name="description" content="LetterBot обрабатывает почту локально. SQLite на вашем диске. Нет серверов LetterBot. Нет телеметрии. OpenAI не используется."/>
-<meta name="theme-color" content="#07090f"/>
-<link rel="canonical" href="https://letterbot.ru/bezopasnost.html"/>
-<meta property="og:title" content="Безопасность и приватность LetterBot — данные не покидают ваш компьютер"/>
-<meta property="og:description" content="LetterBot обрабатывает почту локально. SQLite на вашем диске. Нет серверов LetterBot. Нет телеметрии. OpenAI не используется."/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="https://letterbot.ru/bezopasnost.html"/>
-<meta property="og:image" content="https://letterbot.ru/assets/og.png"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<link rel="alternate" hreflang="en" href="https://sergiothefirst.github.io/letterbot/"/>
-<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
-<link rel="manifest" href="site.webmanifest"/>
-<link rel="stylesheet" href="assets/styles.css"/>
-<script src="assets/config.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Безопасность и приватность LetterBot — данные не покидают ваш компьютер</title>
+  <meta name="description" content="LetterBot обрабатывает почту локально. SQLite на вашем диске. Нет серверов LetterBot. Нет телеметрии. OpenAI не используется.">
+  <meta name="theme-color" content="#F6F3EC">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="LetterBot">
+  <link rel="canonical" href="https://letterbot.ru/bezopasnost.html">
+
+  <meta property="og:title" content="Безопасность и приватность LetterBot — данные не покидают ваш компьютер">
+  <meta property="og:description" content="LetterBot обрабатывает почту локально. SQLite на вашем диске. Нет серверов LetterBot. Нет телеметрии. OpenAI не используется.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://letterbot.ru/bezopasnost.html">
+  <meta property="og:image" content="https://letterbot.ru/assets/og.png">
+  <meta property="og:locale" content="ru_RU">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Безопасность и приватность LetterBot">
+  <meta name="twitter:description" content="Локальная обработка почты. SQLite на диске. Нет серверов LetterBot, нет телеметрии.">
+  <meta name="twitter:image" content="https://letterbot.ru/assets/og.png">
+
+  <link rel="alternate" hreflang="en" href="https://sergiothefirst.github.io/letterbot/bezopasnost.html">
+  <link rel="alternate" hreflang="ru" href="https://letterbot.ru/bezopasnost.html">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/config.js"></script>
 </head>
 <body>
-<a class="skip-link" href="#content">Перейти к содержимому</a>
-<nav class="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="index.html"><div class="brand-icon">✉</div><span>LetterBot<span class="brand-tag">приватный оператор почты</span></span></a>
-    <div class="nav-links">
-      <a href="index.html">Главная</a><a href="vozmozhnosti.html">Возможности</a>
-      <a href="bezopasnost.html">Безопасность</a><a href="kak-rabotaet.html">Как работает</a>
-      <a href="komu-podhodit.html">Кому подходит</a><a href="dlya-inzhenerov.html">Для инженеров</a>
-      <a href="faq.html">FAQ</a><a href="podderzhka.html">Поддержать</a>
-    </div>
-    <div class="nav-end">
-      <a class="btn btn-outline btn-sm" href="#" data-lb-github>GitHub</a>
-      <a class="btn btn-amber btn-sm" href="#" data-lb-releases>⬇ Скачать</a>
-    </div>
-    <button class="mob-btn" id="mob-toggle" aria-expanded="false">☰</button>
-  </div>
-  <div class="mob-nav" id="mob-nav">
-    <a href="index.html">Главная</a><a href="faq.html">FAQ</a>
-    <a href="dlya-inzhenerov.html">Для инженеров</a><a href="podderzhka.html">Поддержать</a>
-  </div>
-</nav>
-<main id="content">
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
 
-<section class="page-hero"><div class="wrap">
-  <p class="eyebrow">// privacy by design · local first</p>
-  <h1>Безопасность и приватность</h1>
-  <p>LetterBot спроектирован так, чтобы ваша почта не покидала ваш компьютер без явного выбора с вашей стороны.</p>
-</div></section>
-<section class="section" style="padding-top:32px"><div class="wrap">
-  <div class="arch-grid">
-    <div class="arch-card"><h4>НУЛЕВЫЕ СЕРВЕРЫ LETTERBOT</h4><p>Никаких серверов LetterBot не существует. Некуда передавать данные по умолчанию. Единственные исходящие соединения: ваш IMAP-сервер и Telegram Bot API.</p></div>
-    <div class="arch-card"><h4>ЛОКАЛЬНАЯ SQLITE</h4><p>Все метаданные хранятся в <code>data/mailbot.sqlite</code> на вашем диске. Резервная копия — просто скопировать файл. Удаление всех данных — удалить файл.</p></div>
-    <div class="arch-card"><h4>IMAP READ-ONLY</h4><p>LetterBot подключается к почте только на чтение. Он никогда не удаляет, не перемещает, не помечает и не изменяет ни одного письма.</p></div>
-    <div class="arch-card"><h4>БЕЗ OPENAI</h4><p>OpenAI не поддерживается и не используется. Опциональные LLM-провайдеры: GigaChat (Сбер) и Cloudflare Workers AI. По умолчанию — полностью детерминированный режим без внешних AI.</p></div>
-    <div class="arch-card"><h4>НУЛЕВАЯ ТЕЛЕМЕТРИЯ</h4><p>LetterBot не собирает и не отправляет никакой телеметрии. Проверяемо в открытом исходном коде на GitHub.</p></div>
-    <div class="arch-card"><h4>ЧТО ОТПРАВЛЯЕТСЯ ПРИ LLM</h4><p>Если вы включаете опциональный LLM — только текст тела письма. Вложения, сырой email, адресная книга, история не передаются.</p></div>
-  </div>
-  <div class="gbox" style="margin-top:28px;max-width:740px">
-    <strong>Итог:</strong> По умолчанию ваша почта обрабатывается исключительно локально. Внешние AI — только по вашему явному выбору в конфиге. Код открыт для аудита.
-  </div>
-  <div style="margin-top:24px"><a class="btn btn-teal" href="dlya-inzhenerov.html">Технический разбор для инженеров →</a></div>
-</div></section>
-</main>
-<footer class="footer"><div class="wrap">
-  <div class="footer-grid">
-    <div class="footer-col"><h4>Страницы</h4>
-      <a href="vozmozhnosti.html">Возможности</a><a href="bezopasnost.html">Безопасность</a>
-      <a href="kak-rabotaet.html">Как работает</a><a href="dlya-inzhenerov.html">Для инженеров</a>
-      <a href="sravnenie.html">Сравнение</a></div>
-    <div class="footer-col"><h4>Ресурсы</h4>
-      <a href="faq.html">FAQ (40+ вопросов)</a><a href="ustanovka-windows.html">Установка</a>
-      <a href="podderzhka.html">Поддержать</a><a href="#" data-lb-github>GitHub</a></div>
-    <div class="footer-col"><h4>Контакт</h4>
-      <a href="mailto:master@letterbot.ru">master@letterbot.ru</a>
-      <a href="#" data-lb-telegram>Telegram-канал</a>
-      <a href="#" data-lb-en>English version →</a></div>
-  </div>
-  <div class="footer-bottom">
-    <span>© <span id="year"></span> LetterBot · Приватный оператор почты: локально, бесплатно, без подписки</span>
-    <div style="display:flex;gap:16px">
-      <a href="bezopasnost.html">Приватность</a>
-      <a href="#" data-lb-en>English</a>
-      <a href="#" data-lb-github>GitHub</a>
-      <a href="mailto:master@letterbot.ru">master@letterbot.ru</a>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html" aria-label="LetterBot — на главную">
+        <span class="logo-mark" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 8.2 21 3l-5.2 18-3.9-7.3L3 8.2Z" fill="currentColor"/></svg>
+        </span>
+        <span class="logo-name">LetterBot</span>
+        <span class="logo-ver mono" data-lb-ver>v28.0.0</span>
+      </a>
+
+      <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="vozmozhnosti.html">Возможности</a></li>
+          <li><a href="kak-rabotaet.html">Как работает</a></li>
+          <li><a href="bezopasnost.html" aria-current="page">Безопасность</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a class="btn btn-secondary btn-sm" href="#" data-lb-en title="English version">EN</a>
+          <a class="btn btn-primary btn-sm" href="#" data-lb-releases>Скачать бесплатно</a>
+        </div>
+      </nav>
+
+      <button class="nav-burger" id="nav-burger" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </div>
-</div></footer>
-<script src="assets/main.js" defer></script>
-</body></html>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow -ok">[OK] // privacy by design · local first</p>
+        <h1>Безопасность и&nbsp;приватность</h1>
+        <p class="lead mt-16">LetterBot спроектирован так, чтобы ваша почта не&nbsp;покидала ваш компьютер без явного выбора с&nbsp;вашей стороны.</p>
+      </div>
+    </section>
+
+    <section class="section -tight">
+      <div class="container">
+        <div class="grid grid-auto">
+          <article class="tile">
+            <h2 class="step-title mono-title">НУЛЕВЫЕ СЕРВЕРЫ LETTERBOT</h2>
+            <p class="mt-12">Никаких серверов LetterBot не&nbsp;существует. Некуда передавать данные по&nbsp;умолчанию. Единственные исходящие соединения: ваш IMAP-сервер и&nbsp;Telegram Bot API.</p>
+          </article>
+          <article class="tile">
+            <h2 class="step-title mono-title">ЛОКАЛЬНАЯ SQLITE</h2>
+            <p class="mt-12">Все метаданные хранятся в&nbsp;data/mailbot.sqlite на&nbsp;вашем диске. Резервная копия — просто скопировать файл. Удаление всех данных — удалить файл.</p>
+          </article>
+          <article class="tile">
+            <h2 class="step-title mono-title">IMAP READ-ONLY</h2>
+            <p class="mt-12">LetterBot подключается к&nbsp;почте только на&nbsp;чтение. Он&nbsp;никогда не&nbsp;удаляет, не&nbsp;перемещает, не&nbsp;помечает и&nbsp;не&nbsp;изменяет ни&nbsp;одного письма.</p>
+          </article>
+          <article class="tile">
+            <h2 class="step-title mono-title">БЕЗ OPENAI</h2>
+            <p class="mt-12">OpenAI не&nbsp;поддерживается и&nbsp;не&nbsp;используется. Опциональные LLM-провайдеры: GigaChat (Сбер) и&nbsp;Cloudflare Workers AI. По&nbsp;умолчанию — полностью детерминированный режим без внешних AI.</p>
+          </article>
+          <article class="tile">
+            <h2 class="step-title mono-title">НУЛЕВАЯ ТЕЛЕМЕТРИЯ</h2>
+            <p class="mt-12">LetterBot не&nbsp;собирает и&nbsp;не&nbsp;отправляет никакой телеметрии. Проверяемо в&nbsp;открытом исходном коде на&nbsp;GitHub.</p>
+          </article>
+          <article class="tile">
+            <h2 class="step-title mono-title">ЧТО ОТПРАВЛЯЕТСЯ ПРИ LLM</h2>
+            <p class="mt-12">Если вы&nbsp;включаете опциональный LLM — только текст тела письма. Вложения, сырой email, адресная книга, история не&nbsp;передаются.</p>
+          </article>
+        </div>
+
+        <div class="note mt-40">
+          <strong>Итог:</strong> по&nbsp;умолчанию ваша почта обрабатывается исключительно локально. Внешние AI — только по&nbsp;вашему явному выбору в&nbsp;конфиге. Код открыт для аудита.
+        </div>
+
+        <p class="mt-24"><a class="btn btn-secondary" href="dlya-inzhenerov.html">Технический разбор для инженеров →</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>LetterBot</h4>
+          <p class="footer-desc">Бесплатный локальный почтовый помощник для Windows. Читает IMAP-ящики, расставляет приоритеты, присылает уведомления в&nbsp;Telegram. 0&nbsp;₽ навсегда.</p>
+        </div>
+        <div>
+          <h4>Продукт</h4>
+          <ul>
+            <li><a href="vozmozhnosti.html">Возможности</a></li>
+            <li><a href="kak-rabotaet.html">Как работает</a></li>
+            <li><a href="bezopasnost.html">Безопасность</a></li>
+            <li><a href="komu-podhodit.html">Кому подходит</a></li>
+            <li><a href="sravnenie.html">Сравнение</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Инженерам</h4>
+          <ul>
+            <li><a href="dlya-inzhenerov.html">Архитектура</a></li>
+            <li><a href="ustanovka-windows.html">Установка на&nbsp;Windows</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="#" data-lb-github>Исходный код</a></li>
+            <li><a href="#" data-lb-releases>Релизы</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Поддержка</h4>
+          <ul>
+            <li><a href="#" data-lb-telegram>Telegram-канал</a></li>
+            <li><a href="#" data-lb-issues>GitHub Issues</a></li>
+            <li><a href="#" data-lb-boosty>Boosty</a></li>
+            <li><a href="#" data-lb-cloudtips>CloudTips</a></li>
+            <li><a href="#" data-lb-email>mss777@mail.ru</a></li>
+            <li><a href="#" data-lb-en>English version</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-status">
+        <span class="st">system online</span>
+        <span>v<span data-lb-ver>28.0.0</span></span>
+        <span>обновлено <span data-lb-updated>27 апреля 2026</span></span>
+        <span>AGPL-3.0</span>
+        <span class="right">© <span id="year">2026</span> LetterBot</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/main.js" defer></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "34885cf1632e48f6a57eb28987edbba8"}'></script>
+</body>
+</html>

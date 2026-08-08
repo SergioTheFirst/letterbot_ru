@@ -1,276 +1,302 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Возможности LetterBot — 30 реальных особенностей локального email-оператора</title>
-<meta name="description" content="Полный список возможностей LetterBot: Priority v2, извлечение вложений, снуз с памятью, graceful degradation, SLA наблюдаемость, дайджесты и контур отношений."/>
-<meta name="theme-color" content="#07090f"/>
-<link rel="canonical" href="https://letterbot.ru/vozmozhnosti.html"/>
-<meta property="og:title" content="Возможности LetterBot — 30 реальных особенностей локального email-оператора"/>
-<meta property="og:description" content="Полный список возможностей LetterBot: Priority v2, извлечение вложений, снуз с памятью, graceful degradation, SLA наблюдаемость, дайджесты и контур отношений."/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="https://letterbot.ru/vozmozhnosti.html"/>
-<meta property="og:image" content="https://letterbot.ru/assets/og.png"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<link rel="alternate" hreflang="en" href="https://sergiothefirst.github.io/letterbot/"/>
-<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
-<link rel="manifest" href="site.webmanifest"/>
-<link rel="stylesheet" href="assets/styles.css"/>
-<script src="assets/config.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Возможности LetterBot — 22 реальные особенности локального email-оператора</title>
+  <meta name="description" content="Полный список возможностей LetterBot: Priority v2, извлечение вложений, снуз с памятью, graceful degradation, SLA наблюдаемость, дайджесты и контур отношений.">
+  <meta name="theme-color" content="#F6F3EC">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="LetterBot">
+  <link rel="canonical" href="https://letterbot.ru/vozmozhnosti.html">
+
+  <meta property="og:title" content="Возможности LetterBot — 22 реальные особенности локального email-оператора">
+  <meta property="og:description" content="Полный список возможностей LetterBot: Priority v2, извлечение вложений, снуз с памятью, graceful degradation, SLA наблюдаемость, дайджесты и контур отношений.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://letterbot.ru/vozmozhnosti.html">
+  <meta property="og:image" content="https://letterbot.ru/assets/og.png">
+  <meta property="og:locale" content="ru_RU">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Возможности LetterBot">
+  <meta name="twitter:description" content="22 реальные особенности: Priority v2, снуз с памятью, graceful degradation, SLA наблюдаемость, дайджесты.">
+  <meta name="twitter:image" content="https://letterbot.ru/assets/og.png">
+
+  <link rel="alternate" hreflang="en" href="https://sergiothefirst.github.io/letterbot/vozmozhnosti.html">
+  <link rel="alternate" hreflang="ru" href="https://letterbot.ru/vozmozhnosti.html">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/config.js"></script>
 </head>
 <body>
-<a class="skip-link" href="#content">Перейти к содержимому</a>
-<nav class="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="index.html">
-      <div class="brand-icon">✉</div>
-      <span>LetterBot<span class="brand-tag">приватный оператор почты</span></span>
-    </a>
-    <div class="nav-links">
-      <a href="index.html">Главная</a>
-      <a href="vozmozhnosti.html" aria-current="page">Возможности</a>
-      <a href="bezopasnost.html">Безопасность</a>
-      <a href="kak-rabotaet.html">Как работает</a>
-      <a href="komu-podhodit.html">Кому подходит</a>
-      <a href="dlya-inzhenerov.html">Для инженеров</a>
-      <a href="faq.html">FAQ</a>
-      <a href="podderzhka.html">Поддержать</a>
-    </div>
-    <div class="nav-end">
-      <a class="btn btn-outline btn-sm" href="#" data-lb-github>GitHub</a>
-      <a class="btn btn-amber btn-sm" href="#" data-lb-releases>⬇ Скачать</a>
-    </div>
-    <button class="mob-btn" id="mob-toggle" aria-expanded="false" aria-label="Меню">☰</button>
-  </div>
-  <div class="mob-nav" id="mob-nav">
-    <a href="index.html">Главная</a>
-    <a href="vozmozhnosti.html" aria-current="page">Возможности</a>
-    <a href="dlya-inzhenerov.html">Для инженеров</a>
-    <a href="faq.html">FAQ</a>
-    <a href="podderzhka.html">Поддержать</a>
-  </div>
-</nav>
-<main id="content">
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
 
-<section class="page-hero">
-  <div class="wrap">
-    <p class="eyebrow">// реальные особенности · без маркетингового глянца</p>
-    <h1>30 реальных особенностей LetterBot</h1>
-    <p>Список составлен на основе реального кода, логов и поведения системы — не рекламных обещаний. Каждый пункт подтверждён наблюдаемым поведением.</p>
-  </div>
-</section>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html" aria-label="LetterBot — на главную">
+        <span class="logo-mark" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 8.2 21 3l-5.2 18-3.9-7.3L3 8.2Z" fill="currentColor"/></svg>
+        </span>
+        <span class="logo-name">LetterBot</span>
+        <span class="logo-ver mono" data-lb-ver>v28.0.0</span>
+      </a>
 
-<section class="section" style="padding-top:32px">
-  <div class="wrap">
-    <p class="section-eyebrow">// многоаккаунтность и запуск</p>
-    <h2>Инфраструктура запуска</h2>
-    <div class="feature-grid">
-      <div class="fcard">
-        <div class="fcard-icon amber">📬</div>
-        <h3>Многопочтовый режим</h3>
-        <p>Несколько IMAP-аккаунтов с отдельным healthcheck по каждому ящику. Не игрушка «для одного inbox» — полноценный многоконтурный сценарий.</p>
-        <span class="fcard-tag">MULTI_INBOX</span>
-      </div>
-      <div class="fcard">
-        <div class="fcard-icon teal">❤️</div>
-        <h3>IMAP healthcheck на старте</h3>
-        <p>Отдельный <code>mail_account_healthcheck</code> и статусы по каждому аккаунту до первого письма. Разница между «бот молчит» и «канал жив».</p>
-        <span class="fcard-tag">IMAP_HEALTH</span>
-      </div>
-      <div class="fcard">
-        <div class="fcard-icon green">⚙</div>
-        <h3>Автобутстрап конфигов</h3>
-        <p>Если <code>config.ini</code> или <code>accounts.ini</code> отсутствуют — система не падает молча, а показывает шаблон и Windows-команду. Первый запуск за 15 минут.</p>
-        <span class="fcard-tag">AUTO_BOOTSTRAP</span>
-      </div>
-      <div class="fcard">
-        <div class="fcard-icon blue">🗄</div>
-        <h3>SQLite — локальный state</h3>
-        <p>Хранилище <code>data/mailbot.sqlite</code> на диске пользователя. Реальный локальный state, а не обязательная зависимость от облачного backend.</p>
-        <span class="fcard-tag">LOCAL_SQLITE</span>
-      </div>
-      <div class="fcard">
-        <div class="fcard-icon amber">🔒</div>
-        <h3>Политика первого запуска</h3>
-        <p><code>first_run_detected</code>, <code>bootstrap_window_hours</code>, <code>allow_prestart_emails=false</code>. Бот не заспамит Telegram старыми письмами при старте.</p>
-        <span class="fcard-tag">BOOTSTRAP_POLICY</span>
-      </div>
-      <div class="fcard">
-        <div class="fcard-icon red">🔁</div>
-        <h3>Backoff для проблемных ящиков</h3>
-        <p><code>next_retry_at</code>, <code>backoff_minutes</code>, <code>cooldown_reason</code>. Управляемый backoff вместо бесконечного долбления сервера.</p>
-        <span class="fcard-tag">IMAP_BACKOFF</span>
-      </div>
-    </div>
+      <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="vozmozhnosti.html" aria-current="page">Возможности</a></li>
+          <li><a href="kak-rabotaet.html">Как работает</a></li>
+          <li><a href="bezopasnost.html">Безопасность</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a class="btn btn-secondary btn-sm" href="#" data-lb-en title="English version">EN</a>
+          <a class="btn btn-primary btn-sm" href="#" data-lb-releases>Скачать бесплатно</a>
+        </div>
+      </nav>
 
-    <hr class="divider"/>
-    <p class="section-eyebrow">// обработка писем</p>
-    <h2>Ingestion и анализ</h2>
-    <div class="feature-grid">
-      <div class="fcard">
-        <div class="fcard-icon teal">🔍</div>
-        <h3>Дедупликация писем</h3>
-        <p><code>duplicate_ingest_skipped</code>. Почта — грязный транспорт, дубликаты там норма. Зрелая ingestion-логика обрабатывает каждое письмо ровно один раз.</p>
-        <span class="fcard-tag">DEDUPLICATION</span>
-      </div>
-      <div class="fcard">
-        <div class="fcard-icon green">📎</div>
-        <h3>Извлечение данных из вложений</h3>
-        <p>Excel extraction: 1405 chars — текст из XLSX без Microsoft Office. PDF тоже извлекается. Содержимое вложений участвует в расчёте приоритета.</p>
-        <span class="fcard-tag">ATTACHMENT_EXTRACT</span>
-      </div>
-      <div class="fcard">
-        <div class="fcard-icon amber">✂️</div>
-        <h3>Сегментация тела письма</h3>
-        <p><code>quoted_removed</code>, <code>signature_removed</code>, <code>disclaimer_removed</code>, <code>forwarded_removed</code>. Смысловой main body — без шума.</p>
-        <span class="fcard-tag">BODY_SEGMENTATION</span>
-      </div>
+      <button class="nav-burger" id="nav-burger" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+  </header>
 
-    <hr class="divider"/>
-    <p class="section-eyebrow">// приоритизация</p>
-    <h2>Priority v2: объяснимый скоринг</h2>
-    <div class="feature-grid">
-      <div class="fcard">
-        <div class="fcard-icon red">🎯</div>
-        <h3>Priority v2 с reason codes</h3>
-        <p><code>priority_v2_computed</code> — score, финальный приоритет и список причин: <code>PRIO_AMOUNT_BASE</code>, <code>PRIO_DEADLINE_1D</code>, <code>PRIO_FREQ_SPIKE_3X</code>. Не магия, а скоринг.</p>
-        <span class="fcard-tag">PRIORITY_V2</span>
+  <main id="main">
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">[INFO] // реальные особенности · без маркетингового глянца</p>
+        <h1>22 реальные особенности LetterBot</h1>
+        <p class="lead mt-16">Список составлен на&nbsp;основе реального кода, логов и&nbsp;поведения системы — не&nbsp;рекламных обещаний. Каждый пункт подтверждён наблюдаемым поведением.</p>
+        <div class="hero-actions mb-0">
+          <a class="btn btn-primary" href="#" data-lb-releases>Скачать LetterBot бесплатно</a>
+          <a class="btn btn-ghost" href="dlya-inzhenerov.html">Технический разбор →</a>
+        </div>
       </div>
-      <div class="fcard">
-        <div class="fcard-icon purple">👁</div>
-        <h3>Shadow Priority Engine</h3>
-        <p>Параллельный движок качества: <code>shadow_accuracy</code>, <code>ShadowPriorityEngine</code>. Система оценивает альтернативный контур решений для повышения качества.</p>
-        <span class="fcard-tag">SHADOW_ENGINE</span>
-      </div>
-      <div class="fcard">
-        <div class="fcard-icon green">🔐</div>
-        <h3>Quality Gates</h3>
-        <p><code>allow_auto_priority=false</code> до выполнения условий качества. Система не включает автодействия, пока не уверена. «Не сделать» лучше «сделать плохо».</p>
-        <span class="fcard-tag">QUALITY_GATES</span>
-      </div>
-      <div class="fcard">
-        <div class="fcard-icon teal">📈</div>
-        <h3>Контур обучения</h3>
-        <p><code>corrections_total</code>, <code>quality_metrics_computed</code>, <code>preview_accept_rate</code>. Ручные исправления → обучающий сигнал → адаптация. Контролируемый feedback loop.</p>
-        <span class="fcard-tag">FEEDBACK_LOOP</span>
-      </div>
-    </div>
+    </section>
 
-    <hr class="divider"/>
-    <p class="section-eyebrow">// надёжность</p>
-    <h2>Graceful degradation и Telegram</h2>
-    <div class="feature-grid">
-      <div class="fcard">
-        <div class="fcard-icon red">⚠️</div>
-        <h3>DEGRADED_NO_LLM режим</h3>
-        <p>Нет LLM — явный переход в <code>DEGRADED_NO_LLM</code>. Список что отключено, что активно. Уведомление пользователю. Не притворяется зелёным.</p>
-        <span class="fcard-tag">GRACEFUL_DEGRADATION</span>
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow -warn">[WARN] // многоаккаунтность и запуск</p>
+        <h2>Инфраструктура запуска</h2>
+        <div class="grid grid-auto mt-40">
+          <article class="tile">
+            <span class="tile-tag">MULTI_INBOX</span>
+            <h3>Многопочтовый режим</h3>
+            <p>Несколько IMAP-аккаунтов с&nbsp;отдельным healthcheck по&nbsp;каждому ящику. Не&nbsp;игрушка «для одного inbox» — полноценный многоконтурный сценарий.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">IMAP_HEALTH</span>
+            <h3>IMAP healthcheck на&nbsp;старте</h3>
+            <p>Отдельный mail_account_healthcheck и&nbsp;статусы по&nbsp;каждому аккаунту до&nbsp;первого письма. Разница между «бот молчит» и&nbsp;«канал жив».</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">AUTO_BOOTSTRAP</span>
+            <h3>Автобутстрап конфигов</h3>
+            <p>Если config.ini или accounts.ini отсутствуют — система не&nbsp;падает молча, а&nbsp;показывает шаблон и&nbsp;Windows-команду. Первый запуск за&nbsp;15&nbsp;минут.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">LOCAL_SQLITE</span>
+            <h3>SQLite — локальный state</h3>
+            <p>Хранилище data/mailbot.sqlite на&nbsp;диске пользователя. Реальный локальный state, а&nbsp;не&nbsp;обязательная зависимость от&nbsp;облачного backend.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">BOOTSTRAP_POLICY</span>
+            <h3>Политика первого запуска</h3>
+            <p>first_run_detected, bootstrap_window_hours, allow_prestart_emails=false. Бот не&nbsp;заспамит Telegram старыми письмами при старте.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">IMAP_BACKOFF</span>
+            <h3>Backoff для проблемных ящиков</h3>
+            <p>next_retry_at, backoff_minutes, cooldown_reason. Управляемый backoff вместо бесконечного долбления сервера.</p>
+          </article>
+        </div>
       </div>
-      <div class="fcard">
-        <div class="fcard-icon blue">💬</div>
-        <h3>Telegram — двусторонний UX</h3>
-        <p>Постоянный <code>telegram_inbound_polled</code>/<code>processed</code>. Не просто отправка — полноценная двусторонняя операционная поверхность.</p>
-        <span class="fcard-tag">BIDIRECTIONAL_TG</span>
-      </div>
-      <div class="fcard">
-        <div class="fcard-icon amber">😴</div>
-        <h3>Снуз с памятью контекста</h3>
-        <p>2 часа, завтра, следующая неделя. При возврате — полный контекст: тип письма, приоритет, действие, время получения. Не просто будильник.</p>
-        <span class="fcard-tag">SNOOZE_WITH_MEMORY</span>
-      </div>
-    </div>
+    </section>
 
-    <hr class="divider"/>
-    <p class="section-eyebrow">// наблюдаемость</p>
-    <h2>Observability и дайджесты</h2>
-    <div class="feature-grid">
-      <div class="fcard">
-        <div class="fcard-icon teal">🏥</div>
-        <h3>SLA доставки</h3>
-        <p><code>notification_sla_degraded</code> с причинами: <code>delivery_rate_below_slo</code>, <code>latency_p90_exceeds_slo</code>. Доставка сама — объект мониторинга.</p>
-        <span class="fcard-tag">SLA_MONITORING</span>
+    <section class="section -alt">
+      <div class="container">
+        <p class="eyebrow">[INFO] // обработка писем</p>
+        <h2>Ingestion и&nbsp;анализ</h2>
+        <div class="grid grid-auto mt-40">
+          <article class="tile">
+            <span class="tile-tag">DEDUPLICATION</span>
+            <h3>Дедупликация писем</h3>
+            <p>duplicate_ingest_skipped. Почта — грязный транспорт, дубликаты там норма. Зрелая ingestion-логика обрабатывает каждое письмо ровно один раз.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">ATTACHMENT_EXTRACT</span>
+            <h3>Извлечение данных из&nbsp;вложений</h3>
+            <p>Excel extraction: 1405&nbsp;chars — текст из&nbsp;XLSX без Microsoft Office. PDF тоже извлекается. Содержимое вложений участвует в&nbsp;расчёте приоритета.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">BODY_SEGMENTATION</span>
+            <h3>Сегментация тела письма</h3>
+            <p>quoted_removed, signature_removed, disclaimer_removed, forwarded_removed. Смысловой main body — без шума.</p>
+          </article>
+        </div>
       </div>
-      <div class="fcard">
-        <div class="fcard-icon green">📊</div>
-        <h3>Daily и Weekly дайджесты</h3>
-        <p>Дедупликация по <code>chat_id</code> между аккаунтами. Один чат — один дайджест. Дублирования нет даже при нескольких ящиках.</p>
-        <span class="fcard-tag">DIGEST_DEDUP</span>
-      </div>
-      <div class="fcard">
-        <div class="fcard-icon purple">🤝</div>
-        <h3>Контур «отношений»</h3>
-        <p><code>relationship_health_computed</code>, <code>trust_score_updated</code>, <code>insight_digest_built</code>. Долгосрочная модель взаимодействий с контрагентами.</p>
-        <span class="fcard-tag">RELATIONSHIP_HEALTH</span>
-      </div>
-      <div class="fcard">
-        <div class="fcard-icon amber">🔬</div>
-        <h3>Doctor / диагностика</h3>
-        <p><code>/doctor</code> в web cockpit и CLI. Продукт умеет диагностировать сам себя и честно показывать состояние.</p>
-        <span class="fcard-tag">DOCTOR</span>
-      </div>
-      <div class="fcard">
-        <div class="fcard-icon blue">🖥</div>
-        <h3>Локальный web cockpit</h3>
-        <p>Read-only панель на <code>localhost:8787</code>: dashboard, archive, health, events, doctor, commitments. Не подключается к интернету.</p>
-        <span class="fcard-tag">WEB_COCKPIT</span>
-      </div>
-      <div class="fcard">
-        <div class="fcard-icon green">📝</div>
-        <h3>Отслеживание обязательств</h3>
-        <p>Детектирует «пришлю к пятнице», «подтвердите до понедельника». Ваши обязательства в еженедельном дайджесте.</p>
-        <span class="fcard-tag">COMMITMENT_TRACKING</span>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="section-sm" style="padding-top:0">
-  <div class="wrap centered">
-    <a class="btn btn-amber" href="#" data-lb-releases>⬇ Скачать LetterBot бесплатно</a>
-    <a class="btn btn-ghost" href="dlya-inzhenerov.html" style="margin-left:12px">Технический разбор →</a>
-  </div>
-</section>
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-col">
-        <h4>Страницы</h4>
-        <a href="vozmozhnosti.html">Возможности</a>
-        <a href="bezopasnost.html">Безопасность</a>
-        <a href="kak-rabotaet.html">Как работает</a>
-        <a href="dlya-inzhenerov.html">Для инженеров</a>
-        <a href="sravnenie.html">Сравнение</a>
-        <a href="komu-podhodit.html">Кому подходит</a>
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow -err">[WARN] // приоритизация</p>
+        <h2>Priority v2: объяснимый скоринг</h2>
+        <div class="grid grid-auto mt-40">
+          <article class="tile">
+            <span class="tile-tag">PRIORITY_V2</span>
+            <h3>Priority v2 с&nbsp;reason codes</h3>
+            <p>priority_v2_computed — score, финальный приоритет и&nbsp;список причин: PRIO_AMOUNT_BASE, PRIO_DEADLINE_1D, PRIO_FREQ_SPIKE_3X. Не&nbsp;магия, а&nbsp;скоринг.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">SHADOW_ENGINE</span>
+            <h3>Shadow Priority Engine</h3>
+            <p>Параллельный движок качества: shadow_accuracy, ShadowPriorityEngine. Система оценивает альтернативный контур решений для повышения качества.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">QUALITY_GATES</span>
+            <h3>Quality Gates</h3>
+            <p>allow_auto_priority=false до&nbsp;выполнения условий качества. Система не&nbsp;включает автодействия, пока не&nbsp;уверена. «Не&nbsp;сделать» лучше «сделать плохо».</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">FEEDBACK_LOOP</span>
+            <h3>Контур обучения</h3>
+            <p>corrections_total, quality_metrics_computed, preview_accept_rate. Ручные исправления → обучающий сигнал → адаптация. Контролируемый feedback loop.</p>
+          </article>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Ресурсы</h4>
-        <a href="faq.html">FAQ (40+ вопросов)</a>
-        <a href="ustanovka-windows.html">Установка на Windows</a>
-        <a href="podderzhka.html">Поддержать</a>
-        <a href="#" data-lb-github>GitHub</a>
-        <a href="#" data-lb-releases>Скачать</a>
+    </section>
+
+    <section class="section -alt">
+      <div class="container">
+        <p class="eyebrow -err">[ERR] // надёжность</p>
+        <h2>Graceful degradation и&nbsp;Telegram</h2>
+        <div class="grid grid-auto mt-40">
+          <article class="tile">
+            <span class="tile-tag">GRACEFUL_DEGRADATION</span>
+            <h3>DEGRADED_NO_LLM режим</h3>
+            <p>Нет LLM — явный переход в&nbsp;DEGRADED_NO_LLM. Список: что отключено, что активно. Уведомление пользователю. Не&nbsp;притворяется зелёным.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">BIDIRECTIONAL_TG</span>
+            <h3>Telegram — двусторонний UX</h3>
+            <p>Постоянный telegram_inbound_polled/processed. Не&nbsp;просто отправка — полноценная двусторонняя операционная поверхность.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">SNOOZE_WITH_MEMORY</span>
+            <h3>Снуз с&nbsp;памятью контекста</h3>
+            <p>2&nbsp;часа, завтра, следующая неделя. При возврате — полный контекст: тип письма, приоритет, действие, время получения. Не&nbsp;просто будильник.</p>
+          </article>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Контакт</h4>
-        <a href="mailto:master@letterbot.ru">master@letterbot.ru</a>
-        <a href="#" data-lb-telegram>Telegram-канал</a>
-        <a href="#" data-lb-en>English version →</a>
-        <div style="margin-top:12px;font-size:12px;color:var(--muted2)">Версия <span data-lb-ver></span> · <span data-lb-updated></span></div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow -ok">[OK] // наблюдаемость</p>
+        <h2>Observability и&nbsp;дайджесты</h2>
+        <div class="grid grid-auto mt-40">
+          <article class="tile">
+            <span class="tile-tag">SLA_MONITORING</span>
+            <h3>SLA доставки</h3>
+            <p>notification_sla_degraded с&nbsp;причинами: delivery_rate_below_slo, latency_p90_exceeds_slo. Доставка сама — объект мониторинга.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">DIGEST_DEDUP</span>
+            <h3>Daily и&nbsp;Weekly дайджесты</h3>
+            <p>Дедупликация по&nbsp;chat_id между аккаунтами. Один чат — один дайджест. Дублирования нет даже при нескольких ящиках.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">RELATIONSHIP_HEALTH</span>
+            <h3>Контур «отношений»</h3>
+            <p>relationship_health_computed, trust_score_updated, insight_digest_built. Долгосрочная модель взаимодействий с&nbsp;контрагентами.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">DOCTOR</span>
+            <h3>Doctor / диагностика</h3>
+            <p>/doctor в&nbsp;web cockpit и&nbsp;CLI. Продукт умеет диагностировать сам себя и&nbsp;честно показывать состояние.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">WEB_COCKPIT</span>
+            <h3>Локальный web cockpit</h3>
+            <p>Read-only панель на&nbsp;localhost:8787: dashboard, archive, health, events, doctor, commitments. Не&nbsp;подключается к&nbsp;интернету.</p>
+          </article>
+          <article class="tile">
+            <span class="tile-tag">COMMITMENT_TRACKING</span>
+            <h3>Отслеживание обязательств</h3>
+            <p>Детектирует «пришлю к&nbsp;пятнице», «подтвердите до&nbsp;понедельника». Ваши обязательства — в&nbsp;еженедельном дайджесте.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section -tight">
+      <div class="container">
+        <div class="cta-band">
+          <h2>Проверьте каждую особенность в&nbsp;коде</h2>
+          <p class="lead">Весь исходный код открыт на&nbsp;GitHub под лицензией AGPL-3.0. Ни один пункт из&nbsp;списка не&nbsp;надо принимать на&nbsp;веру.</p>
+          <div class="cta-actions">
+            <a class="btn btn-inverse" href="#" data-lb-releases>Скачать бесплатно</a>
+            <a class="btn btn-inverse ghost" href="#" data-lb-github>Исходный код на&nbsp;GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>LetterBot</h4>
+          <p class="footer-desc">Бесплатный локальный почтовый помощник для Windows. Читает IMAP-ящики, расставляет приоритеты, присылает уведомления в&nbsp;Telegram. 0&nbsp;₽ навсегда.</p>
+        </div>
+        <div>
+          <h4>Продукт</h4>
+          <ul>
+            <li><a href="vozmozhnosti.html">Возможности</a></li>
+            <li><a href="kak-rabotaet.html">Как работает</a></li>
+            <li><a href="bezopasnost.html">Безопасность</a></li>
+            <li><a href="komu-podhodit.html">Кому подходит</a></li>
+            <li><a href="sravnenie.html">Сравнение</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Инженерам</h4>
+          <ul>
+            <li><a href="dlya-inzhenerov.html">Архитектура</a></li>
+            <li><a href="ustanovka-windows.html">Установка на&nbsp;Windows</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="#" data-lb-github>Исходный код</a></li>
+            <li><a href="#" data-lb-releases>Релизы</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Поддержка</h4>
+          <ul>
+            <li><a href="#" data-lb-telegram>Telegram-канал</a></li>
+            <li><a href="#" data-lb-issues>GitHub Issues</a></li>
+            <li><a href="#" data-lb-boosty>Boosty</a></li>
+            <li><a href="#" data-lb-cloudtips>CloudTips</a></li>
+            <li><a href="#" data-lb-email>mss777@mail.ru</a></li>
+            <li><a href="#" data-lb-en>English version</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-status">
+        <span class="st">system online</span>
+        <span>v<span data-lb-ver>28.0.0</span></span>
+        <span>обновлено <span data-lb-updated>27 апреля 2026</span></span>
+        <span>AGPL-3.0</span>
+        <span class="right">© <span id="year">2026</span> LetterBot</span>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> LetterBot · Приватный оператор почты: локально, бесплатно, без подписки</span>
-      <div style="display:flex;gap:16px">
-        <a href="bezopasnost.html">Приватность</a>
-        <a href="#" data-lb-en>English</a>
-        <a href="#" data-lb-github>GitHub</a>
-        <a href="mailto:master@letterbot.ru">master@letterbot.ru</a>
-      </div>
-    </div>
-  </div>
-</footer>
-<script src="assets/main.js" defer></script>
+  </footer>
+
+  <script src="assets/main.js" defer></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "34885cf1632e48f6a57eb28987edbba8"}'></script>
 </body>
 </html>

@@ -1,116 +1,189 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Как работает LetterBot — от IMAP до Telegram-уведомления</title>
-<meta name="description" content="Полная цепочка: IMAP healthcheck → ingestion → сегментация → Priority v2 → Telegram-уведомление → снуз → дайджест. Без магии — только понятная архитектура."/>
-<meta name="theme-color" content="#07090f"/>
-<link rel="canonical" href="https://letterbot.ru/kak-rabotaet.html"/>
-<meta property="og:title" content="Как работает LetterBot — от IMAP до Telegram-уведомления"/>
-<meta property="og:description" content="Полная цепочка: IMAP healthcheck → ingestion → сегментация → Priority v2 → Telegram-уведомление → снуз → дайджест. Без магии — только понятная архитектура."/>
-<meta property="og:type" content="website"/>
-<meta property="og:url" content="https://letterbot.ru/kak-rabotaet.html"/>
-<meta property="og:image" content="https://letterbot.ru/assets/og.png"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<link rel="alternate" hreflang="en" href="https://sergiothefirst.github.io/letterbot/"/>
-<link rel="icon" href="favicon.svg" type="image/svg+xml"/>
-<link rel="manifest" href="site.webmanifest"/>
-<link rel="stylesheet" href="assets/styles.css"/>
-<script src="assets/config.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Как работает LetterBot — от IMAP до Telegram-уведомления</title>
+  <meta name="description" content="Полная цепочка: IMAP healthcheck → ingestion → сегментация → Priority v2 → Telegram-уведомление → снуз → дайджест. Без магии — только понятная архитектура.">
+  <meta name="theme-color" content="#F6F3EC">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="LetterBot">
+  <link rel="canonical" href="https://letterbot.ru/kak-rabotaet.html">
+
+  <meta property="og:title" content="Как работает LetterBot — от IMAP до Telegram-уведомления">
+  <meta property="og:description" content="Полная цепочка: IMAP healthcheck → ingestion → сегментация → Priority v2 → Telegram-уведомление → снуз → дайджест. Без магии.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://letterbot.ru/kak-rabotaet.html">
+  <meta property="og:image" content="https://letterbot.ru/assets/og.png">
+  <meta property="og:locale" content="ru_RU">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Как работает LetterBot">
+  <meta name="twitter:description" content="От IMAP до Telegram-уведомления: понятная цепочка из 8 шагов без магии.">
+  <meta name="twitter:image" content="https://letterbot.ru/assets/og.png">
+
+  <link rel="alternate" hreflang="en" href="https://sergiothefirst.github.io/letterbot/kak-rabotaet.html">
+  <link rel="alternate" hreflang="ru" href="https://letterbot.ru/kak-rabotaet.html">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/config.js"></script>
 </head>
 <body>
-<a class="skip-link" href="#content">Перейти к содержимому</a>
-<nav class="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="index.html"><div class="brand-icon">✉</div><span>LetterBot<span class="brand-tag">приватный оператор почты</span></span></a>
-    <div class="nav-links">
-      <a href="index.html">Главная</a><a href="vozmozhnosti.html">Возможности</a>
-      <a href="bezopasnost.html">Безопасность</a><a href="kak-rabotaet.html">Как работает</a>
-      <a href="komu-podhodit.html">Кому подходит</a><a href="dlya-inzhenerov.html">Для инженеров</a>
-      <a href="faq.html">FAQ</a><a href="podderzhka.html">Поддержать</a>
-    </div>
-    <div class="nav-end">
-      <a class="btn btn-outline btn-sm" href="#" data-lb-github>GitHub</a>
-      <a class="btn btn-amber btn-sm" href="#" data-lb-releases>⬇ Скачать</a>
-    </div>
-    <button class="mob-btn" id="mob-toggle" aria-expanded="false">☰</button>
-  </div>
-  <div class="mob-nav" id="mob-nav">
-    <a href="index.html">Главная</a><a href="faq.html">FAQ</a>
-    <a href="dlya-inzhenerov.html">Для инженеров</a><a href="podderzhka.html">Поддержать</a>
-  </div>
-</nav>
-<main id="content">
+  <a class="skip-link" href="#main">Перейти к содержимому</a>
 
-<section class="page-hero"><div class="wrap">
-  <p class="eyebrow">// от письма до действия · без магии</p>
-  <h1>Как работает LetterBot</h1>
-  <p>Полная цепочка от подключения к IMAP до Telegram-уведомления с кнопками. Каждый шаг — понятный и наблюдаемый.</p>
-</div></section>
-<section class="section" style="padding-top:32px"><div class="wrap">
-  <div class="steps">
-    <div class="step"><div class="step-num">1</div><div class="step-body">
-      <h4>Startup: проверка всего до первого письма</h4>
-      <p>На старте: проверка конфига (2-file mode), инициализация SQLite с проверкой схемы, Telegram validation, IMAP healthcheck по каждому аккаунту. При сбое — честное сообщение об ошибке, а не тихий запуск.</p>
-    </div></div>
-    <div class="step"><div class="step-num">2</div><div class="step-body">
-      <h4>IMAP polling с дедупликацией</h4>
-      <p>Каждые N секунд (настраивается) — новые письма из каждого ящика. Дедупликация по Message-ID предотвращает повторную обработку. При IMAP-сбоях — управляемый backoff, а не бесконечные попытки.</p>
-    </div></div>
-    <div class="step"><div class="step-num">3</div><div class="step-body">
-      <h4>Сегментация и извлечение</h4>
-      <p>Тело письма очищается: убираются цитаты, подписи, disclaimer, forwarded-части. Из PDF и XLSX вложений извлекается текст. Определяется тип письма (INVOICE, CONTRACT, SECURITY_ALERT…).</p>
-    </div></div>
-    <div class="step"><div class="step-num">4</div><div class="step-body">
-      <h4>Priority v2: скоринг с объяснениями</h4>
-      <p>Детерминированный движок анализирует тип письма, суммы, дедлайны, тип вложения, историю отправителя, частотные аномалии. Результат: score, приоритет (URGENT/IMPORTANT/LOW) и список reason codes. Опциональный LLM — дополнительный сигнал.</p>
-    </div></div>
-    <div class="step"><div class="step-num">5</div><div class="step-body">
-      <h4>Telegram-уведомление с кнопками</h4>
-      <p>Одно письмо = одно сообщение: приоритет, тип, отправитель, саммари (2–3 строки), действие, вложение. Кнопки приоритета и снуза. Нажатие на кнопку = сигнал коррекции для обучения.</p>
-    </div></div>
-    <div class="step"><div class="step-num">6</div><div class="step-body">
-      <h4>Снуз с памятью контекста</h4>
-      <p>2 часа / завтра / следующая неделя. При возврате — полный контекст: тип письма, приоритет, предложенное действие, время получения. Не просто таймер — восстановление решения.</p>
-    </div></div>
-    <div class="step"><div class="step-num">7</div><div class="step-body">
-      <h4>Daily и Weekly дайджесты</h4>
-      <p>Ежедневная и еженедельная сводки в настроенное время. Дедупликация по chat_id — один чат получает один дайджест, даже при нескольких ящиках. Еженедельный включает: счета, договоры, обязательства, silent-partner risks.</p>
-    </div></div>
-    <div class="step"><div class="step-num">8</div><div class="step-body">
-      <h4>Observability и SLA-мониторинг</h4>
-      <p>Локальный web cockpit на localhost:8787. SLA доставки (p90 latency, delivery rate, error rate). Relationship health. Event stream. Doctor endpoint. Система знает о своём состоянии.</p>
-    </div></div>
-  </div>
-  <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
-    <a class="btn btn-amber" href="#" data-lb-releases>Скачать и попробовать</a>
-    <a class="btn btn-teal" href="dlya-inzhenerov.html">Технический разбор →</a>
-  </div>
-</div></section>
-</main>
-<footer class="footer"><div class="wrap">
-  <div class="footer-grid">
-    <div class="footer-col"><h4>Страницы</h4>
-      <a href="vozmozhnosti.html">Возможности</a><a href="bezopasnost.html">Безопасность</a>
-      <a href="kak-rabotaet.html">Как работает</a><a href="dlya-inzhenerov.html">Для инженеров</a>
-      <a href="sravnenie.html">Сравнение</a></div>
-    <div class="footer-col"><h4>Ресурсы</h4>
-      <a href="faq.html">FAQ (40+ вопросов)</a><a href="ustanovka-windows.html">Установка</a>
-      <a href="podderzhka.html">Поддержать</a><a href="#" data-lb-github>GitHub</a></div>
-    <div class="footer-col"><h4>Контакт</h4>
-      <a href="mailto:master@letterbot.ru">master@letterbot.ru</a>
-      <a href="#" data-lb-telegram>Telegram-канал</a>
-      <a href="#" data-lb-en>English version →</a></div>
-  </div>
-  <div class="footer-bottom">
-    <span>© <span id="year"></span> LetterBot · Приватный оператор почты: локально, бесплатно, без подписки</span>
-    <div style="display:flex;gap:16px">
-      <a href="bezopasnost.html">Приватность</a>
-      <a href="#" data-lb-en>English</a>
-      <a href="#" data-lb-github>GitHub</a>
-      <a href="mailto:master@letterbot.ru">master@letterbot.ru</a>
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html" aria-label="LetterBot — на главную">
+        <span class="logo-mark" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 8.2 21 3l-5.2 18-3.9-7.3L3 8.2Z" fill="currentColor"/></svg>
+        </span>
+        <span class="logo-name">LetterBot</span>
+        <span class="logo-ver mono" data-lb-ver>v28.0.0</span>
+      </a>
+
+      <nav class="site-nav" id="site-nav" aria-label="Основная навигация">
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="vozmozhnosti.html">Возможности</a></li>
+          <li><a href="kak-rabotaet.html" aria-current="page">Как работает</a></li>
+          <li><a href="bezopasnost.html">Безопасность</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a class="btn btn-secondary btn-sm" href="#" data-lb-en title="English version">EN</a>
+          <a class="btn btn-primary btn-sm" href="#" data-lb-releases>Скачать бесплатно</a>
+        </div>
+      </nav>
+
+      <button class="nav-burger" id="nav-burger" aria-expanded="false" aria-controls="site-nav" aria-label="Открыть меню">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </div>
-</div></footer>
-<script src="assets/main.js" defer></script>
-</body></html>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">[INFO] // от письма до действия · без магии</p>
+        <h1>Как работает LetterBot</h1>
+        <p class="lead mt-16">Полная цепочка от&nbsp;подключения к&nbsp;IMAP до&nbsp;Telegram-уведомления с&nbsp;кнопками. Каждый шаг — понятный и&nbsp;наблюдаемый.</p>
+        <div class="hero-actions mb-0">
+          <a class="btn btn-primary" href="#" data-lb-releases>Скачать и&nbsp;попробовать</a>
+          <a class="btn btn-ghost" href="dlya-inzhenerov.html">Технический разбор →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section -tight">
+      <div class="container">
+        <ol class="steps">
+          <li>
+            <div>
+              <h2 class="step-title">Startup: проверка всего до&nbsp;первого письма</h2>
+              <p>На&nbsp;старте: проверка конфига (2-file mode), инициализация SQLite с&nbsp;проверкой схемы, Telegram validation, IMAP healthcheck по&nbsp;каждому аккаунту. При сбое — честное сообщение об&nbsp;ошибке, а&nbsp;не&nbsp;тихий запуск.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h2 class="step-title">IMAP polling с&nbsp;дедупликацией</h2>
+              <p>Каждые N&nbsp;секунд (настраивается) — новые письма из&nbsp;каждого ящика. Дедупликация по&nbsp;Message-ID предотвращает повторную обработку. При IMAP-сбоях — управляемый backoff, а&nbsp;не&nbsp;бесконечные попытки.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h2 class="step-title">Сегментация и&nbsp;извлечение</h2>
+              <p>Тело письма очищается: убираются цитаты, подписи, disclaimer, forwarded-части. Из&nbsp;PDF и&nbsp;XLSX вложений извлекается текст. Определяется тип письма (INVOICE, CONTRACT, SECURITY_ALERT…).</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h2 class="step-title">Priority v2: скоринг с&nbsp;объяснениями</h2>
+              <p>Детерминированный движок анализирует тип письма, суммы, дедлайны, тип вложения, историю отправителя, частотные аномалии. Результат: score, приоритет (URGENT/IMPORTANT/LOW) и&nbsp;список reason codes. Опциональный LLM — дополнительный сигнал.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h2 class="step-title">Telegram-уведомление с&nbsp;кнопками</h2>
+              <p>Одно письмо = одно сообщение: приоритет, тип, отправитель, саммари (2–3 строки), действие, вложение. Кнопки приоритета и&nbsp;снуза. Нажатие на&nbsp;кнопку = сигнал коррекции для обучения.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h2 class="step-title">Снуз с&nbsp;памятью контекста</h2>
+              <p>2&nbsp;часа / завтра / следующая неделя. При возврате — полный контекст: тип письма, приоритет, предложенное действие, время получения. Не&nbsp;просто таймер — восстановление решения.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h2 class="step-title">Daily и&nbsp;Weekly дайджесты</h2>
+              <p>Ежедневная и&nbsp;еженедельная сводки в&nbsp;настроенное время. Дедупликация по&nbsp;chat_id — один чат получает один дайджест, даже при нескольких ящиках. Еженедельный включает: счета, договоры, обязательства, silent-partner risks.</p>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h2 class="step-title">Observability и&nbsp;SLA-мониторинг</h2>
+              <p>Локальный web cockpit на&nbsp;localhost:8787. SLA доставки (p90 latency, delivery rate, error rate). Relationship health. Event stream. Doctor endpoint. Система знает о&nbsp;своём состоянии.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>LetterBot</h4>
+          <p class="footer-desc">Бесплатный локальный почтовый помощник для Windows. Читает IMAP-ящики, расставляет приоритеты, присылает уведомления в&nbsp;Telegram. 0&nbsp;₽ навсегда.</p>
+        </div>
+        <div>
+          <h4>Продукт</h4>
+          <ul>
+            <li><a href="vozmozhnosti.html">Возможности</a></li>
+            <li><a href="kak-rabotaet.html">Как работает</a></li>
+            <li><a href="bezopasnost.html">Безопасность</a></li>
+            <li><a href="komu-podhodit.html">Кому подходит</a></li>
+            <li><a href="sravnenie.html">Сравнение</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Инженерам</h4>
+          <ul>
+            <li><a href="dlya-inzhenerov.html">Архитектура</a></li>
+            <li><a href="ustanovka-windows.html">Установка на&nbsp;Windows</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="#" data-lb-github>Исходный код</a></li>
+            <li><a href="#" data-lb-releases>Релизы</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Поддержка</h4>
+          <ul>
+            <li><a href="#" data-lb-telegram>Telegram-канал</a></li>
+            <li><a href="#" data-lb-issues>GitHub Issues</a></li>
+            <li><a href="#" data-lb-boosty>Boosty</a></li>
+            <li><a href="#" data-lb-cloudtips>CloudTips</a></li>
+            <li><a href="#" data-lb-email>mss777@mail.ru</a></li>
+            <li><a href="#" data-lb-en>English version</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-status">
+        <span class="st">system online</span>
+        <span>v<span data-lb-ver>28.0.0</span></span>
+        <span>обновлено <span data-lb-updated>27 апреля 2026</span></span>
+        <span>AGPL-3.0</span>
+        <span class="right">© <span id="year">2026</span> LetterBot</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/main.js" defer></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "34885cf1632e48f6a57eb28987edbba8"}'></script>
+</body>
+</html>
